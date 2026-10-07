@@ -29,7 +29,7 @@ export const ResultsImpactSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
         
         {/* CABEÇALHO DA SEÇÃO */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-4 border-b border-[#CCD6C7]/70">
+        <div className="pb-4 border-b border-[#CCD6C7]/70">
           <div className="space-y-3 max-w-2xl">
             <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#2A5E4D] uppercase tracking-wider">
               <span className="w-2.5 h-2.5 bg-[#C97A3D] rounded-xs" />
@@ -44,14 +44,6 @@ export const ResultsImpactSection: React.FC = () => {
             <p className="text-sm sm:text-base text-[#384F45] leading-relaxed">
               Transparência técnica, indicadores institucionais do IFSC e projeção do benefício ecológico e econômico devolvido à comunidade.
             </p>
-          </div>
-
-          <div className="p-3.5 bg-white/90 border border-[#CCD6C7] rounded-xl text-xs font-mono text-[#2D453B] shrink-0 max-w-xs shadow-2xs">
-            <div className="flex items-center gap-2 text-[10px] font-bold uppercase text-[#1B4D3E] mb-1">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Extensão em Andamento</span>
-            </div>
-            <span>Dados e ensaios laboratoriais em constante atualização pelo CST em Sistemas de Energia.</span>
           </div>
         </div>
 
@@ -102,7 +94,9 @@ export const ResultsImpactSection: React.FC = () => {
                     Equipamentos Salvos
                   </span>
                   <span className="w-6 h-6 rounded-md bg-emerald-50 text-emerald-700 flex items-center justify-center text-xs">
-                    💡
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
                   </span>
                 </div>
                 <div className="my-1">
@@ -128,7 +122,9 @@ export const ResultsImpactSection: React.FC = () => {
                     Economia Circular
                   </span>
                   <span className="w-6 h-6 rounded-md bg-teal-50 text-teal-700 flex items-center justify-center text-xs">
-                    🌿
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
                   </span>
                 </div>
                 <div className="my-1">
@@ -151,7 +147,9 @@ export const ResultsImpactSection: React.FC = () => {
                     Impacto Social
                   </span>
                   <span className="w-6 h-6 rounded-md bg-amber-50 text-amber-700 flex items-center justify-center text-xs">
-                    💰
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
                   </span>
                 </div>
                 <div className="my-1">
@@ -167,16 +165,6 @@ export const ResultsImpactSection: React.FC = () => {
                 </div>
               </div>
 
-            </div>
-
-            {/* Banner de inspiração em dados abertos */}
-            <div className="p-4 rounded-xl bg-[#F2F6F0] border border-[#CCD6C7] flex items-center justify-between gap-4">
-              <p className="text-xs text-[#2A443A] leading-relaxed">
-                Inspirado no modelo de dados abertos do movimento internacional de reparo (*Open Repair Data*), o REACENDE registra cada equipamento e promove ciência cidadã.
-              </p>
-              <span className="text-[10px] font-mono uppercase font-bold text-[#1E4D3E] shrink-0 border border-[#1E4D3E]/30 px-2 py-1 rounded bg-white">
-                IFSC Aberto
-              </span>
             </div>
           </div>
 
@@ -232,30 +220,12 @@ export const ResultsImpactSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Linha 3 */}
-                <div className="p-4 hover:bg-[#F9FAF8] transition-colors space-y-1">
-                  <div className="flex items-center justify-between">
-                    <span className="font-semibold text-[#0D241C]">Massa desviada do descarte</span>
-                    <span className="font-display font-extrabold text-xl text-[#0D241C] font-mono">
-                      000 kg
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-[11px] font-mono text-[#557065]">
-                    <span className="text-[#C97A3D] font-bold">Método:</span>
-                    <span>[MÉTODO DE PESAGEM OU ESTIMATIVA]</span>
-                  </div>
-                </div>
-
               </div>
 
               <div className="bg-[#FAFBF9] px-4 py-3 border-t border-[#E0E6DC] text-[10px] font-mono text-[#556961] leading-relaxed">
                 Valores ilustrativos institucionais — serão formalmente atualizados conforme fechamento dos relatórios semestrais de extensão.
               </div>
             </div>
-
-            <p className="text-[10px] font-mono text-[#6A8277] italic text-right">
-              Fonte: Relatórios de bancada do Laboratório de Sistemas de Energia · IFSC.
-            </p>
           </div>
 
         </div>
@@ -264,24 +234,16 @@ export const ResultsImpactSection: React.FC = () => {
         <div id="simulador-impacto" className="rounded-3xl bg-white border border-[#CCD6C7] shadow-sm overflow-hidden">
           
           {/* Faixa Superior do Simulador */}
-          <div className="bg-[#0A261E] text-white px-6 sm:px-10 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#183F33]">
+          <div className="bg-[#0A261E] text-white px-6 sm:px-10 py-5 flex items-center justify-between border-b border-[#183F33]">
             <div className="flex items-center gap-3">
-              <span className="w-8 h-8 rounded-lg bg-amber-400 text-[#0A261E] flex items-center justify-center font-bold text-base shadow-xs">
-                💡
+              <span className="w-8 h-8 rounded-lg bg-[#143B2F] text-amber-300 flex items-center justify-center shadow-xs">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
               </span>
-              <div>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-300 font-bold block">
-                  Ferramenta Interativa Comunitária
-                </span>
-                <h3 className="text-lg sm:text-xl font-display font-bold text-white">
-                  Simulador de Impacto do Reparo
-                </h3>
-              </div>
-            </div>
-
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#12362C] border border-[#205042] text-[11px] font-mono text-emerald-200">
-              <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
-              <span>Simulação Dinâmica em Tempo Real</span>
+              <h3 className="text-lg sm:text-xl font-display font-bold text-white">
+                Simulador de Impacto do Reparo
+              </h3>
             </div>
           </div>
 
@@ -362,14 +324,6 @@ export const ResultsImpactSection: React.FC = () => {
                   </div>
                 </div>
               </div>
-
-              {/* Dica Prática */}
-              <div className="flex items-start gap-2.5 text-xs text-[#384C43] bg-emerald-50/60 p-3 rounded-xl border border-emerald-200/60">
-                <span className="text-base leading-none">💡</span>
-                <p className="leading-snug">
-                  Entregando <strong>{lampCount} {lampCount === 1 ? 'lâmpada' : 'lâmpadas'}</strong> nos pontos de coleta do IFSC, você ajuda a manter a oficina prática dos estudantes de Sistemas de Energia.
-                </p>
-              </div>
             </div>
 
             {/* LADO DIREITO (7 Colunas): Grade 2x2 com Cartões de Impacto Calculado em Tempo Real */}
@@ -392,7 +346,11 @@ export const ResultsImpactSection: React.FC = () => {
                     <span className="text-[10px] font-mono uppercase font-bold text-[#4E6B5F] tracking-wider">
                       Resíduos Evitados
                     </span>
-                    <span className="text-sm">♻️</span>
+                    <span className="w-5 h-5 rounded flex items-center justify-center text-emerald-700 bg-emerald-50">
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                    </span>
                   </div>
                   <div className="text-3xl sm:text-4xl font-display font-extrabold text-[#0D241C] tracking-tight group-hover:text-[#134436] transition-colors">
                     ~{avoidedKg} kg
@@ -411,7 +369,11 @@ export const ResultsImpactSection: React.FC = () => {
                     <span className="text-[10px] font-mono uppercase font-bold text-amber-800 tracking-wider">
                       Economia no Bolso
                     </span>
-                    <span className="text-sm">💵</span>
+                    <span className="w-5 h-5 rounded flex items-center justify-center text-amber-800 bg-amber-50">
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </span>
                   </div>
                   <div className="text-3xl sm:text-4xl font-display font-extrabold text-amber-800 tracking-tight">
                     R$ {moneySaved},00
@@ -430,7 +392,11 @@ export const ResultsImpactSection: React.FC = () => {
                     <span className="text-[10px] font-mono uppercase font-bold text-[#4E6B5F] tracking-wider">
                       Pegada de Carbono
                     </span>
-                    <span className="text-sm">🌱</span>
+                    <span className="w-5 h-5 rounded flex items-center justify-center text-emerald-700 bg-emerald-50">
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </span>
                   </div>
                   <div className="text-3xl sm:text-4xl font-display font-extrabold text-[#0D241C] tracking-tight group-hover:text-[#134436] transition-colors">
                     ~{co2Avoided} kg
@@ -449,7 +415,11 @@ export const ResultsImpactSection: React.FC = () => {
                     <span className="text-[10px] font-mono uppercase font-bold text-[#4E6B5F] tracking-wider">
                       Iluminação Útil
                     </span>
-                    <span className="text-sm">⏱️</span>
+                    <span className="w-5 h-5 rounded flex items-center justify-center text-emerald-700 bg-emerald-50">
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </span>
                   </div>
                   <div className="text-3xl sm:text-4xl font-display font-extrabold text-[#164E3A] tracking-tight">
                     +{hoursRecovered} h
@@ -482,11 +452,6 @@ export const ResultsImpactSection: React.FC = () => {
                   <span>→</span>
                 </a>
               </div>
-
-              {/* Indicação obrigatória de estimativa */}
-              <p className="text-[11px] font-mono text-[#556961] italic pt-1">
-                <strong>Estimativa:</strong> os valores apresentados pelo simulador são aproximações baseadas nos parâmetros médios do projeto (85g/lâmpada, R$ 18,00/un, 1,2 kg CO₂/un, 7.500h de vida útil) e são refinados a cada ciclo de medição no IFSC.
-              </p>
 
             </div>
 

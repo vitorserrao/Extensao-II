@@ -4,12 +4,13 @@ import { InteractiveLedBulb } from './InteractiveLedBulb';
 export const UnderstandLampSection: React.FC = () => {
   const [activeLayer, setActiveLayer] = useState<number>(1);
 
-  // Estados do Simulador de Diagnóstico Interativo
+  // Estados do Diagnóstico
+  const [activeTab, setActiveTab] = useState<'guia' | 'simulador'>('guia');
+  const [symptomType, setSymptomType] = useState<'visual' | 'eletrico'>('visual');
   const [activeObservation, setActiveObservation] = useState<string>('Pontos pretos');
   const [activeBehavior, setActiveBehavior] = useState<string>('Não liga');
 
   // Estado do Fluxo de Triagem / Decisão interativa
-  const [triageStep, setTriageStep] = useState<number>(1);
   const [answers, setAnswers] = useState<{
     structureIntact: boolean | null;
     isolatedFailure: boolean | null;
@@ -21,7 +22,6 @@ export const UnderstandLampSection: React.FC = () => {
   });
 
   const resetTriage = () => {
-    setTriageStep(1);
     setAnswers({
       structureIntact: null,
       isolatedFailure: null,
@@ -267,504 +267,638 @@ export const UnderstandLampSection: React.FC = () => {
           </div>
         </div>
 
-        {/* PARTE 2: Transição Natural para o Diagnóstico */}
-        <div id="diagnostico" className="pt-12 border-t border-[#CCD6C7] space-y-14 scroll-mt-20">
+        {/* PARTE 2: Diagnóstico e Triagem Técnica */}
+        <div id="diagnostico" className="pt-14 border-t border-[#CCD6C7] space-y-10 scroll-mt-20">
           
-          <div className="space-y-4">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#2A5E4D] uppercase tracking-wider">
-              <span className="w-2.5 h-2.5 bg-[#C97A3D]" />
-              <span>3 — ENTENDA A LÂMPADA · DIAGNÓSTICO</span>
+          {/* Cabeçalho da Seção */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="space-y-3 max-w-2xl">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#2A5E4D] uppercase tracking-wider">
+                <span className="w-2.5 h-2.5 bg-[#C97A3D]" />
+                <span>3.2 — DIAGNÓSTICO & TRIAGEM TÉCNICA</span>
+              </div>
+
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#0D241C] tracking-tight leading-[1.12]">
+                Diagnóstico de Bancada e Decisão
+              </h2>
+              <p className="text-sm sm:text-base text-[#384C43] leading-relaxed">
+                Antes de qualquer intervenção, identificamos com precisão a falha e avaliamos se a lâmpada atende aos critérios técnicos de segurança e viabilidade.
+              </p>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#0D241C] tracking-tight leading-[1.12]">
-              Antes de reparar, precisamos<br />
-              diagnosticar.
-            </h2>
-
-            {/* Workflow Sequence */}
-            <div className="pt-3 flex flex-wrap items-center gap-2 font-mono text-xs sm:text-sm text-[#40594F] font-semibold">
-              {['Conhecer', 'Observar', 'Diagnosticar', 'Decidir', 'Reparar', 'Testar'].map((step, idx) => (
-                <React.Fragment key={step}>
-                  <span className={`px-2.5 py-1 rounded-md border shadow-2xs transition-colors ${
-                    idx === 1 || idx === 2 || idx === 3
-                      ? 'bg-[#184E3B] text-white border-[#184E3B]'
-                      : 'bg-white text-[#40594F] border-[#CCD6C7]'
-                  }`}>
-                    {step}
-                  </span>
-                  {idx < 5 && <span className="text-[#89A197]">→</span>}
-                </React.Fragment>
-              ))}
-            </div>
-          </div>
-
-          {/* O que observar? & Como ela se comporta? - INTERATIVO */}
-          <div className="space-y-12">
-            
-            {/* Bloco 1: O que observar na bancada (com seleção interativa) */}
-            <div className="space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div>
-                  <h3 className="text-xl font-display font-bold text-[#0D241C]">
-                    O que observar na bancada?
-                  </h3>
-                  <p className="text-xs text-[#556960] font-mono">
-                    Selecione um indício visual para ver a análise de bancada:
-                  </p>
-                </div>
-                <span className="text-xs font-mono bg-[#EBF0E8] text-[#1E4334] px-3 py-1 rounded-full font-bold self-start sm:self-auto">
-                  5 sinais observáveis
-                </span>
-              </div>
-
-              {/* Botões / Cards selecionáveis */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-                {observationItems.map((item) => {
-                  const isSelected = activeObservation === item.title;
-                  return (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => setActiveObservation(item.title)}
-                      className={`text-left p-4 rounded-2xl border transition-all cursor-pointer relative flex flex-col justify-between min-h-[120px] ${
-                        isSelected
-                          ? 'bg-[#0F2D22] text-white border-[#0F2D22] shadow-md scale-[1.02]'
-                          : 'bg-white text-[#0D241C] border-[#D1DCD0] hover:border-[#1E4D3B] hover:bg-[#F8FAF7]'
-                      }`}
-                    >
-                      <div>
-                        <div className="flex items-center justify-between gap-1 mb-1.5">
-                          <strong className="text-sm font-display font-bold block">
-                            {item.title}
-                          </strong>
-                          {isSelected && (
-                            <span className="w-2 h-2 rounded-full bg-[#FFB938] shrink-0" />
-                          )}
-                        </div>
-                        <p className={`text-xs line-clamp-2 ${isSelected ? 'text-[#C5D9CE]' : 'text-[#4A6357]'}`}>
-                          {item.desc}
-                        </p>
-                      </div>
-
-                      <span className={`text-[10px] font-mono px-2 py-0.5 rounded mt-3 self-start font-semibold ${
-                        isSelected ? 'bg-white/15 text-[#E6F4ED]' : 'bg-[#EDF2EB] text-[#476054]'
-                      }`}>
-                        {item.tag}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Painel de detalhe do sinal observado selecionado */}
-              {(() => {
-                const currentObs = observationItems.find(o => o.title === activeObservation) || observationItems[0];
-                return (
-                  <div className="p-5 sm:p-6 rounded-2xl bg-white border border-[#CBD7CA] shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-5 animate-fadeIn">
-                    <div className="space-y-1.5 flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-xs uppercase font-bold text-[#1E4D3B] bg-[#E3EFE7] px-2.5 py-0.5 rounded">
-                          Peça avaliada: {currentObs.partAffected}
-                        </span>
-                        <span className={`font-mono text-xs px-2.5 py-0.5 rounded font-bold ${
-                          currentObs.recoverable ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
-                        }`}>
-                          {currentObs.recoverable ? 'Potencialmente recuperável' : 'Critério de descarte/substituição total'}
-                        </span>
-                      </div>
-                      <p className="text-sm font-semibold text-[#11241C]">
-                        {currentObs.hint}
-                      </p>
-                      <p className="text-xs text-[#40594F]">
-                        <strong>Conduta recomendada:</strong> {currentObs.actionRecommendation}
-                      </p>
-                    </div>
-
-                    <div className="shrink-0 flex items-center gap-2 border-t md:border-t-0 md:border-l border-[#E2E8DE] pt-3 md:pt-0 md:pl-5">
-                      <span className="text-xs font-mono text-[#556961]">
-                        Visualizando: <span className="font-bold text-[#0D241C]">{currentObs.title}</span>
-                      </span>
-                    </div>
-                  </div>
-                );
-              })()}
-            </div>
-
-            {/* Bloco 2: Como ela está se comportando? (Interativo) */}
-            <div className="space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div>
-                  <h3 className="text-xl font-display font-bold text-[#0D241C]">
-                    Como ela está se comportando?
-                  </h3>
-                  <p className="text-xs text-[#556960] font-mono">
-                    Clique em um sintoma elétrico para verificar hipótese e teste no laboratório:
-                  </p>
-                </div>
-                <span className="text-xs font-mono bg-[#EBF0E8] text-[#1E4334] px-3 py-1 rounded-full font-bold self-start sm:self-auto">
-                  4 sintomas operacionais
-                </span>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {behaviorItems.map((item) => {
-                  const isSelected = activeBehavior === item.title;
-                  return (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => setActiveBehavior(item.title)}
-                      className={`text-left p-5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
-                        isSelected
-                          ? 'bg-[#18392B] text-white border-[#18392B] shadow-md ring-2 ring-[#FFB938]/40'
-                          : 'bg-white text-[#0D241C] border-[#CCD6C7] hover:border-[#1E4D3B] hover:bg-[#F8FAF7]'
-                      }`}
-                    >
-                      <div className="space-y-1.5">
-                        <div className="flex items-center justify-between">
-                          <strong className="text-sm font-display font-bold block">
-                            {item.title}
-                          </strong>
-                          {isSelected && (
-                            <span className="text-[10px] font-mono bg-[#FFB938] text-black px-1.5 py-0.5 rounded font-bold">
-                              Ativo
-                            </span>
-                          )}
-                        </div>
-                        <p className={`text-xs ${isSelected ? 'text-[#D0E2D8]' : 'text-[#3D5248]'}`}>
-                          {item.desc}
-                        </p>
-                      </div>
-
-                      <div className={`mt-4 pt-3 border-t text-[11px] font-mono ${
-                        isSelected ? 'border-white/20 text-[#E0EDE6]' : 'border-[#E3E8DF] text-[#5A7367]'
-                      }`}>
-                        {item.status}
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Hipótese e ensaio técnico para o comportamento selecionado */}
-              {(() => {
-                const currentBehav = behaviorItems.find(b => b.title === activeBehavior) || behaviorItems[0];
-                return (
-                  <div className="p-5 sm:p-6 rounded-2xl bg-[#F6F8F5] border border-[#CCD6C7] space-y-3 animate-fadeIn">
-                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#D8E1D5] pb-2.5">
-                      <span className="font-mono text-xs font-bold text-[#143B2C] uppercase tracking-wide">
-                        Investigação laboratorial para: <span className="underline underline-offset-2">{currentBehav.title}</span>
-                      </span>
-                      <span className="font-mono text-[11px] text-[#556960]">
-                        Protocolo de Bancada IFSC
-                      </span>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                      <div className="p-3.5 bg-white rounded-xl border border-[#DDE4DA] space-y-1">
-                        <span className="font-mono font-bold text-[#1F4938] block text-[11px] uppercase">
-                          Causa mais provável
-                        </span>
-                        <p className="text-[#2B3E35] leading-relaxed">
-                          {currentBehav.possibleCause}
-                        </p>
-                      </div>
-
-                      <div className="p-3.5 bg-white rounded-xl border border-[#DDE4DA] space-y-1">
-                        <span className="font-mono font-bold text-[#1F4938] block text-[11px] uppercase">
-                          Procedimento de teste com instrumentos
-                        </span>
-                        <p className="text-[#2B3E35] leading-relaxed">
-                          {currentBehav.diagnosticTest}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="pt-1 flex items-center justify-between text-xs text-[#3E574B]">
-                      <span>
-                        <strong>Ação típica de bancada:</strong> {currentBehav.typicalAction}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })()}
-            </div>
-
-          </div>
-
-          {/* SIMULADOR INTERATIVO: Vale reparar? (Perguntas interativas passo a passo) */}
-          <div className="p-6 sm:p-10 rounded-3xl bg-white border border-[#CCD6C7] space-y-8 shadow-sm">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E5EAE1] pb-5">
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#184E3A]" />
-                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#184E3A]">
-                    Simulador Interativo de Decisão
-                  </span>
-                </div>
-                <h3 className="text-2xl font-display font-extrabold text-[#0D241C] mt-1">
-                  Vale a pena reparar esta lâmpada?
-                </h3>
-              </div>
+            {/* Alternador Principal de Abas */}
+            <div className="flex p-1.5 bg-[#EAEFE7] rounded-2xl border border-[#CCD6C7] self-start md:self-auto shrink-0 shadow-2xs">
               <button
                 type="button"
-                onClick={resetTriage}
-                className="text-xs font-mono font-bold px-3 py-1.5 rounded-lg border border-[#CCD6C7] text-[#40594F] hover:bg-[#F2F6F0] self-start sm:self-auto cursor-pointer transition-colors"
+                onClick={() => setActiveTab('guia')}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                  activeTab === 'guia'
+                    ? 'bg-[#143B2C] text-white shadow-xs'
+                    : 'text-[#3E574B] hover:text-[#0D241C] hover:bg-white/60'
+                }`}
               >
-                Reiniciar Simulação
+                <span>🔍</span>
+                <span>Guia de Falhas & Sintomas</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab('simulador')}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                  activeTab === 'simulador'
+                    ? 'bg-[#143B2C] text-white shadow-xs'
+                    : 'text-[#3E574B] hover:text-[#0D241C] hover:bg-white/60'
+                }`}
+              >
+                <span>⚖️</span>
+                <span>Simulador: Vale Recuperar?</span>
               </button>
             </div>
+          </div>
 
-            <p className="text-xs sm:text-sm text-[#40594F] leading-relaxed max-w-3xl">
-              Responda às perguntas sequenciais como se estivesse diante da bancada com o multímetro e a fonte de ensaio. O algoritmo de triagem indicará se o caso é de <strong>recuperação direta</strong>, <strong>aproveitamento de peças</strong> ou <strong>descarte seguro</strong>.
-            </p>
+          {/* ABA 1: GUIA DE FALHAS & SINTOMAS */}
+          {activeTab === 'guia' && (
+            <div className="space-y-6 animate-fadeIn">
+              {/* Sub-filtro: Visual vs Elétrico */}
+              <div className="flex flex-wrap items-center justify-between gap-4 pb-2 border-b border-[#E1E8DE]">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-mono font-bold text-[#4B665A] uppercase">Tipo de Análise:</span>
+                  <div className="inline-flex rounded-xl bg-white border border-[#CBD7CA] p-1 shadow-2xs">
+                    <button
+                      type="button"
+                      onClick={() => setSymptomType('visual')}
+                      className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold font-mono transition-all cursor-pointer ${
+                        symptomType === 'visual'
+                          ? 'bg-[#143B2C] text-white'
+                          : 'text-[#4A6457] hover:text-[#0D241C]'
+                      }`}
+                    >
+                      👁️ Sinais Visuais (5)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSymptomType('eletrico')}
+                      className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold font-mono transition-all cursor-pointer ${
+                        symptomType === 'eletrico'
+                          ? 'bg-[#143B2C] text-white'
+                          : 'text-[#4A6457] hover:text-[#0D241C]'
+                      }`}
+                    >
+                      ⚡ Sintomas Elétricos (4)
+                    </button>
+                  </div>
+                </div>
 
-            {/* Stepper interativo */}
-            <div className="space-y-6 max-w-3xl">
+                <span className="text-xs font-mono text-[#587366] italic">
+                  Clique em um item para carregar a ficha técnica
+                </span>
+              </div>
 
-              {/* PASSO 1 */}
-              <div className={`p-5 rounded-2xl border transition-all ${
-                answers.structureIntact === true
-                  ? 'bg-[#F5F8F4] border-[#CCD6C7]'
-                  : answers.structureIntact === false
-                  ? 'bg-rose-50 border-rose-300'
-                  : 'bg-white border-[#BFCDBA] ring-2 ring-[#184E3A]/20'
-              }`}>
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="space-y-1">
-                    <span className="font-mono text-[10px] font-bold uppercase text-[#1B4B3A] tracking-wider block">
-                      Pergunta 1 · Inspeção Mecânica e Térmica Externa
+              {/* Master-Detail Grid */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                {/* Coluna da Esquerda: Lista de Opções */}
+                <div className="lg:col-span-5 space-y-2.5">
+                  {symptomType === 'visual' ? (
+                    observationItems.map((item) => {
+                      const isSelected = activeObservation === item.title;
+                      return (
+                        <button
+                          key={item.id}
+                          type="button"
+                          onClick={() => setActiveObservation(item.title)}
+                          className={`w-full text-left p-4 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
+                            isSelected
+                              ? 'bg-[#143B2C] text-white border-[#143B2C] shadow-md'
+                              : 'bg-white text-[#0D241C] border-[#D4DED2] hover:border-[#1E4D3B] hover:bg-[#F8FAF7]'
+                          }`}
+                        >
+                          <div className="space-y-0.5 min-w-0">
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm font-display font-bold truncate">
+                                {item.title}
+                              </span>
+                              {isSelected && (
+                                <span className="w-2 h-2 rounded-full bg-[#FFB938] shrink-0" />
+                              )}
+                            </div>
+                            <p className={`text-xs truncate ${isSelected ? 'text-[#C5D9CE]' : 'text-[#4A6357]'}`}>
+                              {item.desc}
+                            </p>
+                          </div>
+
+                          <span className={`text-[10px] font-mono font-bold px-2 py-1 rounded shrink-0 ${
+                            isSelected
+                              ? 'bg-white/20 text-white'
+                              : item.recoverable
+                              ? 'bg-emerald-100 text-emerald-800'
+                              : 'bg-amber-100 text-amber-900'
+                          }`}>
+                            {item.recoverable ? 'Recuperável' : 'Critério de descarte'}
+                          </span>
+                        </button>
+                      );
+                    })
+                  ) : (
+                    behaviorItems.map((item) => {
+                      const isSelected = activeBehavior === item.title;
+                      return (
+                        <button
+                          key={item.id}
+                          type="button"
+                          onClick={() => setActiveBehavior(item.title)}
+                          className={`w-full text-left p-4 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
+                            isSelected
+                              ? 'bg-[#143B2C] text-white border-[#143B2C] shadow-md'
+                              : 'bg-white text-[#0D241C] border-[#D4DED2] hover:border-[#1E4D3B] hover:bg-[#F8FAF7]'
+                          }`}
+                        >
+                          <div className="space-y-0.5 min-w-0">
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm font-display font-bold truncate">
+                                {item.title}
+                              </span>
+                              {isSelected && (
+                                <span className="w-2 h-2 rounded-full bg-[#FFB938] shrink-0" />
+                              )}
+                            </div>
+                            <p className={`text-xs truncate ${isSelected ? 'text-[#C5D9CE]' : 'text-[#4A6357]'}`}>
+                              {item.desc}
+                            </p>
+                          </div>
+
+                          <span className={`text-[10px] font-mono font-bold px-2 py-1 rounded shrink-0 ${
+                            isSelected
+                              ? 'bg-white/20 text-white'
+                              : 'bg-[#EBF0E8] text-[#335345]'
+                          }`}>
+                            Ensaio em bancada
+                          </span>
+                        </button>
+                      );
+                    })
+                  )}
+                </div>
+
+                {/* Coluna da Direita: Ficha de Bancada Detalhada */}
+                <div className="lg:col-span-7">
+                  {symptomType === 'visual' ? (
+                    (() => {
+                      const current = observationItems.find(o => o.title === activeObservation) || observationItems[0];
+                      return (
+                        <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#CBD7CA] shadow-2xs space-y-6 animate-fadeIn">
+                          {/* Topo da Ficha */}
+                          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#E3EAE0] pb-4">
+                            <div>
+                              <span className="text-[11px] font-mono uppercase tracking-wider text-[#355748] font-bold block">
+                                Ficha de Inspeção Visual
+                              </span>
+                              <h3 className="text-xl sm:text-2xl font-display font-bold text-[#0D241C] mt-0.5">
+                                {current.title}
+                              </h3>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span className="font-mono text-xs font-semibold px-2.5 py-1 rounded bg-[#EAF2E9] text-[#1D4A38]">
+                                {current.partAffected}
+                              </span>
+                              <span className={`font-mono text-xs font-bold px-2.5 py-1 rounded ${
+                                current.recoverable
+                                  ? 'bg-emerald-100 text-emerald-800'
+                                  : 'bg-amber-100 text-amber-900'
+                              }`}>
+                                {current.recoverable ? '✓ Recuperável' : '⚠️ Descarte / Sucata'}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Campos Estruturados */}
+                          <div className="space-y-4 text-xs sm:text-sm">
+                            <div className="p-4 rounded-xl bg-[#F8FAF7] border border-[#DCE4DA] space-y-1">
+                              <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#2D5A47] block">
+                                O que esse sinal indica
+                              </span>
+                              <p className="text-[#1D3228] leading-relaxed">
+                                {current.hint}
+                              </p>
+                            </div>
+
+                            <div className="p-4 rounded-xl bg-[#F8FAF7] border border-[#DCE4DA] space-y-1">
+                              <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#2D5A47] block">
+                                Conduta recomendada na bancada
+                              </span>
+                              <p className="text-[#1D3228] leading-relaxed">
+                                {current.actionRecommendation}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="pt-2 border-t border-[#E3EAE0] flex items-center justify-between text-xs text-[#526B5E] font-mono">
+                            <span>Tag do defeito: {current.tag}</span>
+                            <span>Protocolo IFSC de Triagem</span>
+                          </div>
+                        </div>
+                      );
+                    })()
+                  ) : (
+                    (() => {
+                      const current = behaviorItems.find(b => b.title === activeBehavior) || behaviorItems[0];
+                      return (
+                        <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#CBD7CA] shadow-2xs space-y-6 animate-fadeIn">
+                          {/* Topo da Ficha */}
+                          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#E3EAE0] pb-4">
+                            <div>
+                              <span className="text-[11px] font-mono uppercase tracking-wider text-[#355748] font-bold block">
+                                Investigação Laboratorial
+                              </span>
+                              <h3 className="text-xl sm:text-2xl font-display font-bold text-[#0D241C] mt-0.5">
+                                {current.title}
+                              </h3>
+                            </div>
+                            <span className="font-mono text-xs font-bold px-3 py-1 rounded bg-[#EAF2E9] text-[#1D4A38]">
+                              {current.status}
+                            </span>
+                          </div>
+
+                          {/* Campos Estruturados */}
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
+                            <div className="p-4 rounded-xl bg-[#F8FAF7] border border-[#DCE4DA] space-y-1.5">
+                              <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#2D5A47] block">
+                                Causa Mais Provável
+                              </span>
+                              <p className="text-[#1D3228] leading-relaxed">
+                                {current.possibleCause}
+                              </p>
+                            </div>
+
+                            <div className="p-4 rounded-xl bg-[#F8FAF7] border border-[#DCE4DA] space-y-1.5">
+                              <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#2D5A47] block">
+                                Procedimento com Instrumentos
+                              </span>
+                              <p className="text-[#1D3228] leading-relaxed">
+                                {current.diagnosticTest}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="p-4 rounded-xl bg-[#EDF3EC] border border-[#C5D7C6] space-y-1 text-xs sm:text-sm">
+                            <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#143B2C] block">
+                              Ação Típica de Bancada
+                            </span>
+                            <p className="text-[#153427] font-semibold leading-relaxed">
+                              {current.typicalAction}
+                            </p>
+                          </div>
+
+                          <div className="pt-2 border-t border-[#E3EAE0] flex items-center justify-between text-xs text-[#526B5E] font-mono">
+                            <span>Ensaio com fonte regulada e multímetro</span>
+                            <span>Protocolo IFSC de Triagem</span>
+                          </div>
+                        </div>
+                      );
+                    })()
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ABA 2: SIMULADOR DE DECISÃO (VALE A PENA REPARAR?) */}
+          {activeTab === 'simulador' && (
+            <div className="p-6 sm:p-10 rounded-3xl bg-white border border-[#CCD6C7] space-y-8 shadow-xs animate-fadeIn">
+              
+              {/* Topo do Simulador */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E5EAE1] pb-5">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#184E3A]" />
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#184E3A]">
+                      Árvore de Decisão Interativa
                     </span>
-                    <h4 className="text-sm sm:text-base font-bold text-[#0D241C]">
-                      A carcaça e a estrutura física estão íntegras?
-                    </h4>
-                    <p className="text-xs text-[#52685E]">
-                      Sem trincas no plástico, sem rosca E27 rompida e sem deformação por calor excessivo.
-                    </p>
                   </div>
+                  <h3 className="text-2xl font-display font-extrabold text-[#0D241C] mt-1">
+                    Vale a pena reparar esta lâmpada?
+                  </h3>
+                  <p className="text-xs sm:text-sm text-[#476054] mt-1">
+                    Responda às 3 perguntas de triagem técnica para obter a recomendação imediata.
+                  </p>
+                </div>
 
-                  <div className="flex items-center gap-2 shrink-0">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setAnswers({ structureIntact: false, isolatedFailure: null, componentsAvailable: null });
-                        setTriageStep(1);
-                      }}
-                      className={`px-3.5 py-2 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
-                        answers.structureIntact === false
-                          ? 'bg-rose-600 text-white shadow-xs'
-                          : 'bg-[#EBF0E8] text-[#476054] hover:bg-rose-100 hover:text-rose-800'
-                      }`}
-                    >
-                      NÃO (Dano físico)
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setAnswers(prev => ({ ...prev, structureIntact: true }));
-                        if (triageStep === 1) setTriageStep(2);
-                      }}
-                      className={`px-4 py-2 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
-                        answers.structureIntact === true
-                          ? 'bg-[#184E3A] text-white shadow-xs'
-                          : 'bg-[#EBF0E8] text-[#476054] hover:bg-emerald-100 hover:text-emerald-800'
-                      }`}
-                    >
-                      SIM (Estrutura íntegra)
-                    </button>
-                  </div>
+                <button
+                  type="button"
+                  onClick={resetTriage}
+                  className="text-xs font-mono font-bold px-4 py-2 rounded-xl border border-[#CCD6C7] text-[#334E43] hover:bg-[#F2F6F0] self-start sm:self-auto cursor-pointer transition-colors shadow-2xs"
+                >
+                  Reiniciar Triagem
+                </button>
+              </div>
+
+              {/* Indicador de Passos */}
+              <div className="grid grid-cols-3 gap-2 sm:gap-4 font-mono text-xs">
+                <div className={`p-3 rounded-xl border text-center transition-all ${
+                  answers.structureIntact === null
+                    ? 'bg-[#143B2C] text-white border-[#143B2C] shadow-xs'
+                    : answers.structureIntact === true
+                    ? 'bg-[#EAF3EB] text-[#184E3A] border-[#BDD4C7]'
+                    : 'bg-rose-50 text-rose-800 border-rose-200'
+                }`}>
+                  <span className="block font-bold">1. Integridade</span>
+                  <span className="text-[10px] opacity-80">Carcaça e rosca</span>
+                </div>
+
+                <div className={`p-3 rounded-xl border text-center transition-all ${
+                  answers.structureIntact !== true
+                    ? 'bg-[#F5F8F4] text-[#8EA298] border-[#DCE4DA]'
+                    : answers.isolatedFailure === null
+                    ? 'bg-[#143B2C] text-white border-[#143B2C] shadow-xs'
+                    : answers.isolatedFailure === true
+                    ? 'bg-[#EAF3EB] text-[#184E3A] border-[#BDD4C7]'
+                    : 'bg-amber-50 text-amber-800 border-amber-200'
+                }`}>
+                  <span className="block font-bold">2. Localização</span>
+                  <span className="text-[10px] opacity-80">Falha concentrada</span>
+                </div>
+
+                <div className={`p-3 rounded-xl border text-center transition-all ${
+                  answers.structureIntact !== true || answers.isolatedFailure !== true
+                    ? 'bg-[#F5F8F4] text-[#8EA298] border-[#DCE4DA]'
+                    : answers.componentsAvailable === null
+                    ? 'bg-[#143B2C] text-white border-[#143B2C] shadow-xs'
+                    : answers.componentsAvailable === true
+                    ? 'bg-[#EAF3EB] text-[#184E3A] border-[#BDD4C7]'
+                    : 'bg-slate-100 text-slate-800 border-slate-300'
+                }`}>
+                  <span className="block font-bold">3. Peças</span>
+                  <span className="text-[10px] opacity-80">Compatibilidade</span>
                 </div>
               </div>
 
-              {/* PASSO 2 (Só aparece se Passo 1 foi SIM) */}
-              {answers.structureIntact === true && (
-                <div className={`p-5 rounded-2xl border transition-all animate-fadeIn ${
-                  answers.isolatedFailure === true
-                    ? 'bg-[#F5F8F4] border-[#CCD6C7]'
-                    : answers.isolatedFailure === false
-                    ? 'bg-amber-50 border-amber-300'
-                    : 'bg-white border-[#BFCDBA] ring-2 ring-[#184E3A]/20'
-                }`}>
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div className="space-y-1">
-                      <span className="font-mono text-[10px] font-bold uppercase text-[#1B4B3A] tracking-wider block">
-                        Pergunta 2 · Diagnóstico Elétrico & Localização da Falha
+              {/* Cartão de Pergunta Ativa ou Resultado */}
+              <div className="space-y-6">
+                
+                {/* PERGUNTA 1 */}
+                {answers.structureIntact === null && (
+                  <div className="p-6 sm:p-8 rounded-2xl bg-[#F8FAF7] border border-[#CCD6C7] space-y-6 animate-fadeIn">
+                    <div className="space-y-2">
+                      <span className="font-mono text-xs font-bold uppercase text-[#1B4B3A] tracking-wider block">
+                        Etapa 1 de 3 · Inspeção Física e Térmica Externa
                       </span>
-                      <h4 className="text-sm sm:text-base font-bold text-[#0D241C]">
-                        A falha está concentrada em poucos componentes específicos?
+                      <h4 className="text-xl sm:text-2xl font-display font-bold text-[#0D241C]">
+                        A carcaça, o isolamento e a estrutura física estão íntegros?
                       </h4>
-                      <p className="text-xs text-[#52685E]">
-                        Exemplo: apenas 1 LED aberto na série ou capacitor de filtro esgotado, com trilhas da placa intactas.
+                      <p className="text-sm text-[#476054]">
+                        Verifique se não há trincas no corpo plástico, se a rosca metálica E27 não está frouxa e se o plástico não deformou por calor excessivo.
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-2 shrink-0">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                       <button
                         type="button"
-                        onClick={() => {
-                          setAnswers(prev => ({ ...prev, isolatedFailure: false, componentsAvailable: null }));
-                          setTriageStep(2);
-                        }}
-                        className={`px-3.5 py-2 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
-                          answers.isolatedFailure === false
-                            ? 'bg-amber-600 text-white shadow-xs'
-                            : 'bg-[#EBF0E8] text-[#476054] hover:bg-amber-100 hover:text-amber-800'
-                        }`}
+                        onClick={() => setAnswers({ structureIntact: true, isolatedFailure: null, componentsAvailable: null })}
+                        className="p-5 rounded-2xl bg-white border border-[#B8CAB5] hover:border-[#143B2C] hover:bg-[#F2F7F1] text-left transition-all cursor-pointer shadow-2xs group"
                       >
-                        NÃO (Dano generalizado)
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-base font-bold text-[#0D241C] group-hover:text-[#143B2C]">
+                            SIM, estrutura 100% íntegra
+                          </span>
+                          <span className="text-lg">✓</span>
+                        </div>
+                        <p className="text-xs text-[#526B5E]">
+                          Sem trincas, rosca firme e carcaça perfeitamente isolada.
+                        </p>
                       </button>
+
                       <button
                         type="button"
-                        onClick={() => {
-                          setAnswers(prev => ({ ...prev, isolatedFailure: true }));
-                          if (triageStep <= 2) setTriageStep(3);
-                        }}
-                        className={`px-4 py-2 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
-                          answers.isolatedFailure === true
-                            ? 'bg-[#184E3A] text-white shadow-xs'
-                            : 'bg-[#EBF0E8] text-[#476054] hover:bg-emerald-100 hover:text-emerald-800'
-                        }`}
+                        onClick={() => setAnswers({ structureIntact: false, isolatedFailure: null, componentsAvailable: null })}
+                        className="p-5 rounded-2xl bg-white border border-rose-200 hover:border-rose-400 hover:bg-rose-50/50 text-left transition-all cursor-pointer shadow-2xs group"
                       >
-                        SIM (Falha localizada)
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-base font-bold text-rose-900">
+                            NÃO, possui quebras ou deformação
+                          </span>
+                          <span className="text-lg">✕</span>
+                        </div>
+                        <p className="text-xs text-rose-700">
+                          Carcaça rachada, rosca solta ou plástico derretido.
+                        </p>
                       </button>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {/* PASSO 3 (Se Passo 2 foi SIM) */}
-              {answers.structureIntact === true && answers.isolatedFailure === true && (
-                <div className={`p-5 rounded-2xl border transition-all animate-fadeIn ${
-                  answers.componentsAvailable === true
-                    ? 'bg-[#F5F8F4] border-[#CCD6C7]'
-                    : answers.componentsAvailable === false
-                    ? 'bg-slate-50 border-slate-300'
-                    : 'bg-white border-[#BFCDBA] ring-2 ring-[#184E3A]/20'
-                }`}>
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div className="space-y-1">
-                      <span className="font-mono text-[10px] font-bold uppercase text-[#1B4B3A] tracking-wider block">
-                        Pergunta 3 · Viabilidade de Reposição e Segurança
+                {/* RESULTADO SE NÃO NO PASSO 1 */}
+                {answers.structureIntact === false && (
+                  <div className="p-7 rounded-2xl bg-rose-50 border border-rose-300 space-y-4 animate-fadeIn">
+                    <div className="flex items-center gap-2">
+                      <span className="px-3 py-1 rounded-lg bg-rose-700 text-white font-mono text-xs font-bold uppercase">
+                        Decisão: Não Recuperar (Risco Estrutural / Isolamento)
                       </span>
-                      <h4 className="text-sm sm:text-base font-bold text-[#0D241C]">
-                        Há componente substituto compatível no estoque/sucata do laboratório?
+                    </div>
+                    <h4 className="text-xl font-display font-bold text-rose-950">
+                      Encaminhar para Logística Reversa / Ponto de Coleta Seguro
+                    </h4>
+                    <p className="text-sm text-rose-800 leading-relaxed max-w-3xl">
+                      A quebra da carcaça compromete a isolação contra choque elétrico e a ancoragem mecânica da rosca E27. Lâmpadas sem segurança mecânica não são recolocadas em uso. Seus componentes internos intactos podem ser retirados para doação de peças.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={resetTriage}
+                      className="px-4 py-2 rounded-xl bg-rose-700 text-white font-mono text-xs font-bold hover:bg-rose-800 transition-colors cursor-pointer"
+                    >
+                      Fazer nova avaliação
+                    </button>
+                  </div>
+                )}
+
+                {/* PERGUNTA 2 */}
+                {answers.structureIntact === true && answers.isolatedFailure === null && (
+                  <div className="p-6 sm:p-8 rounded-2xl bg-[#F8FAF7] border border-[#CCD6C7] space-y-6 animate-fadeIn">
+                    <div className="space-y-2">
+                      <span className="font-mono text-xs font-bold uppercase text-[#1B4B3A] tracking-wider block">
+                        Etapa 2 de 3 · Diagnóstico do Circuito
+                      </span>
+                      <h4 className="text-xl sm:text-2xl font-display font-bold text-[#0D241C]">
+                        A falha está concentrada em poucos componentes específicos?
                       </h4>
-                      <p className="text-xs text-[#52685E]">
-                        Mesma especificação de corrente/tensão para manter os padrões técnicos e térmicos seguros.
+                      <p className="text-sm text-[#476054]">
+                        Exemplo: apenas 1 LED aberto na série ou 1 capacitor com capacitância esgotada, mantendo as trilhas e a placa sãs.
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-2 shrink-0">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                       <button
                         type="button"
-                        onClick={() => setAnswers(prev => ({ ...prev, componentsAvailable: false }))}
-                        className={`px-3.5 py-2 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
-                          answers.componentsAvailable === false
-                            ? 'bg-slate-700 text-white shadow-xs'
-                            : 'bg-[#EBF0E8] text-[#476054] hover:bg-slate-200'
-                        }`}
+                        onClick={() => setAnswers(prev => ({ ...prev, isolatedFailure: true }))}
+                        className="p-5 rounded-2xl bg-white border border-[#B8CAB5] hover:border-[#143B2C] hover:bg-[#F2F7F1] text-left transition-all cursor-pointer shadow-2xs group"
                       >
-                        NÃO (Sem peça)
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-base font-bold text-[#0D241C] group-hover:text-[#143B2C]">
+                            SIM, falha pontual e localizada
+                          </span>
+                          <span className="text-lg">✓</span>
+                        </div>
+                        <p className="text-xs text-[#526B5E]">
+                          Trilhas preservadas, apenas um componente aberto ou queimado.
+                        </p>
                       </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setAnswers(prev => ({ ...prev, isolatedFailure: false }))}
+                        className="p-5 rounded-2xl bg-white border border-amber-300 hover:border-amber-500 hover:bg-amber-50/50 text-left transition-all cursor-pointer shadow-2xs group"
+                      >
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-base font-bold text-amber-950">
+                            NÃO, dano elétrico generalizado
+                          </span>
+                          <span className="text-lg">⚠️</span>
+                        </div>
+                        <p className="text-xs text-amber-800">
+                          Placa carbonizada, múltiplos semicondutores em curto ou trilhas rompidas.
+                        </p>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* RESULTADO SE NÃO NO PASSO 2 */}
+                {answers.structureIntact === true && answers.isolatedFailure === false && (
+                  <div className="p-7 rounded-2xl bg-amber-50 border border-amber-300 space-y-4 animate-fadeIn">
+                    <div className="flex items-center gap-2">
+                      <span className="px-3 py-1 rounded-lg bg-amber-700 text-white font-mono text-xs font-bold uppercase">
+                        Decisão: Doação de Peças / Sucata Técnica
+                      </span>
+                    </div>
+                    <h4 className="text-xl font-display font-bold text-amber-950">
+                      Desmontar e aproveitar peças boas em outras lâmpadas
+                    </h4>
+                    <p className="text-sm text-amber-900 leading-relaxed max-w-3xl">
+                      Reconstruir um circuito severamente queimado consome tempo e recursos excessivos. No entanto, o difusor plástico, o dissipador metálico e os LEDs que não sofreram sobretensão são separados para o estoque de reparo.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={resetTriage}
+                      className="px-4 py-2 rounded-xl bg-amber-800 text-white font-mono text-xs font-bold hover:bg-amber-900 transition-colors cursor-pointer"
+                    >
+                      Fazer nova avaliação
+                    </button>
+                  </div>
+                )}
+
+                {/* PERGUNTA 3 */}
+                {answers.structureIntact === true && answers.isolatedFailure === true && answers.componentsAvailable === null && (
+                  <div className="p-6 sm:p-8 rounded-2xl bg-[#F8FAF7] border border-[#CCD6C7] space-y-6 animate-fadeIn">
+                    <div className="space-y-2">
+                      <span className="font-mono text-xs font-bold uppercase text-[#1B4B3A] tracking-wider block">
+                        Etapa 3 de 3 · Viabilidade de Reposição
+                      </span>
+                      <h4 className="text-xl sm:text-2xl font-display font-bold text-[#0D241C]">
+                        Há componente substituto compatível no estoque do laboratório?
+                      </h4>
+                      <p className="text-sm text-[#476054]">
+                        O componente de reposição precisa ter as mesmas especificações elétricas (tensão de ruptura, corrente e potência) para garantir a segurança.
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                       <button
                         type="button"
                         onClick={() => setAnswers(prev => ({ ...prev, componentsAvailable: true }))}
-                        className={`px-4 py-2 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
-                          answers.componentsAvailable === true
-                            ? 'bg-[#184E3A] text-white shadow-xs'
-                            : 'bg-[#EBF0E8] text-[#476054] hover:bg-emerald-100 hover:text-emerald-800'
-                        }`}
+                        className="p-5 rounded-2xl bg-white border border-[#B8CAB5] hover:border-[#143B2C] hover:bg-[#F2F7F1] text-left transition-all cursor-pointer shadow-2xs group"
                       >
-                        SIM (Peça disponível)
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-base font-bold text-[#0D241C] group-hover:text-[#143B2C]">
+                            SIM, componente compatível disponível
+                          </span>
+                          <span className="text-lg">✓</span>
+                        </div>
+                        <p className="text-xs text-[#526B5E]">
+                          LED SMD ou capacitor de mesma especificação pronto para montagem.
+                        </p>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setAnswers(prev => ({ ...prev, componentsAvailable: false }))}
+                        className="p-5 rounded-2xl bg-white border border-slate-300 hover:border-slate-500 hover:bg-slate-50 text-left transition-all cursor-pointer shadow-2xs group"
+                      >
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-base font-bold text-slate-900">
+                            NÃO, sem componente no momento
+                          </span>
+                          <span className="text-lg">⏳</span>
+                        </div>
+                        <p className="text-xs text-slate-700">
+                          Sem peça idêntica no estoque de sucatas do laboratório.
+                        </p>
                       </button>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {/* CARD DE RESULTADO CONCLUSIVO DO DIAGNÓSTICO */}
-              {/* Caso 1: Estrutura Danificada */}
-              {answers.structureIntact === false && (
-                <div className="p-6 rounded-2xl bg-rose-50 border border-rose-200 text-[#5C1A1A] space-y-3 animate-fadeIn">
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-1 rounded bg-rose-600 text-white font-mono text-xs font-bold uppercase">
-                      Decisão: Não Recuperar (Risco Estrutural / Isolamento)
-                    </span>
+                {/* RESULTADO SE NÃO NO PASSO 3 */}
+                {answers.structureIntact === true && answers.isolatedFailure === true && answers.componentsAvailable === false && (
+                  <div className="p-7 rounded-2xl bg-slate-50 border border-slate-300 space-y-4 animate-fadeIn">
+                    <div className="flex items-center gap-2">
+                      <span className="px-3 py-1 rounded-lg bg-slate-700 text-white font-mono text-xs font-bold uppercase">
+                        Decisão: Aguardar Lote / Banco de Espera
+                      </span>
+                    </div>
+                    <h4 className="text-xl font-display font-bold text-slate-900">
+                      Armazenar temporariamente para reparo posterior
+                    </h4>
+                    <p className="text-sm text-slate-700 leading-relaxed max-w-3xl">
+                      A lâmpada tem excelente prognóstico de recuperação. Ficará identificada na prateleira técnica até a chegada de outro lote de doadoras com a peça necessária.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={resetTriage}
+                      className="px-4 py-2 rounded-xl bg-slate-800 text-white font-mono text-xs font-bold hover:bg-slate-900 transition-colors cursor-pointer"
+                    >
+                      Fazer nova avaliação
+                    </button>
                   </div>
-                  <h5 className="font-display font-bold text-base text-rose-950">
-                    Encaminhar diretamente para Logística Reversa / Descarte Certificado
-                  </h5>
-                  <p className="text-xs sm:text-sm text-rose-800 leading-relaxed">
-                    A perda da integridade mecânica ou isolamento elétrico expõe o usuário a risco de choque e sobreaquecimento. Lâmpadas sem segurança estrutural não são recondicionadas no projeto. Seus componentes ainda podem ser triados como doadores de peças (LEDs funcionais ou indutores).
-                  </p>
-                </div>
-              )}
+                )}
 
-              {/* Caso 2: Falha Generalizada */}
-              {answers.structureIntact === true && answers.isolatedFailure === false && (
-                <div className="p-6 rounded-2xl bg-amber-50 border border-amber-200 text-[#5B3E08] space-y-3 animate-fadeIn">
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-1 rounded bg-amber-600 text-white font-mono text-xs font-bold uppercase">
-                      Decisão: Doação de Peças / Sucata Técnica
-                    </span>
+                {/* RESULTADO SE SIM NO PASSO 3 (SUCESSO TOTAL) */}
+                {answers.structureIntact === true && answers.isolatedFailure === true && answers.componentsAvailable === true && (
+                  <div className="p-7 sm:p-8 rounded-2xl bg-[#EAF5EE] border border-[#2A7557] space-y-4 shadow-xs animate-fadeIn">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="px-3 py-1 rounded-lg bg-[#164E3A] text-[#FFB938] font-mono text-xs font-extrabold uppercase">
+                        Decisão: Recuperação 100% Viável ✓
+                      </span>
+                      <span className="font-mono text-xs text-[#20523D] font-bold">
+                        Protocolo de Bancada Aprovado
+                      </span>
+                    </div>
+                    <h4 className="text-xl sm:text-2xl font-display font-bold text-[#0B2E1E]">
+                      Recuperar, soldar, realizar ensaio de segurança e reinserir em uso
+                    </h4>
+                    <p className="text-sm text-[#1F4936] leading-relaxed max-w-3xl">
+                      A lâmpada segue imediatamente para a bancada: substituição do componente danificado com ferro de solda termocontrolado, teste com carga controlada, medição de temperatura do dissipador e verificação do fator de potência.
+                    </p>
+                    <div className="pt-2 flex flex-wrap gap-2 text-xs font-mono text-[#184E3A]">
+                      <span className="bg-white/90 px-3 py-1.5 rounded-lg border border-[#BDD4C7] font-semibold">✓ Economia de matéria-prima</span>
+                      <span className="bg-white/90 px-3 py-1.5 rounded-lg border border-[#BDD4C7] font-semibold">✓ Redução de resíduo eletrônico</span>
+                      <span className="bg-white/90 px-3 py-1.5 rounded-lg border border-[#BDD4C7] font-semibold">✓ Extensão da vida útil</span>
+                    </div>
+                    <div className="pt-2">
+                      <button
+                        type="button"
+                        onClick={resetTriage}
+                        className="px-4 py-2 rounded-xl bg-[#164E3A] text-white font-mono text-xs font-bold hover:bg-[#0D241C] transition-colors cursor-pointer"
+                      >
+                        Avaliar outra lâmpada
+                      </button>
+                    </div>
                   </div>
-                  <h5 className="font-display font-bold text-base text-amber-950">
-                    Desmontar e aproveitar peças boas em outras lâmpadas
-                  </h5>
-                  <p className="text-xs sm:text-sm text-amber-800 leading-relaxed">
-                    O custo energético e de materiais para reconstruir um circuito totalmente carbonizado não é viável. No entanto, o difusor, o dissipador de alumínio e os LEDs que não sofreram sobretensão são separados para reparar outros equipamentos.
-                  </p>
-                </div>
-              )}
+                )}
 
-              {/* Caso 3: Sem componente no momento */}
-              {answers.structureIntact === true && answers.isolatedFailure === true && answers.componentsAvailable === false && (
-                <div className="p-6 rounded-2xl bg-slate-100 border border-slate-300 text-slate-800 space-y-3 animate-fadeIn">
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-1 rounded bg-slate-700 text-white font-mono text-xs font-bold uppercase">
-                      Decisão: Aguardar Lote / Banco de Componentes
-                    </span>
-                  </div>
-                  <h5 className="font-display font-bold text-base text-slate-900">
-                    Armazenamento temporário na bancada do laboratório
-                  </h5>
-                  <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-                    A lâmpada tem excelente prognóstico de recuperação. Ficará identificada na prateleira até a triagem de um lote que contenha a peça compatível (doador).
-                  </p>
-                </div>
-              )}
+              </div>
 
-              {/* Caso 4: Sucesso Total / Recuperação viável */}
-              {answers.structureIntact === true && answers.isolatedFailure === true && answers.componentsAvailable === true && (
-                <div className="p-6 rounded-2xl bg-[#EAF5EE] border border-[#2A7557] text-[#0C3826] space-y-3 shadow-xs animate-fadeIn">
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-1 rounded bg-[#164E3A] text-[#FFB938] font-mono text-xs font-extrabold uppercase">
-                      Decisão: Recuperação 100% Viável ✓
-                    </span>
-                    <span className="font-mono text-xs text-[#20523D] font-bold">
-                      Protocolo de Bancada Aprovado
-                    </span>
-                  </div>
-                  <h5 className="font-display font-bold text-lg text-[#0B2E1E]">
-                    Recuperar, soldar, realizar ensaio de segurança e reinserir em uso
-                  </h5>
-                  <p className="text-xs sm:text-sm text-[#1F4936] leading-relaxed">
-                    A lâmpada segue imediatamente para a bancada: substituição do componente danificado com ferro de solda termocontrolado, teste com carga controlada, medição de temperatura do dissipador e verificação do fator de potência.
-                  </p>
-                  <div className="pt-2 flex flex-wrap gap-2 text-[11px] font-mono text-[#184E3A]">
-                    <span className="bg-white/80 px-2.5 py-1 rounded border border-[#BDD4C7]">✓ Economia de matéria-prima</span>
-                    <span className="bg-white/80 px-2.5 py-1 rounded border border-[#BDD4C7]">✓ Redução de resíduo eletrônico</span>
-                    <span className="bg-white/80 px-2.5 py-1 rounded border border-[#BDD4C7]">✓ Extensão da vida útil</span>
-                  </div>
-                </div>
-              )}
-
+              <p className="text-[11px] font-mono text-[#556961] italic pt-4 border-t border-[#D5DDD2]">
+                Critérios técnicos fundamentados nos procedimentos das disciplinas de Sistemas de Energia do IFSC.
+              </p>
             </div>
-
-            <p className="text-[11px] font-mono text-[#556961] italic pt-4 border-t border-[#D5DDD2]">
-              Simulação baseada nos protocolos de triagem técnica adotados nas disciplinas práticas de Sistemas de Energia do IFSC.
-            </p>
-          </div>
+          )}
 
         </div>
 

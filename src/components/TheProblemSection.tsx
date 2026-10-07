@@ -3,13 +3,6 @@ import React, { useState } from 'react';
 export const TheProblemSection: React.FC = () => {
   const [highlightExtension, setHighlightExtension] = useState(true);
 
-  const sequenceFlow = [
-    { label: 'Descarte', desc: 'Fim prematuro' },
-    { label: 'Diagnóstico', desc: 'Identificação da falha' },
-    { label: 'Recuperação', desc: 'Intervenção viável' },
-    { label: 'Vida útil prolongada', desc: 'Retorno ao uso' },
-  ];
-
   const steps = [
     {
       etapa: 'ETAPA 1',
@@ -56,26 +49,6 @@ export const TheProblemSection: React.FC = () => {
             <p className="text-sm sm:text-base text-[#384C43] leading-relaxed">
               Muitas lâmpadas LED são descartadas no lixo comum ou reciclagem apenas porque um único diodo ou capacitor abriu o circuito, enquanto 90% dos componentes e materiais nobres permanecem em perfeitas condições.
             </p>
-          </div>
-
-          {/* Visual Sequence Bar: Descarte → Diagnóstico → Recuperação → Vida útil prolongada */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#F7F8F5] border border-[#CCD6C7] flex flex-wrap items-center justify-between gap-3 font-mono text-xs shadow-2xs">
-            <span className="text-[10px] uppercase font-bold text-[#4B685C] tracking-wider shrink-0">
-              Ciclo de Intervenção:
-            </span>
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3 flex-1 justify-start sm:justify-end">
-              {sequenceFlow.map((item, idx) => (
-                <React.Fragment key={item.label}>
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#D5DDD2] shadow-2xs">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#164E3A]" />
-                    <span className="font-semibold text-[#0D241C]">{item.label}</span>
-                  </div>
-                  {idx < sequenceFlow.length - 1 && (
-                    <span className="text-[#89A197] font-bold">→</span>
-                  )}
-                </React.Fragment>
-              ))}
-            </div>
           </div>
         </div>
 

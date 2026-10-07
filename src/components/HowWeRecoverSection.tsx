@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { InteractiveRecoveryLamp } from './InteractiveRecoveryLamp';
 
 interface HowWeRecoverSectionProps {
-  onOpenGuideModal: () => void;
+  onOpenGuideModal?: () => void;
 }
 
-export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = ({ onOpenGuideModal }) => {
+export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = () => {
   const [currentStep, setCurrentStep] = useState<number>(5);
 
   const stepsList = [
@@ -44,10 +44,6 @@ export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = ({ onOpen
       detail: 'A lâmpada é testada antes de voltar a ter uso. Só então segue para reutilização.',
     },
   ];
-
-  const handleNextStep = () => {
-    setCurrentStep((prev) => (prev < 5 ? prev + 1 : 1));
-  };
 
   return (
     <section id="como-recuperamos" className="py-16 sm:py-24 bg-dark-grid text-white border-b border-[#143B2F] scroll-mt-20">
@@ -121,45 +117,9 @@ export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = ({ onOpen
                   </div>
                 );
               })}
-
-              <div className="pt-2 flex items-center justify-between">
-                <button
-                  type="button"
-                  onClick={handleNextStep}
-                  className="px-4 py-2 rounded-lg bg-[#164636] hover:bg-[#205C47] text-xs font-mono text-white transition-colors cursor-pointer"
-                >
-                  {currentStep < 5 ? `Avançar para Etapa 0${currentStep + 1} →` : 'Reiniciar da Etapa 01 ↺'}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setCurrentStep(1)}
-                  className="text-xs font-mono text-[#A6C5B7] hover:text-white underline cursor-pointer"
-                >
-                  REINICIAR ANIMAÇÃO
-                </button>
-              </div>
             </div>
 
           </div>
-
-          <p className="text-[11px] font-mono text-[#668E7E] italic pt-4 border-t border-[#174637]">
-            Figura 6 — Etapas da recuperação, em esquema animado.
-          </p>
-        </div>
-
-        {/* CTA Banner */}
-        <div className="p-7 rounded-2xl bg-[#0E2920] border border-[#174637] flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span className="text-sm font-display font-bold text-white">
-            Quer ver o guia completo?
-          </span>
-          <button
-            type="button"
-            onClick={onOpenGuideModal}
-            className="px-7 py-3 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-[#0D241C] bg-[#FFB938] hover:bg-[#F2AC26] transition-all shadow-xs hover:shadow hover:-translate-y-0.5 cursor-pointer"
-          >
-            Explorar guia de reparo →
-          </button>
         </div>
 
       </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import disassembledBulbImage from '../assets/images/lampada_led_acesa_amarela_1791035780889.jpg';
-import handBulbImage from '../assets/images/mao_segurando_lampada_led_1791041191062.jpg';
+import handBulbImage from '../assets/images/mao_lampada_led_verdadeira_1791413076620.jpg';
 
 interface BentoGridSectionProps {
   onOpenDonateModal: () => void;

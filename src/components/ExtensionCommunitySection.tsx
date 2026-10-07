@@ -1,6 +1,6 @@
 import React from 'react';
 import studentsBenchImage from '../assets/images/estudantes_bancada_eletronica_1791041208045.jpg';
-import handLampImage from '../assets/images/mao_segurando_lampada_led_1791041191062.jpg';
+import handLampImage from '../assets/images/mao_lampada_led_verdadeira_1791413076620.jpg';
 import lampPartsImage from '../assets/images/lampada_led_acesa_amarela_1791035780889.jpg';
 
 export const ExtensionCommunitySection: React.FC = () => {
