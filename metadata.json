@@ -1,0 +1,6 @@
+{
+  "name": "LUMEN · Recuperação de Lâmpadas LED (IFSC)",
+  "description": "Projeto de Extensão II do IFSC: Conhecimento técnico, estudantes e comunidade unidos para recuperar lâmpadas LED descartadas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
