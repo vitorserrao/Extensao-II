@@ -51,21 +51,18 @@ export const UnderstandLampSection: React.FC = () => {
   return (
     <section id="entenda-a-lampada" className="py-16 sm:py-24 section-alt border-b border-[#E0E6DC] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Título em largura total; texto de apoio na meia coluna */}
-          <div className="mb-6">
+          {/* Cabeçalho na meia coluna, como nas outras seções */}
+          <div className="lg:w-[calc((100%-3.5rem)/2)] mb-10">
             <SectionHeading
               num={4}
               label="Entenda a lâmpada"
               line1="Cinco partes, cada uma"
               line2={<span className="marker-yellow">com seu papel.</span>}
-            />
-          </div>
-          <div className="lg:w-[calc((100%-3.5rem)/2)] mb-10">
-            <div className="section-lead space-y-3">
+            >
               <p>
                 Uma lâmpada LED moderna é um sistema integrado de componentes mecânicos, elétricos e térmicos. Clique nas camadas para inspecionar cada elemento.
               </p>
-            </div>
+            </SectionHeading>
           </div>
 
           {/* Lista das camadas e modelo interativo lado a lado, com a mesma altura */}

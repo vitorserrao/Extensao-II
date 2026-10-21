@@ -41,24 +41,19 @@ export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = ({ onOpen
   return (
     <section id="como-recuperamos" className="py-16 sm:py-24 border-b border-[#E0E6DC] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Título em largura total, acima das duas colunas */}
-        <div className="mb-10 lg:mb-12">
-          <SectionHeading
-              num={5}
-              label="Como recuperamos"
-              line1={<>Da bancada <span className="marker-yellow">à nova luz.</span></>}
-            />
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
 
           {/* Texto + chamada principal */}
           <div className="lg:col-span-6 space-y-6">
-            <div className="section-lead space-y-3">
+            <SectionHeading
+              num={5}
+              label="Como recuperamos"
+              line1={<>Da bancada <span className="marker-yellow">à nova luz.</span></>}
+            >
               <p>
                 A recuperação acontece na bancada, um componente de cada vez. Montamos um laboratório virtual aberto para quem quiser entender o processo ou aprender a fazer.
               </p>
-            </div>
+            </SectionHeading>
 
             <div className="space-y-3">
               <button

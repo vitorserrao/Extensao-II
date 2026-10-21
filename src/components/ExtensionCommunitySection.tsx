@@ -20,21 +20,18 @@ export const ExtensionCommunitySection: React.FC = () => {
         
         {/* PARTE 1: Cabeçalho e Fluxo de Extensão */}
         <div className="space-y-8">
-          {/* Título em largura total; texto de apoio na meia coluna */}
-          <div className="mb-6">
+          {/* mesma largura de meia coluna das outras seções, para o título ficar do mesmo tamanho */}
+          <div className="lg:w-[calc((100%-3.5rem)/2)]">
             <SectionHeading
               num={7}
               label="Extensão e comunidade"
               line1="Extensão é colocar o"
               line2={<>conhecimento em <span className="marker-yellow">movimento.</span></>}
-            />
-          </div>
-          <div className="lg:w-[calc((100%-3.5rem)/2)]">
-            <div className="section-lead space-y-3">
+            >
               <p>
                 No projeto, aquilo que é aprendido no curso de Sistemas de Energia ganha aplicação prática e retorna para a comunidade em forma de conhecimento, serviço e participação.
               </p>
-            </div>
+            </SectionHeading>
           </div>
 
           {/* Linear Chain */}
