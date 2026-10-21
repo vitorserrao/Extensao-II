@@ -40,12 +40,25 @@ const terminalPos = (i: number, pole: Pole) => {
 };
 
 type ProbeId = 'red' | 'black';
-const PROBE_PARK: Record<ProbeId, { x: number; y: number }> = { red: { x: 336, y: 372 }, black: { x: 304, y: 372 } };
+const PARK_MID = { x: 320, y: 368 };
 const SNAP_R = 26;
-const PROBE_ANGLE: Record<ProbeId, number> = { red: 25, black: -25 };
 const BATT = { red: { x: 94, y: 362 }, black: { x: 94, y: 380 } };
-const probeEnd = (id: ProbeId, p: { x: number; y: number }) => {
-  const t = (PROBE_ANGLE[id] * Math.PI) / 180;
+/** Ângulo (graus) da direção "para fora" do centro da lâmpada, passando por um ponto. */
+const outwardDeg = (p: { x: number; y: number }) =>
+  Math.hypot(p.x - C, p.y - C) < 10 ? -90 : (Math.atan2(p.y - C, p.x - C) * 180) / Math.PI;
+/** Par de pontas alinhado como os terminais de um LED naquela direção: vermelho no +, preto no −. */
+const probePair = (mid: { x: number; y: number }, aDeg: number) => {
+  const a = (aDeg * Math.PI) / 180;
+  const t = { x: -Math.sin(a), y: Math.cos(a) }; // mesma direção do eixo + do LED
+  return {
+    red: { x: mid.x + 16 * t.x, y: mid.y + 16 * t.y },
+    black: { x: mid.x - 16 * t.x, y: mid.y - 16 * t.y },
+  };
+};
+/** Rotação do corpo da caneta: aponta para fora da lâmpada, levemente aberta para o lado do seu terminal. */
+const probeRot = (id: ProbeId, aDeg: number) => aDeg + 90 + (id === 'red' ? 14 : -14);
+const probeEnd = (p: { x: number; y: number }, rotDeg: number) => {
+  const t = (rotDeg * Math.PI) / 180;
   return { x: p.x + 74 * Math.sin(t), y: p.y - 74 * Math.cos(t) };
 };
 
@@ -225,12 +238,19 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
     }
   }, [nearLed, step, done, finish]);
 
+  // direção das canetas: sempre para fora da lâmpada, nunca por cima dos terminais
+  const probeA = nearLed !== null ? outwardDeg(ledPos(nearLed)) : outwardDeg(pointer ?? PARK_MID);
   const probePos: Record<ProbeId, { x: number; y: number }> =
     nearLed !== null
       ? { red: terminalPos(nearLed, '+'), black: terminalPos(nearLed, '-') }
-      : pointer
-      ? { red: { x: pointer.x + 16, y: pointer.y }, black: { x: pointer.x - 16, y: pointer.y } }
-      : PROBE_PARK;
+      : probePair(pointer ?? PARK_MID, probeA);
+  const wireFor = (id: ProbeId) => {
+    const end = probeEnd(probePos[id], probeRot(id, probeA));
+    const from = BATT[id];
+    // o cabo sai pela borda externa antes de descer até as pilhas
+    const out = { x: end.x + (end.x - C) * 0.35, y: end.y + (end.y - C) * 0.35 };
+    return `M ${from.x} ${from.y} C ${from.x + 50} ${from.y + 30}, ${out.x} ${out.y}, ${end.x} ${end.y}`;
+  };
 
   const onUp = () => {
     setPressed(false);
@@ -322,6 +342,21 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
         <text x={C} y={C + 40} textAnchor="middle" fontSize="9" fontFamily="monospace" fill="#64748B">
           LED SMD · série
         </text>
+
+        {/* cabos das pontas de prova: por baixo dos LEDs, para nunca esconder os terminais */}
+        {step === 2 &&
+          (['black', 'red'] as ProbeId[]).map((id) => (
+            <path
+              key={id}
+              d={wireFor(id)}
+              stroke={id === 'red' ? '#DC2626' : '#111827'}
+              strokeWidth="3.5"
+              fill="none"
+              strokeLinecap="round"
+              opacity="0.85"
+              pointerEvents="none"
+            />
+          ))}
 
         {/* LEDs */}
         {Array.from({ length: N_LEDS }, (_, i) => {
@@ -445,21 +480,10 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
             <text x={54} y={348} textAnchor="middle" fontSize="10" fontWeight="bold" fontFamily="monospace" fill="#374151">2× AA · 3V</text>
             {(['black', 'red'] as ProbeId[]).map((id) => {
               const pr = probePos[id];
-              const end = probeEnd(id, pr);
-              const from = BATT[id];
               const color = id === 'red' ? '#DC2626' : '#111827';
-              const sag = Math.max(from.y, end.y) + 40;
-              const t = PROBE_ANGLE[id];
+              const t = probeRot(id, probeA);
               return (
                 <g key={id}>
-                  <path
-                    d={`M ${from.x} ${from.y} C ${from.x + 60} ${sag}, ${end.x} ${sag}, ${end.x} ${end.y}`}
-                    stroke={color}
-                    strokeWidth="3.5"
-                    fill="none"
-                    strokeLinecap="round"
-                    opacity="0.9"
-                  />
                   <g transform={`translate(${pr.x} ${pr.y}) rotate(${t})`}>
                     <line x1={0} y1={0} x2={0} y2={-16} stroke="#9CA3AF" strokeWidth="2.5" strokeLinecap="round" />
                     <rect x={-6} y={-74} width={12} height={60} rx={5} fill={color} stroke={id === 'red' ? '#7F1D1D' : '#000'} strokeWidth="1.5" />
