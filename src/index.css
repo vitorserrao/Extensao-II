@@ -346,7 +346,7 @@
   background-size: 24px 24px;
 }
 
-/* Todos os títulos de seção com o mesmo corpo (calculado para a meia coluna, como na seção 1) */
+/* Todos os títulos de seção com o mesmo corpo, em largura total acima das colunas (máx. 3rem) */
 .section-title {
   --fit: 5.9cqi;
 }

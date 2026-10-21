@@ -35,19 +35,24 @@ export const ResultsImpactSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
         
         {/* DISTRIBUIÇÃO PRINCIPAL: PAINEL INTEGRADO (INDICADORES + REGISTRO OFICIAL) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-          
-          <div className="lg:col-span-6 space-y-8">
-            <SectionHeading
+        {/* Título em largura total, acima das duas colunas */}
+        <div className="mb-10 lg:mb-12">
+          <SectionHeading
               num={6}
               label="Resultados e impacto"
               line1="Depois de conhecer o projeto:"
               line2={<span className="marker-yellow">quanto já foi feito?</span>}
-            >
+            />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          
+          <div className="lg:col-span-6 space-y-8">
+            <div className="section-lead space-y-3">
               <p>
                 Transparência técnica, indicadores institucionais do IFSC e projeção do benefício ecológico e econômico devolvido à comunidade.
               </p>
-            </SectionHeading>
+            </div>
 
           {/* LADO DIREITO (5 Colunas): Tabela 1 — Registro Oficial dos Indicadores */}
           <div className="space-y-3">

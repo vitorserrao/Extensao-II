@@ -38,20 +38,25 @@ export const TheProblemSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
         
         {/* Mesmo padrão da seção 1: 12 colunas, duas metades. Texto à esquerda, cards à direita. */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-
-          {/* Texto */}
-          <div className="lg:col-span-6">
-            <SectionHeading
+        {/* Título em largura total, acima das duas colunas */}
+        <div className="mb-10 lg:mb-12">
+          <SectionHeading
               num={2}
               label="O problema"
               line1="Uma lâmpada para de funcionar."
               line2={<span className="marker-yellow">Mas nem tudo nela queimou.</span>}
-            >
+            />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+
+          {/* Texto */}
+          <div className="lg:col-span-6">
+            <div className="section-lead space-y-3">
             <p>
               Muitas lâmpadas LED deixam de funcionar devido à falha de um único componente, enquanto outras partes ainda podem estar em boas condições. Sem avaliação ou possibilidade de recuperação, essas lâmpadas podem ser descartadas prematuramente, desperdiçando materiais e recursos que ainda têm valor.
             </p>
-            </SectionHeading>
+            </div>
           </div>
 
           {/* Cards 2×2 */}
@@ -88,20 +93,25 @@ export const TheProblemSection: React.FC = () => {
     <section id="eficiencia-energetica" className="py-16 sm:py-24 border-b border-[#E0E6DC] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-            
-            {/* Left Column: Conceito de Eficiência */}
-            <div className="lg:col-span-6 space-y-5">
-              <SectionHeading
+          {/* Título em largura total, acima das duas colunas */}
+          <div className="mb-10 lg:mb-12">
+            <SectionHeading
                 num={3}
                 label="Eficiência energética"
                 line1="Eficiência também é aproveitar"
                 line2={<span className="marker-yellow">melhor o que já existe.</span>}
-              >
+              />
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+            
+            {/* Left Column: Conceito de Eficiência */}
+            <div className="lg:col-span-6 space-y-5">
+              <div className="section-lead space-y-3">
                 <p>
                   Prolongar a vida útil de uma lâmpada LED recuperável ajuda a aproveitar melhor os materiais e os recursos empregados em sua fabricação. Quando a recuperação é viável, evitar o descarte prematuro pode reduzir a necessidade de substituição e contribuir para uma iluminação mais sustentável.
                 </p>
-              </SectionHeading>
+              </div>
 
               <div className="p-4 rounded-xl bg-[#F4F8F4] border border-[#D5E2D6] text-xs text-[#1A1A1A] space-y-1.5">
                 <span className="font-sans font-bold text-[11px] uppercase text-[#2F9E41] tracking-wider block">

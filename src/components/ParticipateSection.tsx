@@ -27,19 +27,24 @@ export const ParticipateSection: React.FC<ParticipateSectionProps> = () => {
   return (
     <section id="participe" className="py-16 sm:py-24 section-alt border-b border-[#E0E6DC] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div id="pontos-de-entrega" className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-
-            {/* Texto + lista de postos */}
-            <div className="lg:col-span-6 space-y-8">
+          {/* Título em largura total, acima das duas colunas */}
+          <div className="mb-10 lg:mb-12">
             <SectionHeading
               num={8}
               label="Pontos de coleta"
               line1={<>Pontos de <span className="marker-yellow">coleta.</span></>}
-            >
+            />
+          </div>
+
+          <div id="pontos-de-entrega" className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+
+            {/* Texto + lista de postos */}
+            <div className="lg:col-span-6 space-y-8">
+            <div className="section-lead space-y-3">
               <p>
                 Selecione um posto para conferir o endereço completo, horários de atendimento e a localização exata no mapa.
               </p>
-            </SectionHeading>
+            </div>
 
             {/* Coluna 1: Lista de Postos de Coleta */}
             <div className="space-y-3">

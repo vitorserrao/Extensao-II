@@ -8,23 +8,28 @@ export const ProjectSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
         
         {/* Main Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-          
-          {/* Left Column: Heading and Description */}
-          <div className="lg:col-span-6">
-            <SectionHeading
+        {/* Título em largura total, acima das duas colunas */}
+        <div className="mb-10 lg:mb-12">
+          <SectionHeading
               num={1}
               label="O projeto"
               line1="Conhecimento de sala"
               line2={<>de aula, <span className="marker-yellow">aplicado numa bancada.</span></>}
-            >
+            />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          
+          {/* Left Column: Heading and Description */}
+          <div className="lg:col-span-6">
+            <div className="section-lead space-y-3">
               <p>
                 O <strong className="text-[#1A1A1A] font-bold">Projeto ReLED</strong> é uma iniciativa de extensão universitária vinculada ao curso Superior de Tecnologia em Sistemas de Energia do Instituto Federal de Santa Catarina (IFSC), Câmpus Florianópolis. O projeto tem como objetivo promover a recuperação de lâmpadas LED, contribuindo para o prolongamento de sua vida útil e para o uso mais eficiente dos recursos.
               </p>
               <p>
                 A iniciativa busca incentivar a economia circular, reduzir o descarte de resíduos eletroeletrônicos e minimizar os impactos ambientais associados ao fim da vida útil desses produtos. Também destaca o papel da tecnologia LED na promoção da eficiência energética nos sistemas de iluminação. Além disso, integra ensino, pesquisa e extensão, aproximando a comunidade acadêmica e a sociedade de práticas mais sustentáveis e conscientes.
               </p>
-            </SectionHeading>
+            </div>
           </div>
 
           {/* Right Column: Key Facts Table */}
