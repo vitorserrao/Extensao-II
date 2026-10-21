@@ -47,14 +47,15 @@ export const TheProblemSection: React.FC = () => {
               <span className="title-line">Uma lâmpada para de funcionar. <span className="marker-yellow">Nem todos os</span></span>
               <span className="title-line"><span className="marker-yellow">seus componentes chegaram ao fim da vida útil.</span></span>
             </h2>
-            <p className="max-w-3xl text-sm sm:text-base text-[#3A453F] leading-relaxed">
-              Muitas lâmpadas LED deixam de funcionar devido à falha de um único componente, enquanto outras partes ainda podem estar em boas condições. Sem avaliação ou possibilidade de recuperação, essas lâmpadas podem ser descartadas prematuramente, desperdiçando materiais e recursos que ainda têm valor.
-            </p>
           </div>
         </div>
 
-        {/* 4 Cards: Etapa 1 a 4 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Cards (2×2) à esquerda, texto à direita */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center -mt-6">
+        <p className="lg:order-2 lg:col-span-5 text-sm sm:text-base lg:text-lg text-[#3A453F] leading-relaxed">
+          Muitas lâmpadas LED deixam de funcionar devido à falha de um único componente, enquanto outras partes ainda podem estar em boas condições. Sem avaliação ou possibilidade de recuperação, essas lâmpadas podem ser descartadas prematuramente, desperdiçando materiais e recursos que ainda têm valor.
+        </p>
+        <div className="lg:order-1 lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
           {steps.map((item) => (
             <div
               key={item.etapa}
@@ -76,6 +77,7 @@ export const TheProblemSection: React.FC = () => {
               </div>
             </div>
           ))}
+        </div>
         </div>
 
         {/* Bloco 3: Eficiência Energética e Ciclo de Vida */}
