@@ -30,7 +30,7 @@ export const ParticipateSection: React.FC<ParticipateSectionProps> = () => {
           <div id="pontos-de-entrega" className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
 
             {/* Texto + lista de postos */}
-            <div className="lg:col-span-6 space-y-8">
+            <div className="lg:col-span-7 space-y-8">
             <SectionHeading
               num={8}
               label="Pontos de coleta"
@@ -117,7 +117,7 @@ export const ParticipateSection: React.FC<ParticipateSectionProps> = () => {
             </div>
 
             {/* Detalhes do posto + mapa */}
-            <div className="lg:col-span-6 space-y-6">
+            <div className="lg:col-span-5 space-y-6">
               
               {/* Cartão de Informações do Posto Selecionado */}
               <div className="p-6 rounded-2xl bg-white border border-[#D5E2D6] shadow-2xs space-y-5">

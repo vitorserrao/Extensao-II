@@ -41,7 +41,7 @@ export const TheProblemSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
 
           {/* Texto */}
-          <div className="lg:col-span-6">
+          <div className="lg:col-span-7">
             <SectionHeading
               num={2}
               label="O problema"
@@ -55,7 +55,7 @@ export const TheProblemSection: React.FC = () => {
           </div>
 
           {/* Cards 2×2 */}
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
             {steps.map((item) => (
               <div
                 key={item.etapa}
@@ -91,7 +91,7 @@ export const TheProblemSection: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             
             {/* Left Column: Conceito de Eficiência */}
-            <div className="lg:col-span-6 space-y-5">
+            <div className="lg:col-span-7 space-y-5">
               <SectionHeading
                 num={3}
                 label="Eficiência energética"
@@ -114,7 +114,7 @@ export const TheProblemSection: React.FC = () => {
             </div>
 
             {/* Right Column: comparativo visual de vida útil */}
-            <div className="lg:col-span-6">
+            <div className="lg:col-span-5">
               <LifetimeComparison />
             </div>
 

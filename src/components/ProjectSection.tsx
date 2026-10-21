@@ -11,7 +11,7 @@ export const ProjectSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
           {/* Left Column: Heading and Description */}
-          <div className="lg:col-span-6">
+          <div className="lg:col-span-7">
             <SectionHeading
               num={1}
               label="O projeto"
@@ -28,7 +28,7 @@ export const ProjectSection: React.FC = () => {
           </div>
 
           {/* Right Column: Key Facts Table */}
-          <div className="lg:col-span-6 border-t border-b border-[#D5E2D6] divide-y divide-[#D5E2D6] text-xs sm:text-sm bg-white/90 backdrop-blur-xs rounded-xl px-4 sm:px-6 py-1 shadow-2xs">
+          <div className="lg:col-span-5 border-t border-b border-[#D5E2D6] divide-y divide-[#D5E2D6] text-xs sm:text-sm bg-white/90 backdrop-blur-xs rounded-xl px-4 sm:px-6 py-1 shadow-2xs">
             
             <div className="py-4 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-baseline">
               <span className="sm:col-span-4 font-sans font-bold text-xs text-[#2F9E41] uppercase tracking-wider">

@@ -21,7 +21,7 @@ export const ExtensionCommunitySection: React.FC = () => {
         {/* PARTE 1: Cabeçalho e Fluxo de Extensão */}
         <div className="space-y-8">
           {/* mesma largura de meia coluna das outras seções, para o título ficar do mesmo tamanho */}
-          <div className="lg:w-[calc((100%-3.5rem)/2)]">
+          <div className="lg:w-[calc(58.333%-1.458rem)]">
             <SectionHeading
               num={7}
               label="Extensão e comunidade"

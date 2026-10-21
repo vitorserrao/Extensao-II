@@ -52,7 +52,7 @@ export const UnderstandLampSection: React.FC = () => {
     <section id="entenda-a-lampada" className="py-16 sm:py-24 section-alt border-b border-[#E0E6DC] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Cabeçalho na meia coluna, como nas outras seções */}
-          <div className="lg:w-[calc((100%-3.5rem)/2)] mb-10">
+          <div className="lg:w-[calc(58.333%-1.458rem)] mb-10">
             <SectionHeading
               num={4}
               label="Entenda a lâmpada"

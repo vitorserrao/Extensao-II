@@ -44,7 +44,7 @@ export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = ({ onOpen
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
 
           {/* Texto + chamada principal */}
-          <div className="lg:col-span-6 space-y-6">
+          <div className="lg:col-span-7 space-y-6">
             <SectionHeading
               num={5}
               label="Como recuperamos"
@@ -69,7 +69,7 @@ export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = ({ onOpen
           </div>
 
           {/* O que tem no laboratório: cada card abre direto no tópico */}
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
             {topicos.map(({ tab, icon: Icon, title, desc }) => (
               <button
                 key={tab}

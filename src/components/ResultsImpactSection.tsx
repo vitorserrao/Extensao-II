@@ -37,7 +37,7 @@ export const ResultsImpactSection: React.FC = () => {
         {/* DISTRIBUIÇÃO PRINCIPAL: PAINEL INTEGRADO (INDICADORES + REGISTRO OFICIAL) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
-          <div className="lg:col-span-6 space-y-8">
+          <div className="lg:col-span-7 space-y-8">
             <SectionHeading
               num={6}
               label="Resultados e impacto"
@@ -92,7 +92,7 @@ export const ResultsImpactSection: React.FC = () => {
           </div>
 
           {/* LADO ESQUERDO (7 Colunas): Painel de Métricas Comunitárias em Destaque */}
-          <div className="lg:col-span-6 space-y-5">
+          <div className="lg:col-span-5 space-y-5">
             <div className="flex items-center justify-between">
               <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-[#F4F8F4] border border-[#D5E2D6] text-[10px] font-mono font-bold text-[#2F9E41] uppercase tracking-wider">
                 <span>Painel Aberto de Impacto Comunitário</span>
