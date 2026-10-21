@@ -76,7 +76,7 @@ export const InteractiveLedBulb: React.FC<InteractiveLedBulbProps> = ({
       };
 
   return (
-    <div className="w-full max-w-[380px] p-5 sm:p-6 rounded-3xl bg-white border border-[#D5DDD2] shadow-sm flex flex-col items-center select-none transition-all duration-300">
+    <div className="w-full h-full p-5 sm:p-6 rounded-3xl bg-white border border-[#D5E2D6] shadow-sm flex flex-col items-center select-none transition-all duration-300">
       
       {/* Top Header & Interactive Mode Bar */}
       <div className="w-full flex items-center justify-between border-b border-[#E5EAE1] pb-3 mb-3">
@@ -106,7 +106,7 @@ export const InteractiveLedBulb: React.FC<InteractiveLedBulbProps> = ({
       </p>
 
       {/* SVG Canvas with Realistic Interactive LED Lamp */}
-      <div className="relative w-full aspect-[320/460] max-h-[460px] flex items-center justify-center py-1">
+      <div className="relative w-full max-w-[380px] flex-1 min-h-[360px] flex items-center justify-center py-1">
         
         {/* Glow ambient effect when lamp is ON */}
         {isLightOn && (

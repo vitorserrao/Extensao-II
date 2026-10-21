@@ -51,10 +51,8 @@ export const UnderstandLampSection: React.FC = () => {
   return (
     <section id="entenda-a-lampada" className="py-16 sm:py-24 section-alt border-b border-[#E0E6DC] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Duas metades: texto e camadas à esquerda, modelo interativo à direita */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-
-            <div className="lg:col-span-6 space-y-8">
+          {/* Cabeçalho na meia coluna, como nas outras seções */}
+          <div className="lg:w-[calc((100%-3.5rem)/2)] mb-10">
             <SectionHeading
               num={4}
               label="Entenda a lâmpada"
@@ -65,9 +63,12 @@ export const UnderstandLampSection: React.FC = () => {
                 Uma lâmpada LED moderna é um sistema integrado de componentes mecânicos, elétricos e térmicos. Clique nas camadas para inspecionar cada elemento.
               </p>
             </SectionHeading>
+          </div>
 
-            {/* Right Column: Layer Details */}
-            <div className="border-t border-b border-[#D5E2D6] divide-y divide-[#D5E2D6]">
+          {/* Lista das camadas e modelo interativo lado a lado, com a mesma altura */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
+            <div className="lg:col-span-6 rounded-3xl bg-white border border-[#D5E2D6] shadow-sm p-3 sm:p-4">
+            <div className="space-y-1.5">
               {layers.map((layer, index) => {
                 const layerId = index + 1;
                 const isActive = activeLayer === layerId;
@@ -76,8 +77,10 @@ export const UnderstandLampSection: React.FC = () => {
                   <div
                     key={layer.num}
                     onClick={() => setActiveLayer(layerId)}
-                    className={`py-4 transition-all duration-300 cursor-pointer ${
-                      isActive ? 'bg-[#F4F8F4]/80 -mx-3 px-3 rounded-2xl shadow-2xs' : 'hover:bg-[#F4F8F4]/60'
+                    className={`p-4 rounded-2xl border transition-all duration-300 cursor-pointer ${
+                      isActive
+                        ? 'bg-[#EBF7ED] border-[#2F9E41]/50 shadow-xs'
+                        : 'bg-[#F4F8F4] border-transparent hover:border-[#D5E2D6] hover:bg-white'
                     }`}
                   >
                     <div className="flex items-start gap-4">
@@ -123,15 +126,12 @@ export const UnderstandLampSection: React.FC = () => {
             </div>
             </div>
 
-            {/* Modelo interativo */}
-            <div className="lg:col-span-6 flex flex-col items-center">
+            {/* Modelo interativo (o componente numera as camadas a partir de 0) */}
+            <div className="lg:col-span-6 flex">
               <InteractiveLedBulb
-                activeLayer={activeLayer}
-                onSelectLayer={setActiveLayer}
+                activeLayer={activeLayer - 1}
+                onSelectLayer={(i) => setActiveLayer(i + 1)}
               />
-              <p className="mt-3 text-[11px] text-[#6B7F74] italic text-center">
-                Modelo interativo em camadas da lâmpada LED. Clique nas peças para inspecionar.
-              </p>
             </div>
 
           </div>
