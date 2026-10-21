@@ -52,7 +52,7 @@ export const UnderstandLampSection: React.FC = () => {
     <section id="entenda-a-lampada" className="py-16 sm:py-24 section-alt border-b border-[#E0E6DC] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Duas metades: texto e camadas à esquerda, modelo interativo à direita */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
 
             <div className="lg:col-span-6 space-y-8">
             <SectionHeading
@@ -124,7 +124,7 @@ export const UnderstandLampSection: React.FC = () => {
             </div>
 
             {/* Modelo interativo */}
-            <div className="lg:col-span-6 lg:sticky lg:top-24 flex flex-col items-center">
+            <div className="lg:col-span-6 flex flex-col items-center">
               <InteractiveLedBulb
                 activeLayer={activeLayer}
                 onSelectLayer={setActiveLayer}
