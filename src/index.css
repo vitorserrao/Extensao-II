@@ -242,3 +242,80 @@
     font-size: min(var(--title-max, 3rem), var(--fit, 6cqi));
   }
 }
+
+/* ---------- Cenas da bancada (lâmpada vista de frente) ---------- */
+.fs-spatula {
+  animation: fs-spatula 1.4s ease-in-out forwards;
+}
+@keyframes fs-spatula {
+  0%   { transform: translate(22px, 121px); opacity: 0; }
+  10%  { opacity: 1; }
+  80%  { transform: translate(150px, 121px); opacity: 1; }
+  100% { transform: translate(168px, 132px); opacity: 0; }
+}
+.fs-dome-off {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: fs-dome-off 2.4s ease-in-out forwards;
+}
+@keyframes fs-dome-off {
+  0%, 12% { transform: none; }
+  22% { transform: rotate(-1.5deg); }
+  32% { transform: rotate(1.5deg); }
+  42% { transform: rotate(-1.5deg); }
+  55% { transform: translateY(-6px); opacity: 1; }
+  100% { transform: translateY(-95px) rotate(-10deg); opacity: 0; }
+}
+.fs-glow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fs-flicker 1.6s ease-out forwards;
+}
+@keyframes fs-flicker {
+  0%   { opacity: 0; transform: scale(0.85); }
+  18%  { opacity: 0.7; }
+  24%  { opacity: 0.1; }
+  38%  { opacity: 0.9; }
+  44%  { opacity: 0.3; }
+  62%  { opacity: 1; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.fs-rays {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fs-rays 3.5s linear 1s infinite;
+}
+@keyframes fs-rays {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+.fs-dome-lit {
+  animation: fs-dome-lit 1.6s ease-out forwards;
+}
+@keyframes fs-dome-lit {
+  0%   { fill: #E2E8F0; }
+  24%  { fill: #F1F5F9; }
+  38%  { fill: #FFF4C7; }
+  44%  { fill: #EEF2F6; }
+  62%, 100% { fill: #FFF4C7; }
+}
+.fs-led {
+  animation: fs-led 1.6s ease-out forwards;
+}
+@keyframes fs-led {
+  0%, 30% { fill: #FCD34D; }
+  62%, 100% { fill: #FFFBEB; }
+}
+.scene-fade {
+  animation: scene-fade 0.35s ease-out;
+}
+@keyframes scene-fade {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fs-spatula, .fs-dome-off, .fs-glow, .fs-rays, .fs-dome-lit, .fs-led, .scene-fade {
+    animation-duration: 0.01s !important;
+    animation-iteration-count: 1 !important;
+  }
+}

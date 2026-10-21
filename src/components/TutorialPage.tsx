@@ -16,6 +16,9 @@ import {
   TriangleAlert,
   RotateCcw,
   Power,
+  Trash2,
+  Clock,
+  Recycle,
 } from 'lucide-react';
 import { InteractiveBench } from './InteractiveBench';
 
@@ -130,6 +133,13 @@ const STEPS: LabStep[] = [
   },
 ];
 
+const IMPACT = [
+  { icon: Trash2, value: '1 lâmpada', label: 'a menos no lixo e no aterro' },
+  { icon: Clock, value: 'até 20 mil h', label: 'de luz a mais com o mesmo equipamento' },
+  { icon: Recycle, value: '98,8%', label: 'dos materiais seguem em uso' },
+  { icon: Droplet, value: '1 gota', label: 'de estanho no lugar de uma lâmpada nova' },
+];
+
 /** step 0 = checagem de segurança; 1..5 = etapas da bancada */
 const tabToStep: Record<TutorialTab, number> = {
   seguranca: 0,
@@ -148,6 +158,20 @@ export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack, initialTab =
   const [extraOpen, setExtraOpen] = useState<boolean>(initialTab === 'circuito');
   const [done, setDone] = useState(false);
   const [actionDone, setActionDone] = useState(false);
+  const [recoveredCount, setRecoveredCount] = useState(0);
+
+  // Conta quantas lâmpadas a pessoa já recuperou neste navegador
+  useEffect(() => {
+    if (!done) return;
+    let n = 1;
+    try {
+      n = Number(localStorage.getItem('reled-lab-recuperadas') || '0') + 1;
+      localStorage.setItem('reled-lab-recuperadas', String(n));
+    } catch {
+      /* armazenamento indisponível: segue sem contador */
+    }
+    setRecoveredCount(n);
+  }, [done]);
   const workspaceRef = useRef<HTMLDivElement>(null);
   const toolsRef = useRef<HTMLElement>(null);
 
@@ -268,7 +292,7 @@ export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack, initialTab =
           <div className="lg:col-span-5 lg:sticky lg:top-24">
             <div className="relative">
               <div className={`transition-all duration-500 ${step === 0 && !done ? 'opacity-40 grayscale pointer-events-none' : ''}`}>
-                <InteractiveBench key={step} step={Math.max(step, 1)} onDone={() => setActionDone(true)} />
+                <InteractiveBench key={step} step={Math.max(step, 1)} onDone={() => (step === STEPS.length ? setDone(true) : setActionDone(true))} />
               </div>
               {step === 0 && !done && (
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -286,16 +310,40 @@ export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack, initialTab =
             <div className="rounded-3xl bg-[#0A221A] border border-[#164939] p-6 sm:p-8 space-y-6">
               {done ? (
                 /* Conclusão */
-                <div className="space-y-5 text-center sm:text-left">
-                  <span className="inline-flex w-12 h-12 rounded-2xl bg-[#FFB938] items-center justify-center">
-                    <Lightbulb className="w-6 h-6 text-[#161204]" aria-hidden="true" />
-                  </span>
-                  <div className="space-y-2">
-                    <h2 className="text-2xl sm:text-3xl font-display font-bold text-white">Lâmpada recuperada.</h2>
-                    <p className="text-sm text-[#9EC7B5] leading-relaxed">
-                      Você passou pelas cinco etapas da bancada. Na vida real, essa lâmpada seria testada mais uma vez e voltaria a iluminar uma sala ou um espaço comunitário.
-                    </p>
+                <div className="scene-fade space-y-6">
+                  <div className="flex items-start gap-4">
+                    <span className="inline-flex w-12 h-12 rounded-2xl bg-[#FFB938] items-center justify-center shrink-0 shadow-[0_0_28px_rgba(255,185,56,0.55)]">
+                      <Lightbulb className="w-6 h-6 text-[#161204]" aria-hidden="true" />
+                    </span>
+                    <div className="space-y-1.5">
+                      <h2 className="text-2xl sm:text-3xl font-display font-bold text-white">
+                        Parabéns, você recuperou uma lâmpada!
+                      </h2>
+                      <p className="text-sm text-[#9EC7B5] leading-relaxed">
+                        Na vida real, ela voltaria a iluminar uma sala ou um espaço comunitário em vez de ir para o lixo.
+                      </p>
+                    </div>
                   </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    {IMPACT.map(({ icon: Icon, value, label }, i) => (
+                      <div
+                        key={label}
+                        className="scene-fade p-4 rounded-2xl bg-[#0F3125] border border-[#1E5742]"
+                        style={{ animationDelay: `${150 + i * 120}ms`, animationFillMode: 'both' }}
+                      >
+                        <Icon className="w-5 h-5 text-[#86E49E] mb-2" aria-hidden="true" />
+                        <span className="block font-display font-black text-xl sm:text-2xl text-white leading-tight">{value}</span>
+                        <span className="block mt-0.5 text-xs text-[#9EC7B5] leading-snug">{label}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {recoveredCount > 1 && (
+                    <p className="text-xs text-[#86E49E] font-semibold">
+                      Você já recuperou {recoveredCount} lâmpadas no laboratório virtual.
+                    </p>
+                  )}
                   <div className="flex flex-col sm:flex-row gap-3 pt-1">
                     <button
                       type="button"

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { LampFrontScene } from './LampFrontScene';
 
 /**
  * Bancada interativa vista de cima.
@@ -55,6 +56,7 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
   const [powered, setPowered] = useState(false);
   const [closed, setClosed] = useState(false);
   const [done, setDone] = useState(false);
+  const [scene, setScene] = useState<'open' | 'light' | null>(null);
 
   // Reinicia ao trocar de etapa
   useEffect(() => {
@@ -101,9 +103,11 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
       if (s[idx]) return s;
       const next = [...s];
       next[idx] = true;
-      if (next.filter(Boolean).length >= SEAM_NEEDED) {
+      if (next.filter(Boolean).length === SEAM_NEEDED) {
         setTimeout(() => {
           setDomeOff(true);
+          setScene('open');
+          setTimeout(() => setScene(null), 2900);
           finish();
         }, 150);
       }
@@ -216,6 +220,7 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
         </span>
       </div>
 
+      <div className="relative">
       <svg
         ref={svgRef}
         viewBox="0 0 400 400"
@@ -396,6 +401,19 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
         )}
       </svg>
 
+      {/* Cena de frente entre as etapas */}
+      {scene && (
+        <div className="scene-fade absolute inset-0 rounded-2xl bg-[#E9EEE8] flex flex-col items-center justify-center p-6">
+          <div className="w-3/5 h-4/5">
+            <LampFrontScene scene={scene} />
+          </div>
+          <span className="mt-1 text-[10px] font-mono uppercase tracking-widest font-bold text-[#5A7367]">
+            {scene === 'open' ? 'Difusor saindo' : 'Lâmpada acesa'}
+          </span>
+        </div>
+      )}
+      </div>
+
       {/* Situação + progresso */}
       <div className="mt-3 space-y-2">
         <p className={`text-xs font-semibold leading-snug ${done ? 'text-emerald-800' : 'text-[#0D241C]'}`}>{status}</p>
@@ -422,7 +440,8 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
               disabled={!powered || closed}
               onClick={() => {
                 setClosed(true);
-                finish();
+                setScene('light');
+                setTimeout(finish, 2200);
               }}
               className="flex-1 px-3 py-2.5 rounded-xl text-xs font-bold bg-[#FFB938] text-[#161204] disabled:bg-[#E3E8E1] disabled:text-[#8DA096] cursor-pointer disabled:cursor-default"
             >
