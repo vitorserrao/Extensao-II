@@ -87,13 +87,7 @@ export const ExtensionCommunitySection: React.FC = () => {
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
                 />
-                <span className="absolute top-3 left-3 px-2 py-1 rounded bg-black/60 text-white font-mono text-[9px] uppercase tracking-wider backdrop-blur-xs">
-                  FOTO REAL · BANCADA DE ENSAIOS
-                </span>
               </div>
-              <p className="text-[11px] font-mono text-[#6B7F74] italic">
-                Figura 7 — Estudantes trabalhando no laboratório.
-              </p>
               <div className="pt-2 border-t border-[#D5E2D6]">
                 <span className="font-mono text-[10px] uppercase font-bold text-[#6B7F74] block mb-0.5">
                   ESTUDANTES
@@ -113,13 +107,7 @@ export const ExtensionCommunitySection: React.FC = () => {
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
                 />
-                <span className="absolute top-3 left-3 px-2 py-1 rounded bg-black/60 text-white font-mono text-[9px] uppercase tracking-wider backdrop-blur-xs">
-                  FOTO REAL · AVALIAÇÃO DE BANCADA
-                </span>
               </div>
-              <p className="text-[11px] font-mono text-[#6B7F74] italic">
-                Figura 8 — Lâmpada em avaliação.
-              </p>
               <div className="pt-2 border-t border-[#D5E2D6]">
                 <span className="font-mono text-[10px] uppercase font-bold text-[#6B7F74] block mb-0.5">
                   ORIENTAÇÃO
@@ -139,19 +127,13 @@ export const ExtensionCommunitySection: React.FC = () => {
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
                 />
-                <span className="absolute top-3 left-3 px-2 py-1 rounded bg-black/60 text-white font-mono text-[9px] uppercase tracking-wider backdrop-blur-xs">
-                  FOTO REAL · CIRCUITO E INSTRUMENTAÇÃO
-                </span>
               </div>
-              <p className="text-[11px] font-mono text-[#6B7F74] italic">
-                Figura 9 — Placa de LEDs e ferramentas de reparo.
-              </p>
               <div className="pt-2 border-t border-[#D5E2D6]">
                 <span className="font-mono text-[10px] uppercase font-bold text-[#6B7F74] block mb-0.5">
                   PARCEIROS
                 </span>
                 <p className="text-xs sm:text-sm text-[#0D241C] font-semibold">
-                  Pontos de Coleta Comunitários e Sociedade Civil
+                  Pontos de Coleta Comunitários
                 </p>
               </div>
             </div>
