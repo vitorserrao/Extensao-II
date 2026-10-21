@@ -72,11 +72,14 @@ interface LabStep {
   warning?: string;
   tip?: string;
   extra?: { question: string; answer: string[] };
+  /** O que acabou de acontecer, mostrado quando a pessoa conclui a ação na bancada. */
+  result: string;
 }
 
 const STEPS: LabStep[] = [
   {
     title: 'Abrir a lâmpada',
+    result: 'O difusor saiu inteiro e as travas ficaram intactas: ele volta para o lugar no fim do reparo. Agora a placa com os LEDs está à mostra.',
     short: 'Abertura',
     instruction:
       'Encaixe a espátula na junção entre o bulbo e a carcaça e percorra a volta inteira, soltando o bulbo sem romper as travas.',
@@ -85,6 +88,7 @@ const STEPS: LabStep[] = [
   },
   {
     title: 'Encontrar o LED queimado',
+    result: 'Os LEDs bons acenderam com 3 V; esse não. Ele está em circuito aberto e, como os LEDs ficam em série, um único LED aberto apaga a lâmpada inteira.',
     short: 'Diagnóstico',
     instruction:
       'Com duas pilhas AA em série (3 V) ou o multímetro na escala de diodo, toque nos terminais de cada LED. Os bons acendem; o queimado fica apagado (circuito aberto).',
@@ -100,6 +104,7 @@ const STEPS: LabStep[] = [
   },
   {
     title: 'Retirar o LED',
+    result: 'Sem o LED, os dois pads de cobre ficaram livres. Mas ainda não há caminho para a corrente passar: é isso que o jumper vai resolver.',
     short: 'Remoção',
     instruction:
       'Com o alicate de bico fino (ou o ferro de solda), retire só o corpo do LED danificado, deixando à mostra os dois pads metálicos da placa.',
@@ -108,6 +113,7 @@ const STEPS: LabStep[] = [
   },
   {
     title: 'Soldar o jumper',
+    result: 'A gota de estanho ligou os dois pads. A corrente volta a percorrer todos os outros LEDs da série.',
     short: 'Jumper',
     instruction:
       'Aqueça o ferro, aplique fluxo e una os dois pads com uma gota de estanho. Essa ponte (jumper) fecha o circuito no lugar do LED removido.',
@@ -124,6 +130,7 @@ const STEPS: LabStep[] = [
   },
   {
     title: 'Testar e fechar',
+    result: 'A lâmpada acendeu no teste com o difusor no lugar.',
     short: 'Teste',
     instruction:
       'Ligue a lâmpada num soquete de bancada protegido por lâmpada série. Se acender normalmente, recoloque o bulbo e ela está pronta para voltar ao uso.',
@@ -158,6 +165,7 @@ export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack, initialTab =
   const [extraOpen, setExtraOpen] = useState<boolean>(initialTab === 'circuito');
   const [done, setDone] = useState(false);
   const [actionDone, setActionDone] = useState(false);
+  const [autoNext, setAutoNext] = useState(true);
   const [recoveredCount, setRecoveredCount] = useState(0);
 
   // Conta quantas lâmpadas a pessoa já recuperou neste navegador
@@ -186,11 +194,21 @@ export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack, initialTab =
   const safetyOk = checked.every(Boolean);
   const current = step > 0 ? STEPS[step - 1] : null;
 
+  // Ao concluir a ação, mostra o que aconteceu e segue sozinho para a próxima etapa
+  const advanceDelay = step === 1 ? 7000 : 5500; // etapa 1 tem a cena do difusor antes
+  useEffect(() => {
+    if (!actionDone || !autoNext || step < 1 || step >= STEPS.length || done) return;
+    const t = setTimeout(() => goTo(step + 1), advanceDelay);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [actionDone, autoNext, step, done]);
+
   const goTo = (s: number) => {
     setDone(false);
     setStep(s);
     setExtraOpen(false);
     setActionDone(false);
+    setAutoNext(true);
     setVisited((v) => new Set(v).add(s));
     // Em telas pequenas, mantém a bancada à vista ao trocar de etapa
     if (window.innerWidth < 1024) {
@@ -432,6 +450,47 @@ export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack, initialTab =
                       <h2 className="text-2xl sm:text-3xl font-display font-bold text-white">{current.title}</h2>
                       <p className="text-sm sm:text-base text-[#C0DFCF] leading-relaxed">{current.instruction}</p>
                     </div>
+
+                    {actionDone && step < STEPS.length && (
+                      <div className="scene-fade rounded-2xl bg-[#103A2B] border border-[#2F9E41]/60 overflow-hidden" role="status">
+                        <div className="p-4 flex gap-3">
+                          <span className="w-7 h-7 rounded-full bg-[#2F9E41] flex items-center justify-center shrink-0">
+                            <Check className="w-4 h-4 text-white" strokeWidth={3} aria-hidden="true" />
+                          </span>
+                          <div className="space-y-1">
+                            <span className="block text-sm font-bold text-white">Etapa concluída</span>
+                            <p className="text-xs sm:text-sm text-[#BFE9CC] leading-relaxed">{current.result}</p>
+                            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-2">
+                              <button
+                                type="button"
+                                onClick={() => goTo(step + 1)}
+                                className="text-xs font-bold text-[#FFB938] hover:text-[#FFD27A] cursor-pointer"
+                              >
+                                {autoNext ? 'Ir agora' : `Ir para ${STEPS[step].short}`} →
+                              </button>
+                              {autoNext && (
+                                <button
+                                  type="button"
+                                  onClick={() => setAutoNext(false)}
+                                  className="text-xs font-semibold text-[#7FA897] hover:text-white cursor-pointer"
+                                >
+                                  Ficar nesta etapa
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                        {autoNext && (
+                          <div className="h-1 bg-[#0B2A1F]">
+                            <div
+                              key={step}
+                              className="h-full bg-[#FFB938] countdown-bar"
+                              style={{ animationDuration: `${advanceDelay}ms` }}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    )}
 
                     <div className="space-y-2.5">
                       <span className="block text-[10px] font-mono uppercase tracking-widest font-bold text-[#7FA897]">
