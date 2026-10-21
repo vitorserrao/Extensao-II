@@ -1,8 +1,6 @@
 import React from 'react';
 import { SectionHeading } from './SectionHeading';
-import studentsBenchImage from '../assets/images/estudantes_bancada_eletronica_1791041208045.jpg';
-import handLampImage from '../assets/images/mao_lampada_led_verdadeira_1791413076620.jpg';
-import lampPartsImage from '../assets/images/lampada_led_acesa_amarela_1791035780889.jpg';
+import { StudentsIllustration, TeachersIllustration, CommunityIllustration } from './TeamIllustrations';
 
 export const ExtensionCommunitySection: React.FC = () => {
   const extensionChain = [
@@ -64,7 +62,7 @@ export const ExtensionCommunitySection: React.FC = () => {
           </p>
         </div>
 
-        {/* PARTE 2: Quem faz acontecer (Estudantes, Orientação, Parceiros + 3 fotos reais) */}
+        {/* PARTE 2: Quem faz acontecer (Estudantes, Orientação, Comunidade) */}
         <div className="space-y-8 pt-8 border-t border-[#D5E2D6]">
           <div className="space-y-2">
             <span className="text-[10px] font-mono uppercase tracking-widest text-[#2F9E41] font-bold block">
@@ -75,24 +73,16 @@ export const ExtensionCommunitySection: React.FC = () => {
             </h3>
           </div>
 
-          {/* 3 Real Photo Cards com Estudantes, Orientação e Parceiros */}
+          {/* 3 cards ilustrados: estudantes, orientação e comunidade */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
             {/* Card 1: ESTUDANTES */}
             <div className="space-y-3.5">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-[#D5E2D6] shadow-xs relative group">
-                <img
-                  src={studentsBenchImage}
-                  alt="Estudantes trabalhando no laboratório"
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
-                />
-                <span className="absolute top-3 left-3 px-2 py-1 rounded bg-black/60 text-white font-mono text-[9px] uppercase tracking-wider backdrop-blur-xs">
-                  FOTO REAL · BANCADA DE ENSAIOS
-                </span>
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-[#D5E2D6] shadow-xs relative">
+                <StudentsIllustration />
               </div>
               <p className="text-[11px] font-mono text-[#6B7F74] italic">
-                Figura 7 — Estudantes trabalhando no laboratório.
+                Figura 7 — Estudantes testam os LEDs de uma lâmpada na bancada.
               </p>
               <div className="pt-2 border-t border-[#D5E2D6]">
                 <span className="font-mono text-[10px] uppercase font-bold text-[#6B7F74] block mb-0.5">
@@ -106,19 +96,11 @@ export const ExtensionCommunitySection: React.FC = () => {
 
             {/* Card 2: ORIENTAÇÃO */}
             <div className="space-y-3.5">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-[#D5E2D6] shadow-xs relative group">
-                <img
-                  src={handLampImage}
-                  alt="Lâmpada em avaliação"
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
-                />
-                <span className="absolute top-3 left-3 px-2 py-1 rounded bg-black/60 text-white font-mono text-[9px] uppercase tracking-wider backdrop-blur-xs">
-                  FOTO REAL · AVALIAÇÃO DE BANCADA
-                </span>
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-[#D5E2D6] shadow-xs relative">
+                <TeachersIllustration />
               </div>
               <p className="text-[11px] font-mono text-[#6B7F74] italic">
-                Figura 8 — Lâmpada em avaliação.
+                Figura 8 — Professores orientam o diagnóstico e o reparo.
               </p>
               <div className="pt-2 border-t border-[#D5E2D6]">
                 <span className="font-mono text-[10px] uppercase font-bold text-[#6B7F74] block mb-0.5">
@@ -132,19 +114,11 @@ export const ExtensionCommunitySection: React.FC = () => {
 
             {/* Card 3: PARCEIROS */}
             <div className="space-y-3.5">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-[#D5E2D6] shadow-xs relative group">
-                <img
-                  src={lampPartsImage}
-                  alt="Placa de LEDs e ferramentas de reparo"
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
-                />
-                <span className="absolute top-3 left-3 px-2 py-1 rounded bg-black/60 text-white font-mono text-[9px] uppercase tracking-wider backdrop-blur-xs">
-                  FOTO REAL · CIRCUITO E INSTRUMENTAÇÃO
-                </span>
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-[#D5E2D6] shadow-xs relative">
+                <CommunityIllustration />
               </div>
               <p className="text-[11px] font-mono text-[#6B7F74] italic">
-                Figura 9 — Placa de LEDs e ferramentas de reparo.
+                Figura 9 — A comunidade entrega lâmpadas nos pontos de coleta.
               </p>
               <div className="pt-2 border-t border-[#D5E2D6]">
                 <span className="font-mono text-[10px] uppercase font-bold text-[#6B7F74] block mb-0.5">
