@@ -61,7 +61,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8FAF8] text-[#1A1A1A] font-sans selection:bg-[#2F9E41]/20 selection:text-[#124B1E]">
+    <div className="min-h-screen flex flex-col bg-graph-paper text-[#1A1A1A] font-sans selection:bg-[#2F9E41]/20 selection:text-[#124B1E]">
       
       {/* 00. Top Bar with institutional strip, navigation menu and pulsing amber lamp */}
       <Header

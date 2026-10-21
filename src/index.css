@@ -320,3 +320,31 @@
   }
 }
 
+
+/* ---------- Identidade padrão das seções ---------- */
+
+/* Fundo do site: papel quadriculado bem leve */
+.bg-graph-paper {
+  background-color: #F8FAF8;
+  background-image:
+    linear-gradient(to right, rgba(47, 158, 65, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(47, 158, 65, 0.055) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Todos os títulos de seção com o mesmo corpo (calculado para a meia coluna, como na seção 1) */
+.section-title {
+  --fit: 5.9cqi;
+}
+
+/* Texto de apoio padrão das seções */
+.section-lead > p {
+  font-size: 0.875rem;
+  line-height: 1.625;
+  color: #3A453F;
+}
+@media (min-width: 640px) {
+  .section-lead > p {
+    font-size: 1rem;
+  }
+}

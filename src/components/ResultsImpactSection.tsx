@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { SectionHeading } from './SectionHeading';
 
 // Fatores de cálculo centralizados do simulador (facilmente configuráveis para nova metodologia)
 export const SIMULATOR_FACTORS = {
@@ -25,151 +26,26 @@ export const ResultsImpactSection: React.FC = () => {
   ];
 
   return (
-    <section id="resultados" className="py-16 sm:py-24 bg-paper-grid border-b border-[#E0E6DC] scroll-mt-20">
+    <section id="resultados" className="py-16 sm:py-24 border-b border-[#E0E6DC] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
         
-        {/* CABEÇALHO DA SEÇÃO */}
-        <div className="pb-4 border-b border-[#CCD6C7]/70">
-          <div className="space-y-3 max-w-2xl">
-            <div className="flex items-center gap-2 text-xs font-sans font-bold text-[#2A5E4D] uppercase tracking-wider">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#FFB938] shadow-[0_0_8px_rgba(255,185,56,0.9)] animate-pulse shrink-0" />
-              <span>6 — RESULTADOS & IMPACTO</span>
-            </div>
-
-            <h2 className="title-2l text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#0D241C] tracking-tight leading-[1.12]" style={{ '--fit': '6.54cqi' } as React.CSSProperties}>
-              <span className="title-line">Depois de conhecer o projeto:</span>
-              <span className="title-line"><span className="marker-yellow">quanto já foi feito?</span></span>
-            </h2>
-
-            <p className="text-sm sm:text-base text-[#384F45] leading-relaxed">
-              Transparência técnica, indicadores institucionais do IFSC e projeção do benefício ecológico e econômico devolvido à comunidade.
-            </p>
-          </div>
-        </div>
-
         {/* DISTRIBUIÇÃO PRINCIPAL: PAINEL INTEGRADO (INDICADORES + REGISTRO OFICIAL) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
-          {/* LADO ESQUERDO (7 Colunas): Painel de Métricas Comunitárias em Destaque */}
-          <div className="lg:col-span-7 space-y-5">
-            <div className="flex items-center justify-between">
-              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-[#EBF0E8] border border-[#CCD6C7] text-[10px] font-mono font-bold text-[#2E6B56] uppercase tracking-wider">
-                <span>Painel Aberto de Impacto Comunitário</span>
-              </div>
-              <span className="text-[11px] font-mono text-[#557065]">Metas do ciclo 2024/2025</span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              
-              {/* Card 1: Taxa de Recuperação */}
-              <div className="p-5 rounded-2xl bg-white border border-[#CCD6C7] shadow-2xs hover:border-[#1E4D3E] transition-all flex flex-col justify-between">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#4E6B5F]">
-                    Eficiência Técnica
-                  </span>
-                  <span className="w-6 h-6 rounded-md bg-amber-50 text-amber-700 flex items-center justify-center text-xs font-bold font-mono">
-                    82%
-                  </span>
-                </div>
-                <div className="my-1">
-                  <div className="text-3xl font-display font-extrabold text-[#0D241C] tracking-tight">
-                    82%
-                  </div>
-                  <strong className="text-xs font-bold text-[#0D241C] block mt-0.5">
-                    Taxa de Recuperação
-                  </strong>
-                  <div className="w-full bg-[#E8EFE5] h-1.5 rounded-full overflow-hidden my-2">
-                    <div className="bg-[#1E4D3E] h-full rounded-full" style={{ width: '82%' }} />
-                  </div>
-                  <p className="text-[11px] text-[#40564D] leading-tight">
-                    Na maioria dos casos, apenas 1 componente pontual falhou enquanto a estrutura permanece íntegra.
-                  </p>
-                </div>
-              </div>
-
-              {/* Card 2: Lâmpadas Recuperadas */}
-              <div className="p-5 rounded-2xl bg-white border border-[#CCD6C7] shadow-2xs hover:border-[#1E4D3E] transition-all flex flex-col justify-between">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#4E6B5F]">
-                    Equipamentos Salvos
-                  </span>
-                  <span className="w-6 h-6 rounded-md bg-emerald-50 text-emerald-700 flex items-center justify-center text-xs">
-                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                    </svg>
-                  </span>
-                </div>
-                <div className="my-1">
-                  <div className="text-3xl font-display font-extrabold text-[#0D241C] tracking-tight">
-                    248
-                  </div>
-                  <strong className="text-xs font-bold text-[#0D241C] block mt-0.5">
-                    Lâmpadas Recuperadas
-                  </strong>
-                  <span className="inline-block px-1.5 py-0.5 rounded bg-emerald-50 border border-emerald-200 text-[10px] font-mono text-emerald-800 my-1 font-semibold">
-                    100% testadas e aprovadas
-                  </span>
-                  <p className="text-[11px] text-[#40564D] leading-tight">
-                    Devolvidas para famílias, salas e entidades comunitárias com segurança.
-                  </p>
-                </div>
-              </div>
-
-              {/* Card 3: Resíduos Desviados */}
-              <div className="p-5 rounded-2xl bg-white border border-[#CCD6C7] shadow-2xs hover:border-[#1E4D3E] transition-all flex flex-col justify-between">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#4E6B5F]">
-                    Economia Circular
-                  </span>
-                  <span className="w-6 h-6 rounded-md bg-teal-50 text-teal-700 flex items-center justify-center text-xs">
-                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                    </svg>
-                  </span>
-                </div>
-                <div className="my-1">
-                  <div className="text-3xl font-display font-extrabold text-[#0D241C] tracking-tight">
-                    98 kg
-                  </div>
-                  <strong className="text-xs font-bold text-[#0D241C] block mt-0.5">
-                    Lixo Eletrônico Evitado
-                  </strong>
-                  <p className="text-[11px] text-[#40564D] leading-tight mt-1">
-                    Alumínio e polímeros nobres preservados em ciclo de uso, fora de aterros sanitários.
-                  </p>
-                </div>
-              </div>
-
-              {/* Card 4: Economia Gerada */}
-              <div className="p-5 rounded-2xl bg-white border border-[#CCD6C7] shadow-2xs hover:border-[#1E4D3E] transition-all flex flex-col justify-between">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#946A14]">
-                    Impacto Social
-                  </span>
-                  <span className="w-6 h-6 rounded-md bg-amber-50 text-amber-700 flex items-center justify-center text-xs">
-                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </span>
-                </div>
-                <div className="my-1">
-                  <div className="text-3xl font-display font-extrabold text-[#87550B] tracking-tight">
-                    R$ 4.460
-                  </div>
-                  <strong className="text-xs font-bold text-[#0D241C] block mt-0.5">
-                    Economia Estimada
-                  </strong>
-                  <p className="text-[11px] text-[#40564D] leading-tight mt-1">
-                    Poupados diretamente por famílias e instituições parceiras do projeto de extensão.
-                  </p>
-                </div>
-              </div>
-
-            </div>
-          </div>
+          <div className="lg:col-span-6 space-y-8">
+            <SectionHeading
+              num={6}
+              label="Resultados e impacto"
+              line1="Depois de conhecer o projeto:"
+              line2={<span className="marker-yellow">quanto já foi feito?</span>}
+            >
+              <p>
+                Transparência técnica, indicadores institucionais do IFSC e projeção do benefício ecológico e econômico devolvido à comunidade.
+              </p>
+            </SectionHeading>
 
           {/* LADO DIREITO (5 Colunas): Tabela 1 — Registro Oficial dos Indicadores */}
-          <div className="lg:col-span-5 space-y-3">
+          <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#1B4D3E]">
                 Registro Institucional
@@ -195,8 +71,8 @@ export const ResultsImpactSection: React.FC = () => {
                 {/* Linha 1 */}
                 <div className="p-4 hover:bg-[#F9FAF8] transition-colors space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-[#0D241C]">Lâmpadas recebidas</span>
-                    <span className="font-display font-extrabold text-xl text-[#0D241C] font-mono">
+                    <span className="font-semibold text-[#1A1A1A]">Lâmpadas recebidas</span>
+                    <span className="font-display font-extrabold text-xl text-[#1A1A1A] font-mono">
                       000
                     </span>
                   </div>
@@ -209,7 +85,7 @@ export const ResultsImpactSection: React.FC = () => {
                 {/* Linha 2 */}
                 <div className="p-4 hover:bg-[#F9FAF8] transition-colors space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-[#0D241C]">Lâmpadas recuperadas</span>
+                    <span className="font-semibold text-[#1A1A1A]">Lâmpadas recuperadas</span>
                     <span className="font-display font-extrabold text-xl text-[#1E4D3E] font-mono">
                       000
                     </span>
@@ -225,6 +101,125 @@ export const ResultsImpactSection: React.FC = () => {
               <div className="bg-[#FAFBF9] px-4 py-3 border-t border-[#E0E6DC] text-[10px] font-mono text-[#556961] leading-relaxed">
                 Valores ilustrativos institucionais — serão formalmente atualizados conforme fechamento dos relatórios semestrais de extensão.
               </div>
+            </div>
+          </div>
+          </div>
+
+          {/* LADO ESQUERDO (7 Colunas): Painel de Métricas Comunitárias em Destaque */}
+          <div className="lg:col-span-6 space-y-5">
+            <div className="flex items-center justify-between">
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-[#EBF0E8] border border-[#CCD6C7] text-[10px] font-mono font-bold text-[#2E6B56] uppercase tracking-wider">
+                <span>Painel Aberto de Impacto Comunitário</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#557065]">Metas do ciclo 2024/2025</span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              
+              {/* Card 1: Taxa de Recuperação */}
+              <div className="p-5 rounded-2xl bg-white border border-[#CCD6C7] shadow-2xs hover:border-[#1E4D3E] transition-all flex flex-col justify-between">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#4E6B5F]">
+                    Eficiência Técnica
+                  </span>
+                  <span className="w-6 h-6 rounded-md bg-amber-50 text-amber-700 flex items-center justify-center text-xs font-bold font-mono">
+                    82%
+                  </span>
+                </div>
+                <div className="my-1">
+                  <div className="text-3xl font-display font-extrabold text-[#1A1A1A] tracking-tight">
+                    82%
+                  </div>
+                  <strong className="text-xs font-bold text-[#1A1A1A] block mt-0.5">
+                    Taxa de Recuperação
+                  </strong>
+                  <div className="w-full bg-[#E8EFE5] h-1.5 rounded-full overflow-hidden my-2">
+                    <div className="bg-[#1E4D3E] h-full rounded-full" style={{ width: '82%' }} />
+                  </div>
+                  <p className="text-[11px] text-[#40564D] leading-tight">
+                    Na maioria dos casos, apenas 1 componente pontual falhou enquanto a estrutura permanece íntegra.
+                  </p>
+                </div>
+              </div>
+
+              {/* Card 2: Lâmpadas Recuperadas */}
+              <div className="p-5 rounded-2xl bg-white border border-[#CCD6C7] shadow-2xs hover:border-[#1E4D3E] transition-all flex flex-col justify-between">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#4E6B5F]">
+                    Equipamentos Salvos
+                  </span>
+                  <span className="w-6 h-6 rounded-md bg-emerald-50 text-emerald-700 flex items-center justify-center text-xs">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                  </span>
+                </div>
+                <div className="my-1">
+                  <div className="text-3xl font-display font-extrabold text-[#1A1A1A] tracking-tight">
+                    248
+                  </div>
+                  <strong className="text-xs font-bold text-[#1A1A1A] block mt-0.5">
+                    Lâmpadas Recuperadas
+                  </strong>
+                  <span className="inline-block px-1.5 py-0.5 rounded bg-emerald-50 border border-emerald-200 text-[10px] font-mono text-emerald-800 my-1 font-semibold">
+                    100% testadas e aprovadas
+                  </span>
+                  <p className="text-[11px] text-[#40564D] leading-tight">
+                    Devolvidas para famílias, salas e entidades comunitárias com segurança.
+                  </p>
+                </div>
+              </div>
+
+              {/* Card 3: Resíduos Desviados */}
+              <div className="p-5 rounded-2xl bg-white border border-[#CCD6C7] shadow-2xs hover:border-[#1E4D3E] transition-all flex flex-col justify-between">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#4E6B5F]">
+                    Economia Circular
+                  </span>
+                  <span className="w-6 h-6 rounded-md bg-teal-50 text-teal-700 flex items-center justify-center text-xs">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                  </span>
+                </div>
+                <div className="my-1">
+                  <div className="text-3xl font-display font-extrabold text-[#1A1A1A] tracking-tight">
+                    98 kg
+                  </div>
+                  <strong className="text-xs font-bold text-[#1A1A1A] block mt-0.5">
+                    Lixo Eletrônico Evitado
+                  </strong>
+                  <p className="text-[11px] text-[#40564D] leading-tight mt-1">
+                    Alumínio e polímeros nobres preservados em ciclo de uso, fora de aterros sanitários.
+                  </p>
+                </div>
+              </div>
+
+              {/* Card 4: Economia Gerada */}
+              <div className="p-5 rounded-2xl bg-white border border-[#CCD6C7] shadow-2xs hover:border-[#1E4D3E] transition-all flex flex-col justify-between">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#946A14]">
+                    Impacto Social
+                  </span>
+                  <span className="w-6 h-6 rounded-md bg-amber-50 text-amber-700 flex items-center justify-center text-xs">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </span>
+                </div>
+                <div className="my-1">
+                  <div className="text-3xl font-display font-extrabold text-[#87550B] tracking-tight">
+                    R$ 4.460
+                  </div>
+                  <strong className="text-xs font-bold text-[#1A1A1A] block mt-0.5">
+                    Economia Estimada
+                  </strong>
+                  <p className="text-[11px] text-[#40564D] leading-tight mt-1">
+                    Poupados diretamente por famílias e instituições parceiras do projeto de extensão.
+                  </p>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -254,7 +249,7 @@ export const ResultsImpactSection: React.FC = () => {
             <div className="lg:col-span-5 space-y-6 lg:pr-4 lg:border-r lg:border-[#CCD6C7]/70">
               
               <div className="space-y-2">
-                <h4 className="text-xl sm:text-2xl font-display font-bold text-[#0D241C] leading-tight">
+                <h4 className="text-xl sm:text-2xl font-display font-bold text-[#1A1A1A] leading-tight">
                   Quantas lâmpadas você tem paradas?
                 </h4>
                 <p className="text-xs sm:text-sm text-[#384C43] leading-relaxed">
@@ -269,7 +264,7 @@ export const ResultsImpactSection: React.FC = () => {
                     Lâmpadas selecionadas:
                   </span>
                   <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-white rounded-full border border-[#CCD6C7] shadow-2xs">
-                    <span className="text-2xl font-display font-black text-[#0D241C]">
+                    <span className="text-2xl font-display font-black text-[#1A1A1A]">
                       {lampCount}
                     </span>
                     <span className="text-xs font-mono font-bold text-[#4E6B5F]">
@@ -352,10 +347,10 @@ export const ResultsImpactSection: React.FC = () => {
                       </svg>
                     </span>
                   </div>
-                  <div className="text-3xl sm:text-4xl font-display font-extrabold text-[#0D241C] tracking-tight group-hover:text-[#134436] transition-colors">
+                  <div className="text-3xl sm:text-4xl font-display font-extrabold text-[#1A1A1A] tracking-tight group-hover:text-[#134436] transition-colors">
                     ~{avoidedKg} kg
                   </div>
-                  <p className="text-xs font-bold text-[#0D241C] mt-1 mb-0.5">
+                  <p className="text-xs font-bold text-[#1A1A1A] mt-1 mb-0.5">
                     Alumínio e polímeros nobres
                   </p>
                   <p className="text-[11px] text-[#557065] leading-tight">
@@ -398,10 +393,10 @@ export const ResultsImpactSection: React.FC = () => {
                       </svg>
                     </span>
                   </div>
-                  <div className="text-3xl sm:text-4xl font-display font-extrabold text-[#0D241C] tracking-tight group-hover:text-[#134436] transition-colors">
+                  <div className="text-3xl sm:text-4xl font-display font-extrabold text-[#1A1A1A] tracking-tight group-hover:text-[#134436] transition-colors">
                     ~{co2Avoided} kg
                   </div>
-                  <p className="text-xs font-bold text-[#0D241C] mt-1 mb-0.5">
+                  <p className="text-xs font-bold text-[#1A1A1A] mt-1 mb-0.5">
                     CO₂ eq. não emitido
                   </p>
                   <p className="text-[11px] text-[#557065] leading-tight">
@@ -424,7 +419,7 @@ export const ResultsImpactSection: React.FC = () => {
                   <div className="text-3xl sm:text-4xl font-display font-extrabold text-[#164E3A] tracking-tight">
                     +{hoursRecovered} h
                   </div>
-                  <p className="text-xs font-bold text-[#0D241C] mt-1 mb-0.5">
+                  <p className="text-xs font-bold text-[#1A1A1A] mt-1 mb-0.5">
                     Horas de luz restauradas
                   </p>
                   <p className="text-[11px] text-[#557065] leading-tight">

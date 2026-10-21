@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { collectionPointsData } from '../data/projectData';
+import { SectionHeading } from './SectionHeading';
 
 interface ParticipateSectionProps {
   onOpenDonateModal?: () => void;
@@ -24,34 +25,25 @@ export const ParticipateSection: React.FC<ParticipateSectionProps> = () => {
   )}`;
 
   return (
-    <section id="participe" className="py-16 sm:py-24 bg-[#F4F6F2] border-b border-[#CCD6C7] scroll-mt-20">
+    <section id="participe" className="py-16 sm:py-24 border-b border-[#E0E6DC] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Card Principal: Pontos de Coleta, Posto e Mapa */}
-        <div className="p-6 sm:p-10 lg:p-12 rounded-3xl bg-white border border-[#CCD6C7] shadow-sm space-y-8">
-          
-          {/* Cabeçalho direto da seção */}
-          <div className="border-b border-[#CCD6C7] pb-6">
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-xs font-sans font-bold text-[#2A5E4D] uppercase tracking-wider">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FFB938] shadow-[0_0_8px_rgba(255,185,56,0.9)] animate-pulse shrink-0" />
-                <span>8 — PONTOS DE COLETA</span>
-              </div>
-              <h2 className="title-2l text-3xl sm:text-4xl font-display font-extrabold text-[#0D241C] tracking-tight" style={{ '--fit': '19.59cqi', '--title-max': '2.25rem' } as React.CSSProperties}>
-                <span className="title-line">Pontos de</span>
-                <span className="title-line">Coleta</span>
-              </h2>
-              <p className="text-sm sm:text-base text-[#384C43] max-w-2xl leading-relaxed">
+          <div id="pontos-de-entrega" className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+
+            {/* Texto + lista de postos */}
+            <div className="lg:col-span-6 space-y-8">
+            <SectionHeading
+              num={8}
+              label="Pontos de coleta"
+              line1="Pontos de"
+              line2={<span className="marker-yellow">coleta.</span>}
+            >
+              <p>
                 Selecione um posto para conferir o endereço completo, horários de atendimento e a localização exata no mapa.
               </p>
-            </div>
-          </div>
+            </SectionHeading>
 
-          {/* ÁREA DOS PONTOS DE COLETA & MAPA */}
-          <div id="pontos-de-entrega" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
             {/* Coluna 1: Lista de Postos de Coleta */}
-            <div className="lg:col-span-5 space-y-3">
+            <div className="space-y-3">
               <div className="flex items-center justify-between pb-1">
                 <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#2A5E4D]">
                   Postos Disponíveis ({collectionPointsData.length})
@@ -98,7 +90,7 @@ export const ParticipateSection: React.FC<ParticipateSectionProps> = () => {
                                 d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                               />
                             </svg>
-                            <span className="font-display font-bold text-sm text-[#0D241C] truncate block">
+                            <span className="font-display font-bold text-sm text-[#1A1A1A] truncate block">
                               {pt.name}
                             </span>
                           </div>
@@ -123,11 +115,13 @@ export const ParticipateSection: React.FC<ParticipateSectionProps> = () => {
               </div>
             </div>
 
-            {/* Coluna 2: Detalhes do Posto + Mapa do Endereço */}
-            <div className="lg:col-span-7 space-y-6">
+            </div>
+
+            {/* Detalhes do posto + mapa */}
+            <div className="lg:col-span-6 space-y-6">
               
               {/* Cartão de Informações do Posto Selecionado */}
-              <div className="p-6 rounded-2xl bg-[#FAFBF8] border border-[#CCD6C7] space-y-5">
+              <div className="p-6 rounded-2xl bg-white border border-[#D5E2D6] shadow-2xs space-y-5">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E1E8DD] pb-4">
                   <div>
                     <div className="flex items-center gap-2">
@@ -139,7 +133,7 @@ export const ParticipateSection: React.FC<ParticipateSectionProps> = () => {
                         {selectedPoint.campus}
                       </span>
                     </div>
-                    <h3 className="text-xl font-display font-bold text-[#0D241C] mt-0.5">
+                    <h3 className="text-xl font-display font-bold text-[#1A1A1A] mt-0.5">
                       {selectedPoint.name}
                     </h3>
                   </div>
@@ -219,9 +213,6 @@ export const ParticipateSection: React.FC<ParticipateSectionProps> = () => {
             </div>
 
           </div>
-
-        </div>
-
       </div>
     </section>
   );

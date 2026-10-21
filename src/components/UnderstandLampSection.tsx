@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { InteractiveLedBulb } from './InteractiveLedBulb';
+import { SectionHeading } from './SectionHeading';
 
 export const UnderstandLampSection: React.FC = () => {
   const [activeLayer, setActiveLayer] = useState<number>(1);
@@ -48,43 +49,25 @@ export const UnderstandLampSection: React.FC = () => {
   ];
 
   return (
-    <section id="entenda-a-lampada" className="py-16 sm:py-24 bg-paper-grid border-b border-[#E0E6DC] scroll-mt-20">
+    <section id="entenda-a-lampada" className="py-16 sm:py-24 border-b border-[#E0E6DC] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Anatomia em 5 Camadas */}
-        <div className="space-y-12">
-          <div className="space-y-3">
-            <div className="flex items-center gap-2 text-xs font-sans font-bold text-[#2F9E41] uppercase tracking-wider">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#FFB938] shadow-[0_0_8px_rgba(255,185,56,0.9)] animate-pulse shrink-0" />
-              <span>4 — ENTENDA A LÂMPADA · ANATOMIA</span>
-            </div>
-
-            <h2 className="title-2l text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#1A1A1A] tracking-tight leading-[1.12]" style={{ '--fit': '6.91cqi' } as React.CSSProperties}>
-              <span className="title-line">Cinco partes, cada uma com</span>
-              <span className="title-line"><span className="marker-yellow">seu papel.</span></span>
-            </h2>
-            <p className="text-xs sm:text-sm text-[#3A453F] max-w-2xl">
-              Uma lâmpada LED moderna é um sistema integrado de componentes mecânicos, elétricos e térmicos. Clique nas camadas para inspecionar cada elemento:
-            </p>
-          </div>
-
-          {/* Exploded Layers Grid */}
+          {/* Duas metades: texto e camadas à esquerda, modelo interativo à direita */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-            
-            {/* Left Column: Visual 5 Layers Stack */}
-            <div className="lg:col-span-5 flex flex-col items-center">
-              <InteractiveLedBulb
-                activeLayer={activeLayer}
-                onSelectLayer={setActiveLayer}
-              />
 
-              <p className="mt-3 text-[11px] font-mono text-[#556961] italic text-center">
-                Figura 4 — Modelo interativo em camadas da lâmpada LED. Clique nas peças para inspecionar.
+            <div className="lg:col-span-6 space-y-8">
+            <SectionHeading
+              num={4}
+              label="Entenda a lâmpada"
+              line1="Cinco partes, cada uma"
+              line2={<span className="marker-yellow">com seu papel.</span>}
+            >
+              <p>
+                Uma lâmpada LED moderna é um sistema integrado de componentes mecânicos, elétricos e térmicos. Clique nas camadas para inspecionar cada elemento.
               </p>
-            </div>
+            </SectionHeading>
 
             {/* Right Column: Layer Details */}
-            <div className="lg:col-span-7 border-t border-b border-[#CCD6C7] divide-y divide-[#CCD6C7]">
+            <div className="border-t border-b border-[#CCD6C7] divide-y divide-[#CCD6C7]">
               {layers.map((layer, index) => {
                 const layerId = index + 1;
                 const isActive = activeLayer === layerId;
@@ -138,10 +121,20 @@ export const UnderstandLampSection: React.FC = () => {
                 );
               })}
             </div>
+            </div>
+
+            {/* Modelo interativo */}
+            <div className="lg:col-span-6 lg:sticky lg:top-24 flex flex-col items-center">
+              <InteractiveLedBulb
+                activeLayer={activeLayer}
+                onSelectLayer={setActiveLayer}
+              />
+              <p className="mt-3 text-[11px] text-[#556961] italic text-center">
+                Modelo interativo em camadas da lâmpada LED. Clique nas peças para inspecionar.
+              </p>
+            </div>
 
           </div>
-        </div>
-
       </div>
     </section>
   );

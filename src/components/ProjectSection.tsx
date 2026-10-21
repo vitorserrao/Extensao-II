@@ -1,34 +1,30 @@
 import React from 'react';
+import { SectionHeading } from './SectionHeading';
 import labBenchImage from '../assets/images/bancada_eletronica_ifsc_1791035796504.jpg';
 
 export const ProjectSection: React.FC = () => {
   return (
-    <section id="projeto" className="py-16 sm:py-24 bg-tech-grid border-b border-[#E0E6DC] scroll-mt-20">
+    <section id="projeto" className="py-16 sm:py-24 border-b border-[#E0E6DC] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
         
         {/* Main Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
           {/* Left Column: Heading and Description */}
-          <div className="lg:col-span-6 space-y-5">
-            <div className="flex items-center gap-2 text-xs font-sans font-bold text-[#2F9E41] uppercase tracking-wider">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#FFB938] shadow-[0_0_8px_rgba(255,185,56,0.9)] animate-pulse shrink-0" />
-              <span>1 — O PROJETO</span>
-            </div>
-
-            <h2 className="title-2l text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#1A1A1A] tracking-tight leading-[1.12]" style={{ '--fit': '5.92cqi' } as React.CSSProperties}>
-              <span className="title-line">Conhecimento de sala</span>
-              <span className="title-line">de aula, <span className="marker-yellow">aplicado numa bancada.</span></span>
-            </h2>
-
-            <p className="text-sm sm:text-base text-[#3A453F] leading-relaxed font-normal space-y-3">
-              <span className="block">
+          <div className="lg:col-span-6">
+            <SectionHeading
+              num={1}
+              label="O projeto"
+              line1="Conhecimento de sala"
+              line2={<>de aula, <span className="marker-yellow">aplicado numa bancada.</span></>}
+            >
+              <p>
                 O <strong className="text-[#1A1A1A] font-bold">Projeto ReLED</strong> é uma iniciativa de extensão universitária vinculada ao curso Superior de Tecnologia em Sistemas de Energia do Instituto Federal de Santa Catarina (IFSC), Câmpus Florianópolis. O projeto tem como objetivo promover a recuperação de lâmpadas LED, contribuindo para o prolongamento de sua vida útil e para o uso mais eficiente dos recursos.
-              </span>
-              <span className="block">
+              </p>
+              <p>
                 A iniciativa busca incentivar a economia circular, reduzir o descarte de resíduos eletroeletrônicos e minimizar os impactos ambientais associados ao fim da vida útil desses produtos. Também destaca o papel da tecnologia LED na promoção da eficiência energética nos sistemas de iluminação. Além disso, integra ensino, pesquisa e extensão, aproximando a comunidade acadêmica e a sociedade de práticas mais sustentáveis e conscientes.
-              </span>
-            </p>
+              </p>
+            </SectionHeading>
           </div>
 
           {/* Right Column: Key Facts Table */}
