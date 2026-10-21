@@ -159,38 +159,6 @@ export const ExtensionCommunitySection: React.FC = () => {
           </div>
         </div>
 
-        {/* PARTE 3: Conhecimento que sai da sala de aula (Fechamento institucional da seção) */}
-        <div className="p-8 sm:p-10 rounded-3xl bg-[#0F261E] text-white space-y-8 shadow-sm">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            
-            <div className="lg:col-span-6 space-y-3">
-              <h4 className="text-2xl sm:text-3xl font-display font-extrabold tracking-tight leading-tight">
-                Conhecimento que sai da sala de aula.
-              </h4>
-            </div>
-
-            <div className="lg:col-span-6 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
-                <span className="text-xl block">🏛️</span>
-                <span className="text-xs font-mono font-bold text-white block">IFSC</span>
-              </div>
-              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
-                <span className="text-xl block">⚡</span>
-                <span className="text-xs font-mono font-bold text-white block">Eficiência</span>
-              </div>
-              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
-                <span className="text-xl block">🌱</span>
-                <span className="text-xs font-mono font-bold text-white block">Impacto</span>
-              </div>
-              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
-                <span className="text-xl block">🤝</span>
-                <span className="text-xs font-mono font-bold text-white block">Comunidade</span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
       </div>
     </section>
   );
