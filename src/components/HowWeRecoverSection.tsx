@@ -6,15 +6,6 @@ interface HowWeRecoverSectionProps {
 }
 
 export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = ({ onOpenTutorial }) => {
-  const stepsList = [
-    { num: '01', title: 'Coleta', desc: 'Recebimento de lâmpadas que deixaram de funcionar nos postos do IFSC.' },
-    { num: '02', title: 'Avaliação', desc: 'Triagem visual inicial da carcaça e integridade dos componentes.' },
-    { num: '03', title: 'Diagnóstico', desc: 'Identificação na bancada do circuito aberto ou componente com falha.' },
-    { num: '04', title: 'Recuperação', desc: 'Remoção do chip danificado e confecção de jumper ou substituição.' },
-    { num: '05', title: 'Testes', desc: 'Ensaio elétrico e verificação de fluxo luminoso antes da liberação.' },
-    { num: '06', title: 'Reutilização', desc: 'A lâmpada volta a iluminar salas e espaços comunitários.' },
-  ];
-
   return (
     <section id="como-recuperamos" className="py-16 sm:py-24 bg-dark-grid text-white border-b border-[#143B2F] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
@@ -46,23 +37,6 @@ export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = ({ onOpen
               <span aria-hidden="true">→</span>
             </button>
           </div>
-        </div>
-
-        {/* 6 Top Steps */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 border-t border-[#174637] pt-10">
-          {stepsList.map((step) => (
-            <div key={step.num} className="space-y-2 group">
-              <span className="text-xs font-mono font-bold text-[#FFB938] block group-hover:scale-105 transition-transform">
-                {step.num}
-              </span>
-              <h3 className="text-sm font-display font-bold text-white">
-                {step.title}
-              </h3>
-              <p className="text-xs text-[#A6C5B7] leading-relaxed font-normal">
-                {step.desc}
-              </p>
-            </div>
-          ))}
         </div>
 
         {/* Card de Destaque da Página do Tutorial com Simulador */}
