@@ -34,8 +34,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenTutorial }) => {
           <a href="#" className="flex items-center gap-3 group" aria-label="Página inicial do Projeto ReLED: Recuperação de Lâmpadas LED">
             <div className="relative flex items-center justify-center">
               <svg 
-                width="30" 
-                height="34" 
+                width="40" 
+                height="43" 
                 viewBox="0 0 64 68" 
                 fill="none" 
                 xmlns="http://www.w3.org/2000/svg"
@@ -47,11 +47,12 @@ export const Header: React.FC<HeaderProps> = ({ onOpenTutorial }) => {
                 <rect x="22" y="44" width="20" height="4" rx="2" fill="#0D241C" />
                 <rect x="25.5" y="50.5" width="13" height="3.5" rx="1.75" fill="#0D241C" />
                 <circle cx="32" cy="57.5" r="2.5" fill="#0D241C" />
-                <circle cx="32" cy="26.5" r="6" fill="#FFB938" className="lamp-dot-pulse" />
+                <circle cx="32" cy="26.5" r="13" fill="#FFB938" className="lamp-halo-pulse" />
+                <circle cx="32" cy="26.5" r="7" fill="#FFB938" className="lamp-dot-pulse" />
               </svg>
             </div>
             <div className="leading-tight">
-              <span className="font-display font-black text-xl tracking-[0.12em] text-[#0D241C] block">
+              <span className="font-display font-black text-2xl tracking-[0.12em] text-[#0D241C] block">
                 ReLED
               </span>
             </div>

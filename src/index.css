@@ -91,15 +91,29 @@
 /* Pulsing glowing amber dot for lightbulb icon */
 @keyframes lampDotGlow {
   0%, 100% {
-    opacity: 0.75;
-    transform: scale(0.92);
-    filter: drop-shadow(0 0 2px rgba(255, 185, 56, 0.5));
+    opacity: 0.85;
+    transform: scale(0.9);
+    filter: drop-shadow(0 0 3px rgba(255, 185, 56, 0.7));
   }
   50% {
     opacity: 1;
-    transform: scale(1.18);
-    filter: drop-shadow(0 0 6px rgba(255, 185, 56, 1)) drop-shadow(0 0 12px rgba(245, 158, 11, 0.8));
+    transform: scale(1.25);
+    filter: drop-shadow(0 0 8px rgba(255, 185, 56, 1)) drop-shadow(0 0 18px rgba(245, 158, 11, 0.9));
   }
+}
+
+/* Halo amarelo que respira em volta do ponto da logo */
+@keyframes lampHalo {
+  0%, 100% { opacity: 0; transform: scale(0.6); }
+  50% { opacity: 0.45; transform: scale(1.15); }
+}
+.lamp-halo-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lampHalo 2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lamp-halo-pulse, .lamp-dot-pulse { animation: none; }
 }
 
 .lamp-dot-pulse {
