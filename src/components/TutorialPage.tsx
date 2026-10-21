@@ -241,7 +241,7 @@ export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack, initialTab =
             <span className="title-line text-[#FFB938]">na bancada virtual.</span>
           </h1>
           <p className="text-sm sm:text-base text-[#9EC7B5] max-w-2xl leading-relaxed">
-            O mesmo processo usado pelos estudantes no laboratório, em cinco etapas. Em cada uma você vê o que muda na lâmpada, que ferramentas entram em cena e quais cuidados tomar.
+            Aqui quem conserta é você. O mouse (ou o dedo) vira espátula, pontas de prova, pinça e ferro de solda, nas mesmas cinco etapas que os estudantes do IFSC seguem para fazer uma lâmpada queimada acender de novo.
           </p>
         </div>
 
