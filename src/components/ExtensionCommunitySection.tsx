@@ -1,6 +1,4 @@
 import React from 'react';
-import { Building2, Zap, Leaf, Handshake } from 'lucide-react';
-import { SectionHeading } from './SectionHeading';
 import studentsBenchImage from '../assets/images/estudantes_bancada_eletronica_1791041208045.jpg';
 import handLampImage from '../assets/images/mao_lampada_led_verdadeira_1791413076620.jpg';
 import lampPartsImage from '../assets/images/lampada_led_acesa_amarela_1791035780889.jpg';
@@ -16,48 +14,60 @@ export const ExtensionCommunitySection: React.FC = () => {
   ];
 
   return (
-    <section id="extensao" className="py-16 sm:py-24 border-b border-[#E0E6DC] scroll-mt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
+    <section id="extensao" className="py-16 sm:py-24 section-alt border-b border-[#E0E6DC] scroll-mt-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-18">
         
-        {/* PARTE 1: texto à esquerda, fluxo da extensão à direita */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-          <div className="lg:col-span-6">
-            <SectionHeading
-              num={7}
-              label="Extensão e comunidade"
-              line1="Extensão é colocar o"
-              line2={<>conhecimento em <span className="marker-yellow">movimento.</span></>}
-            >
-              <p>
-                No projeto, aquilo que é aprendido no curso de Sistemas de Energia ganha aplicação prática e retorna para a comunidade em forma de conhecimento, serviço e participação.
-              </p>
-            </SectionHeading>
+        {/* PARTE 1: Cabeçalho e Fluxo de Extensão */}
+        <div className="space-y-8">
+          <div className="max-w-3xl space-y-3">
+            <div className="flex items-center gap-2 text-xs font-sans font-bold text-[#2A5E4D] uppercase tracking-wider">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FFB938] shadow-[0_0_8px_rgba(255,185,56,0.9)] animate-pulse shrink-0" />
+              <span>7 — EXTENSÃO E COMUNIDADE</span>
+            </div>
+
+            <h2 className="title-2l text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#0D241C] tracking-tight leading-[1.12]" style={{ '--fit': '6.28cqi' } as React.CSSProperties}>
+              <span className="title-line">Extensão é colocar o</span>
+              <span className="title-line">conhecimento em <span className="marker-yellow">movimento.</span></span>
+            </h2>
+
+            <p className="text-sm sm:text-base text-[#2E423A] leading-relaxed font-normal pt-1">
+              No projeto, aquilo que é aprendido no curso de Sistemas de Energia ganha aplicação prática e retorna para a comunidade em forma de conhecimento, serviço e participação.
+            </p>
           </div>
 
-          {/* Fluxo da extensão */}
-          <ol className="lg:col-span-6 bg-white border border-[#D5E2D6] shadow-2xs rounded-2xl p-6 space-y-2.5" aria-label="Fluxo da extensão">
-            {extensionChain.map((node, idx) => (
-              <li key={node.name} className="flex items-center gap-3">
-                <span
-                  className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold shrink-0 ${
-                    node.isAmber ? 'bg-[#FFB938] text-[#1E1704]' : node.isHighlight ? 'bg-[#1A1A1A] text-white' : 'bg-[#EBF7ED] text-[#2F9E41]'
-                  }`}
-                >
-                  {idx + 1}
-                </span>
-                <span className="text-sm font-bold text-[#1A1A1A]">{node.name}</span>
-              </li>
-            ))}
-          </ol>
+          {/* Linear Chain */}
+          <div className="p-6 rounded-2xl bg-[#F7F8F5] border border-[#CCD6C7] overflow-x-auto shadow-2xs">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-[620px]">
+              {extensionChain.map((node, idx) => (
+                <React.Fragment key={node.name}>
+                  <div
+                    className={`px-4 py-3 rounded-lg font-mono text-xs uppercase font-bold text-center shrink-0 shadow-2xs ${
+                      node.isAmber
+                        ? 'bg-[#FFB938] text-[#1E1704]'
+                        : node.isHighlight
+                        ? 'bg-[#0D241C] text-white'
+                        : 'bg-white text-[#193328] border border-[#CCD6C7]'
+                    }`}
+                  >
+                    {node.name}
+                  </div>
+
+                  {idx < extensionChain.length - 1 && (
+                    <span className="text-[#88A397] font-mono text-base font-bold shrink-0">→</span>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* PARTE 2: Quem faz acontecer (Estudantes, Orientação, Parceiros + 3 fotos reais) */}
         <div className="space-y-8 pt-8 border-t border-[#CCD6C7]">
           <div className="space-y-2">
-            <span className="text-xs font-sans uppercase tracking-wider text-[#2F9E41] font-bold block">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[#2E6B56] font-bold block">
               Quem faz acontecer
             </span>
-            <h3 className="text-2xl sm:text-3xl font-display font-bold text-[#1A1A1A]">
+            <h3 className="text-2xl sm:text-3xl font-display font-bold text-[#0D241C]">
               Estudantes, professores e a comunidade do IFSC.
             </h3>
           </div>
@@ -161,19 +171,19 @@ export const ExtensionCommunitySection: React.FC = () => {
 
             <div className="lg:col-span-6 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
               <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
-                <Building2 className="w-5 h-5 mx-auto text-[#FFB938]" aria-hidden="true" />
+                <span className="text-xl block">🏛️</span>
                 <span className="text-xs font-mono font-bold text-white block">IFSC</span>
               </div>
               <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
-                <Zap className="w-5 h-5 mx-auto text-[#FFB938]" aria-hidden="true" />
+                <span className="text-xl block">⚡</span>
                 <span className="text-xs font-mono font-bold text-white block">Eficiência</span>
               </div>
               <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
-                <Leaf className="w-5 h-5 mx-auto text-[#FFB938]" aria-hidden="true" />
+                <span className="text-xl block">🌱</span>
                 <span className="text-xs font-mono font-bold text-white block">Impacto</span>
               </div>
               <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
-                <Handshake className="w-5 h-5 mx-auto text-[#FFB938]" aria-hidden="true" />
+                <span className="text-xl block">🤝</span>
                 <span className="text-xs font-mono font-bold text-white block">Comunidade</span>
               </div>
             </div>

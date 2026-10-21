@@ -348,3 +348,8 @@
     font-size: 1rem;
   }
 }
+
+/* Ritmo entre seções: uma sim, uma não, um tom levemente mais escuro sobre o mesmo quadriculado */
+.section-alt {
+  background-color: rgba(47, 158, 65, 0.055);
+}

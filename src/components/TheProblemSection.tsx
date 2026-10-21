@@ -33,7 +33,7 @@ export const TheProblemSection: React.FC = () => {
   ];
 
   return (
-    <section id="o-problema" className="py-16 sm:py-24 border-b border-[#E0E6DC] scroll-mt-20">
+    <section id="o-problema" className="py-16 sm:py-24 section-alt border-b border-[#E0E6DC] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
         
         {/* Mesmo padrão da seção 1: 12 colunas, duas metades. Texto à esquerda, cards à direita. */}

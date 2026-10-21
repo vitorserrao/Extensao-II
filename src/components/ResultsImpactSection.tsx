@@ -53,7 +53,7 @@ export const ResultsImpactSection: React.FC = () => {
               <span className="text-[10px] font-mono text-[#6A8277]">CST Sistemas de Energia</span>
             </div>
 
-            <div className="rounded-2xl border border-[#CCD6C7] bg-white overflow-hidden shadow-2xs">
+            <div className="rounded-2xl border border-[#D5E2D6] bg-white overflow-hidden shadow-2xs">
               <div className="bg-[#08211A] text-white px-5 py-3.5 flex items-center justify-between">
                 <div>
                   <h4 className="font-mono text-xs font-bold uppercase tracking-wider">
@@ -108,7 +108,7 @@ export const ResultsImpactSection: React.FC = () => {
           {/* LADO ESQUERDO (7 Colunas): Painel de Métricas Comunitárias em Destaque */}
           <div className="lg:col-span-6 space-y-5">
             <div className="flex items-center justify-between">
-              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-[#EBF0E8] border border-[#CCD6C7] text-[10px] font-mono font-bold text-[#2E6B56] uppercase tracking-wider">
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-[#EBF0E8] border border-[#D5E2D6] text-[10px] font-mono font-bold text-[#2E6B56] uppercase tracking-wider">
                 <span>Painel Aberto de Impacto Comunitário</span>
               </div>
               <span className="text-[11px] font-mono text-[#557065]">Metas do ciclo 2024/2025</span>
@@ -117,9 +117,9 @@ export const ResultsImpactSection: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               
               {/* Card 1: Taxa de Recuperação */}
-              <div className="p-5 rounded-2xl bg-white border border-[#CCD6C7] shadow-2xs hover:border-[#1E4D3E] transition-all flex flex-col justify-between">
+              <div className="card-soft p-6 rounded-2xl flex flex-col justify-between">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#4E6B5F]">
+                  <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-[#2F9E41]">
                     Eficiência Técnica
                   </span>
                   <span className="w-6 h-6 rounded-md bg-amber-50 text-amber-700 flex items-center justify-center text-xs font-bold font-mono">
@@ -136,16 +136,16 @@ export const ResultsImpactSection: React.FC = () => {
                   <div className="w-full bg-[#E8EFE5] h-1.5 rounded-full overflow-hidden my-2">
                     <div className="bg-[#1E4D3E] h-full rounded-full" style={{ width: '82%' }} />
                   </div>
-                  <p className="text-[11px] text-[#40564D] leading-tight">
+                  <p className="text-xs sm:text-sm text-[#4A554E] leading-relaxed">
                     Na maioria dos casos, apenas 1 componente pontual falhou enquanto a estrutura permanece íntegra.
                   </p>
                 </div>
               </div>
 
               {/* Card 2: Lâmpadas Recuperadas */}
-              <div className="p-5 rounded-2xl bg-white border border-[#CCD6C7] shadow-2xs hover:border-[#1E4D3E] transition-all flex flex-col justify-between">
+              <div className="card-soft p-6 rounded-2xl flex flex-col justify-between">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#4E6B5F]">
+                  <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-[#2F9E41]">
                     Equipamentos Salvos
                   </span>
                   <span className="w-6 h-6 rounded-md bg-emerald-50 text-emerald-700 flex items-center justify-center text-xs">
@@ -164,16 +164,16 @@ export const ResultsImpactSection: React.FC = () => {
                   <span className="inline-block px-1.5 py-0.5 rounded bg-emerald-50 border border-emerald-200 text-[10px] font-mono text-emerald-800 my-1 font-semibold">
                     100% testadas e aprovadas
                   </span>
-                  <p className="text-[11px] text-[#40564D] leading-tight">
+                  <p className="text-xs sm:text-sm text-[#4A554E] leading-relaxed">
                     Devolvidas para famílias, salas e entidades comunitárias com segurança.
                   </p>
                 </div>
               </div>
 
               {/* Card 3: Resíduos Desviados */}
-              <div className="p-5 rounded-2xl bg-white border border-[#CCD6C7] shadow-2xs hover:border-[#1E4D3E] transition-all flex flex-col justify-between">
+              <div className="card-soft p-6 rounded-2xl flex flex-col justify-between">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#4E6B5F]">
+                  <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-[#2F9E41]">
                     Economia Circular
                   </span>
                   <span className="w-6 h-6 rounded-md bg-teal-50 text-teal-700 flex items-center justify-center text-xs">
@@ -189,16 +189,16 @@ export const ResultsImpactSection: React.FC = () => {
                   <strong className="text-xs font-bold text-[#1A1A1A] block mt-0.5">
                     Lixo Eletrônico Evitado
                   </strong>
-                  <p className="text-[11px] text-[#40564D] leading-tight mt-1">
+                  <p className="text-xs sm:text-sm text-[#4A554E] leading-relaxed mt-1">
                     Alumínio e polímeros nobres preservados em ciclo de uso, fora de aterros sanitários.
                   </p>
                 </div>
               </div>
 
               {/* Card 4: Economia Gerada */}
-              <div className="p-5 rounded-2xl bg-white border border-[#CCD6C7] shadow-2xs hover:border-[#1E4D3E] transition-all flex flex-col justify-between">
+              <div className="card-soft p-6 rounded-2xl flex flex-col justify-between">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#946A14]">
+                  <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-[#2F9E41]">
                     Impacto Social
                   </span>
                   <span className="w-6 h-6 rounded-md bg-amber-50 text-amber-700 flex items-center justify-center text-xs">
@@ -214,7 +214,7 @@ export const ResultsImpactSection: React.FC = () => {
                   <strong className="text-xs font-bold text-[#1A1A1A] block mt-0.5">
                     Economia Estimada
                   </strong>
-                  <p className="text-[11px] text-[#40564D] leading-tight mt-1">
+                  <p className="text-xs sm:text-sm text-[#4A554E] leading-relaxed mt-1">
                     Poupados diretamente por famílias e instituições parceiras do projeto de extensão.
                   </p>
                 </div>
@@ -226,7 +226,7 @@ export const ResultsImpactSection: React.FC = () => {
         </div>
 
         {/* PARTE 2: SIMULADOR DE IMPACTO COMUNITÁRIO (DESIGN EM 2 COLUNAS CONECTADAS) */}
-        <div id="simulador-impacto" className="rounded-3xl bg-white border border-[#CCD6C7] shadow-sm overflow-hidden">
+        <div id="simulador-impacto" className="rounded-3xl bg-white border border-[#D5E2D6] shadow-sm overflow-hidden">
           
           {/* Faixa Superior do Simulador */}
           <div className="bg-[#0A261E] text-white px-6 sm:px-10 py-5 flex items-center justify-between border-b border-[#183F33]">
@@ -246,7 +246,7 @@ export const ResultsImpactSection: React.FC = () => {
           <div className="p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
             {/* LADO ESQUERDO (5 Colunas): Painel de Controle e Ajuste da Quantidade */}
-            <div className="lg:col-span-5 space-y-6 lg:pr-4 lg:border-r lg:border-[#CCD6C7]/70">
+            <div className="lg:col-span-5 space-y-6 lg:pr-4 lg:border-r lg:border-[#D5E2D6]/70">
               
               <div className="space-y-2">
                 <h4 className="text-xl sm:text-2xl font-display font-bold text-[#1A1A1A] leading-tight">
@@ -258,12 +258,12 @@ export const ResultsImpactSection: React.FC = () => {
               </div>
 
               {/* Display do Contador e Slider */}
-              <div className="p-5 rounded-2xl bg-[#F7F9F5] border border-[#CCD6C7] space-y-4">
+              <div className="p-5 rounded-2xl bg-[#F7F9F5] border border-[#D5E2D6] space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#2A4237]">
                     Lâmpadas selecionadas:
                   </span>
-                  <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-white rounded-full border border-[#CCD6C7] shadow-2xs">
+                  <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-white rounded-full border border-[#D5E2D6] shadow-2xs">
                     <span className="text-2xl font-display font-black text-[#1A1A1A]">
                       {lampCount}
                     </span>
@@ -307,7 +307,7 @@ export const ResultsImpactSection: React.FC = () => {
                         className={`p-2 rounded-xl text-left transition-all cursor-pointer border ${
                           lampCount === opt.count
                             ? 'bg-[#0D241C] text-white border-[#0D241C] shadow-2xs'
-                            : 'bg-white text-[#2A4237] hover:bg-gray-50 border-[#CCD6C7]'
+                            : 'bg-white text-[#2A4237] hover:bg-gray-50 border-[#D5E2D6]'
                         }`}
                       >
                         <div className="text-xs font-mono font-bold">{opt.label}</div>
@@ -336,9 +336,9 @@ export const ResultsImpactSection: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
                 {/* 1. Resíduos Evitados */}
-                <div className="p-5 rounded-2xl bg-[#F7F9F5] border border-[#CCD6C7] hover:border-emerald-600 transition-all shadow-2xs group">
+                <div className="card-soft p-6 rounded-2xl group">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-mono uppercase font-bold text-[#4E6B5F] tracking-wider">
+                    <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-[#2F9E41]">
                       Resíduos Evitados
                     </span>
                     <span className="w-5 h-5 rounded flex items-center justify-center text-emerald-700 bg-emerald-50">
@@ -353,15 +353,15 @@ export const ResultsImpactSection: React.FC = () => {
                   <p className="text-xs font-bold text-[#1A1A1A] mt-1 mb-0.5">
                     Alumínio e polímeros nobres
                   </p>
-                  <p className="text-[11px] text-[#557065] leading-tight">
+                  <p className="text-xs sm:text-sm text-[#4A554E] leading-relaxed">
                     Materiais pesados e plásticos de engenharia que deixam de ir para o aterro sanitário.
                   </p>
                 </div>
 
                 {/* 2. Economia Financeira */}
-                <div className="p-5 rounded-2xl bg-[#FFFDF5] border border-amber-200 hover:border-amber-500 transition-all shadow-2xs group">
+                <div className="card-soft p-6 rounded-2xl group">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-mono uppercase font-bold text-amber-800 tracking-wider">
+                    <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-[#2F9E41]">
                       Economia no Bolso
                     </span>
                     <span className="w-5 h-5 rounded flex items-center justify-center text-amber-800 bg-amber-50">
@@ -376,15 +376,15 @@ export const ResultsImpactSection: React.FC = () => {
                   <p className="text-xs font-bold text-amber-950 mt-1 mb-0.5">
                     Sem precisar comprar novas
                   </p>
-                  <p className="text-[11px] text-[#695831] leading-tight">
+                  <p className="text-xs sm:text-sm text-[#4A554E] leading-relaxed">
                     Considerando o preço médio de mercado de R$ 18,00 por lâmpada LED residencial equivalente.
                   </p>
                 </div>
 
                 {/* 3. CO2 Não Emitido */}
-                <div className="p-5 rounded-2xl bg-[#F7F9F5] border border-[#CCD6C7] hover:border-emerald-600 transition-all shadow-2xs group">
+                <div className="card-soft p-6 rounded-2xl group">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-mono uppercase font-bold text-[#4E6B5F] tracking-wider">
+                    <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-[#2F9E41]">
                       Pegada de Carbono
                     </span>
                     <span className="w-5 h-5 rounded flex items-center justify-center text-emerald-700 bg-emerald-50">
@@ -399,15 +399,15 @@ export const ResultsImpactSection: React.FC = () => {
                   <p className="text-xs font-bold text-[#1A1A1A] mt-1 mb-0.5">
                     CO₂ eq. não emitido
                   </p>
-                  <p className="text-[11px] text-[#557065] leading-tight">
+                  <p className="text-xs sm:text-sm text-[#4A554E] leading-relaxed">
                     Poupança energética direta na extração mineral, fabricação fabril e transporte marítimo.
                   </p>
                 </div>
 
                 {/* 4. Horas de Iluminação Devolvidas */}
-                <div className="p-5 rounded-2xl bg-[#F7F9F5] border border-[#CCD6C7] hover:border-emerald-600 transition-all shadow-2xs group">
+                <div className="card-soft p-6 rounded-2xl group">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-mono uppercase font-bold text-[#4E6B5F] tracking-wider">
+                    <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-[#2F9E41]">
                       Iluminação Útil
                     </span>
                     <span className="w-5 h-5 rounded flex items-center justify-center text-emerald-700 bg-emerald-50">
@@ -422,7 +422,7 @@ export const ResultsImpactSection: React.FC = () => {
                   <p className="text-xs font-bold text-[#1A1A1A] mt-1 mb-0.5">
                     Horas de luz restauradas
                   </p>
-                  <p className="text-[11px] text-[#557065] leading-tight">
+                  <p className="text-xs sm:text-sm text-[#4A554E] leading-relaxed">
                     Estimativa de mais de 7.500 horas de ciclo operacional adicional por lâmpada recuperada.
                   </p>
                 </div>

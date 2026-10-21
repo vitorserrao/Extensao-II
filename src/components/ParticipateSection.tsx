@@ -66,7 +66,7 @@ export const ParticipateSection: React.FC<ParticipateSectionProps> = () => {
                       className={`w-full text-left p-4 rounded-2xl border transition-all cursor-pointer relative ${
                         isSelected
                           ? 'bg-[#EAF1EC] border-[#1E5C47] shadow-sm ring-1 ring-[#1E5C47]'
-                          : 'bg-[#FAFBF9] hover:bg-[#F2F6F3] border-[#CCD6C7]'
+                          : 'bg-white hover:border-[#2F9E41] border-[#D5E2D6]'
                       }`}
                     >
                       <div className="flex items-start justify-between gap-3">
@@ -196,7 +196,7 @@ export const ParticipateSection: React.FC<ParticipateSectionProps> = () => {
                   </div>
 
                   {/* Frame do Mapa Interativo */}
-                  <div className="relative w-full h-64 sm:h-72 rounded-xl overflow-hidden border border-[#CCD6C7] bg-[#E8EDE6] shadow-2xs">
+                  <div className="relative w-full h-64 sm:h-72 rounded-xl overflow-hidden border border-[#D5E2D6] bg-[#E8EDE6] shadow-2xs">
                     <iframe
                       title={`Mapa de localização: ${selectedPoint.name}`}
                       src={mapEmbedUrl}

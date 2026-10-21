@@ -67,7 +67,7 @@ export const UnderstandLampSection: React.FC = () => {
             </SectionHeading>
 
             {/* Right Column: Layer Details */}
-            <div className="border-t border-b border-[#CCD6C7] divide-y divide-[#CCD6C7]">
+            <div className="border-t border-b border-[#D5E2D6] divide-y divide-[#D5E2D6]">
               {layers.map((layer, index) => {
                 const layerId = index + 1;
                 const isActive = activeLayer === layerId;
@@ -105,9 +105,9 @@ export const UnderstandLampSection: React.FC = () => {
                         </p>
 
                         {isActive && (
-                          <div className="pt-2 text-xs text-[#3E574B] space-y-2 border-t border-[#CCD6C7]/50 mt-2 animate-fadeIn">
+                          <div className="pt-2 text-xs text-[#3E574B] space-y-2 border-t border-[#D5E2D6]/50 mt-2 animate-fadeIn">
                             <p className="leading-relaxed whitespace-pre-line">{layer.description}</p>
-                            <div className="p-3 rounded-xl bg-white/80 border border-[#CCD6C7] text-[#2C483B]">
+                            <div className="p-3 rounded-xl bg-white/80 border border-[#D5E2D6] text-[#2C483B]">
                               <span className="font-bold text-[10px] uppercase font-mono tracking-wider block text-[#2F9E41]">
                                 Observação Técnica:
                               </span>
