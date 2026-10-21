@@ -38,7 +38,7 @@ export const TheProblemSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
         
         {/* Mesmo padrão da seção 1: 12 colunas, duas metades. Texto à esquerda, cards à direita. */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
 
           {/* Texto */}
           <div className="lg:col-span-7">
@@ -88,7 +88,7 @@ export const TheProblemSection: React.FC = () => {
     <section id="eficiencia-energetica" className="py-16 sm:py-24 border-b border-[#E0E6DC] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
             {/* Left Column: Conceito de Eficiência */}
             <div className="lg:col-span-7 space-y-5">
