@@ -10,7 +10,7 @@ interface SectionHeadingProps {
   num: number;
   label: string;
   line1: React.ReactNode;
-  line2: React.ReactNode;
+  line2?: React.ReactNode; // opcional: títulos curtos ficam em uma linha só
   children?: React.ReactNode; // texto de apoio
   as?: 'h2' | 'h3';
 }
@@ -28,7 +28,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({ num, label, line
 
       <Title className="title-2l section-title text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#1A1A1A] tracking-tight leading-[1.12]">
         <span className="title-line">{line1}</span>
-        <span className="title-line">{line2}</span>
+        {line2 && <span className="title-line">{line2}</span>}
       </Title>
 
       {children && <div className="section-lead space-y-3">{children}</div>}

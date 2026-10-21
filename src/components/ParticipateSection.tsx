@@ -34,8 +34,7 @@ export const ParticipateSection: React.FC<ParticipateSectionProps> = () => {
             <SectionHeading
               num={8}
               label="Pontos de coleta"
-              line1="Pontos de"
-              line2={<span className="marker-yellow">coleta.</span>}
+              line1={<>Pontos de <span className="marker-yellow">coleta.</span></>}
             >
               <p>
                 Selecione um posto para conferir o endereço completo, horários de atendimento e a localização exata no mapa.

@@ -48,8 +48,7 @@ export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = ({ onOpen
             <SectionHeading
               num={5}
               label="Como recuperamos"
-              line1="Da bancada"
-              line2={<span className="marker-yellow">à nova luz.</span>}
+              line1={<>Da bancada <span className="marker-yellow">à nova luz.</span></>}
             >
               <p>
                 A recuperação acontece na bancada, um componente de cada vez. Montamos um laboratório virtual aberto para quem quiser entender o processo ou aprender a fazer.
