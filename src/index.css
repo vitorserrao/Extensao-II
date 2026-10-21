@@ -353,3 +353,16 @@
 .section-alt {
   background-color: rgba(47, 158, 65, 0.055);
 }
+
+/* Contador: o número dá um leve "pulso" ao estabilizar no placar final */
+.count-done {
+  animation: count-done 0.5s ease-out;
+}
+@keyframes count-done {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .count-done { animation: none; }
+}

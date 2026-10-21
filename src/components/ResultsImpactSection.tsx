@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import { SectionHeading } from './SectionHeading';
+import { CountUp, CountBar } from './CountUp';
+
+// Placar do contador (valores provisórios)
+const RECEBIDAS = 100;
+const RECUPERADAS = 90;
 
 // Fatores de cálculo centralizados do simulador (facilmente configuráveis para nova metodologia)
 export const SIMULATOR_FACTORS = {
@@ -48,7 +53,7 @@ export const ResultsImpactSection: React.FC = () => {
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#1B4D3E]">
-                Registro Institucional
+                Contador
               </span>
               <span className="text-[10px] font-mono text-[#6A8277]">CST Sistemas de Energia</span>
             </div>
@@ -56,46 +61,34 @@ export const ResultsImpactSection: React.FC = () => {
             <div className="rounded-2xl border border-[#D5E2D6] bg-white overflow-hidden shadow-2xs">
               <div className="bg-[#08211A] text-white px-5 py-3.5 flex items-center justify-between">
                 <div>
-                  <h4 className="font-mono text-xs font-bold uppercase tracking-wider">
-                    Tabela 1 — Indicadores do Projeto
-                  </h4>
-                  <p className="text-[10px] text-emerald-300 font-mono">Bancada de Extensão Universitária</p>
+                  <h4 className="text-xs font-bold uppercase tracking-wider">Contador de lâmpadas</h4>
+                  <p className="text-[10px] text-emerald-300">Bancada de Extensão Universitária</p>
                 </div>
-                <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-[#133A2E] text-emerald-200 border border-emerald-500/30">
-                  OFICIAL
+                <span className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-200">
+                  <span className="w-2 h-2 rounded-full bg-[#FFB938] animate-pulse" />
+                  AO VIVO
                 </span>
               </div>
 
-              <div className="divide-y divide-[#E0E6DC] text-xs">
-                
-                {/* Linha 1 */}
-                <div className="p-4 hover:bg-[#F9FAF8] transition-colors space-y-1">
-                  <div className="flex items-center justify-between">
-                    <span className="font-semibold text-[#1A1A1A]">Lâmpadas recebidas</span>
-                    <span className="font-display font-extrabold text-xl text-[#1A1A1A] font-mono">
-                      000
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-[11px] font-mono text-[#557065]">
-                    <span className="text-[#C97A3D] font-bold">Critério:</span>
-                    <span>[CRITÉRIO DE CONTAGEM]</span>
-                  </div>
+              {/* Placar */}
+              <div className="grid grid-cols-2 divide-x divide-[#E0E6DC]">
+                <div className="p-5 sm:p-6 space-y-1">
+                  <span className="block text-[10px] font-mono uppercase tracking-widest font-bold text-[#2F9E41]">Recebidas</span>
+                  <CountUp to={RECEBIDAS} className="block font-display font-black text-5xl sm:text-6xl text-[#1A1A1A] tracking-tight leading-none" />
+                  <span className="block text-xs text-[#4A554E]">lâmpadas entregues ao projeto</span>
                 </div>
-
-                {/* Linha 2 */}
-                <div className="p-4 hover:bg-[#F9FAF8] transition-colors space-y-1">
-                  <div className="flex items-center justify-between">
-                    <span className="font-semibold text-[#1A1A1A]">Lâmpadas recuperadas</span>
-                    <span className="font-display font-extrabold text-xl text-[#1E4D3E] font-mono">
-                      000
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-[11px] font-mono text-[#557065]">
-                    <span className="text-[#C97A3D] font-bold">Critério:</span>
-                    <span>[LÂMPADA TESTADA E FUNCIONANDO]</span>
-                  </div>
+                <div className="p-5 sm:p-6 space-y-1">
+                  <span className="block text-[10px] font-mono uppercase tracking-widest font-bold text-[#2F9E41]">Recuperadas</span>
+                  <CountUp to={RECUPERADAS} className="block font-display font-black text-5xl sm:text-6xl text-[#1A7F5A] tracking-tight leading-none" />
+                  <span className="block text-xs text-[#4A554E]">testadas e funcionando</span>
                 </div>
+              </div>
 
+              <div className="px-5 sm:px-6 pb-5 space-y-1.5">
+                <CountBar pct={(RECUPERADAS / RECEBIDAS) * 100} />
+                <span className="block text-[11px] text-[#557065]">
+                  {Math.round((RECUPERADAS / RECEBIDAS) * 100)}% das lâmpadas recebidas voltaram a funcionar
+                </span>
               </div>
 
               <div className="bg-[#FAFBF9] px-4 py-3 border-t border-[#E0E6DC] text-[10px] font-mono text-[#556961] leading-relaxed">
