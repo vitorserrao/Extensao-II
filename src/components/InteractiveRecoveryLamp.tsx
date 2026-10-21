@@ -3,11 +3,14 @@ import React, { useState } from 'react';
 interface InteractiveRecoveryLampProps {
   currentStep: number;
   onSelectStep: (step: number) => void;
+  /** Esconde a legenda e os pontinhos de navegação (quando a página já mostra isso). */
+  compact?: boolean;
 }
 
 export const InteractiveRecoveryLamp: React.FC<InteractiveRecoveryLampProps> = ({
   currentStep,
   onSelectStep,
+  compact = false,
 }) => {
   const [lampPowered, setLampPowered] = useState<boolean>(true);
 
@@ -695,6 +698,7 @@ export const InteractiveRecoveryLamp: React.FC<InteractiveRecoveryLampProps> = (
         </svg>
       </div>
 
+      {!compact && (<>
       {/* Bench status feedback label */}
       <div className="w-full mt-3 p-3 rounded-2xl bg-[#F4F8F4] border border-[#D0DFD5] text-center">
         <span className="text-xs font-mono font-bold text-[#0D241C] block leading-snug">
@@ -725,6 +729,7 @@ export const InteractiveRecoveryLamp: React.FC<InteractiveRecoveryLampProps> = (
           />
         ))}
       </div>
+      </>)}
 
     </div>
   );

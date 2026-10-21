@@ -100,7 +100,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenTutorial }) => {
               onClick={onOpenTutorial}
               className="text-xs font-bold px-3.5 py-2 rounded-xl bg-[#FFB938] hover:bg-[#F5A623] text-[#161204] transition-all shadow-2xs hover:shadow-xs cursor-pointer flex items-center gap-1.5 whitespace-nowrap"
             >
-              <span>Tutorial de Reparo</span>
+              <span>Laboratório virtual</span>
             </button>
             <a 
               href="#participe" 
@@ -182,7 +182,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenTutorial }) => {
             }}
             className="w-full text-left py-2.5 px-3 rounded-xl bg-[#FFB938] text-[#161204] font-bold text-xs uppercase tracking-wider hover:bg-[#F5A623] flex items-center justify-between shadow-2xs"
           >
-            <span>Tutorial de Reparo</span>
+            <span>Laboratório virtual</span>
             <span>→</span>
           </button>
           <a 

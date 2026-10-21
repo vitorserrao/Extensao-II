@@ -41,12 +41,12 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  const [tutorialTab, setTutorialTab] = useState<TutorialTab>('simulador');
+  const [tutorialTab, setTutorialTab] = useState<TutorialTab>('seguranca');
 
   const openTutorial = (tab?: unknown) => {
     // Header passa o evento de clique; só aceitamos nomes de aba válidos.
     const abas: TutorialTab[] = ['simulador', 'passos', 'seguranca', 'ferramentas', 'circuito'];
-    setTutorialTab(typeof tab === 'string' && abas.includes(tab as TutorialTab) ? (tab as TutorialTab) : 'simulador');
+    setTutorialTab(typeof tab === 'string' && abas.includes(tab as TutorialTab) ? (tab as TutorialTab) : 'seguranca');
     window.location.hash = 'tutorial-de-reparo';
     setCurrentView('tutorial');
   };

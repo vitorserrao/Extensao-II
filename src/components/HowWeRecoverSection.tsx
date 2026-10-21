@@ -11,8 +11,8 @@ const topicos: { tab: TutorialTab; icon: React.ElementType; title: string; desc:
   {
     tab: 'simulador',
     icon: MousePointerClick,
-    title: 'Simulador interativo',
-    desc: 'Percorra as 5 etapas da bancada: abertura, teste 3V, remoção, solda e recondicionamento.',
+    title: 'Bancada passo a passo',
+    desc: 'As 5 etapas do reparo: abertura, diagnóstico, remoção, jumper e teste.',
   },
   {
     tab: 'ferramentas',
@@ -55,16 +55,16 @@ export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = ({ onOpen
             </h2>
 
             <p className="text-sm sm:text-base text-[#A8CCBC] leading-relaxed">
-              A recuperação acontece na bancada, um componente de cada vez. Reunimos o passo a passo num tutorial aberto, para quem quiser entender o processo ou aprender a fazer.
+              A recuperação acontece na bancada, um componente de cada vez. Montamos um laboratório virtual aberto para quem quiser entender o processo ou aprender a fazer.
             </p>
 
             <div className="space-y-3 pt-1">
               <button
                 type="button"
-                onClick={() => abrir('simulador')}
+                onClick={() => abrir('seguranca')}
                 className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl text-sm font-sans font-bold text-[#161204] bg-[#FFB938] hover:bg-[#F5A623] transition-all shadow-md hover:shadow-lg cursor-pointer"
               >
-                <span>Abrir o tutorial de reparo</span>
+                <span>Entrar no laboratório virtual</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
               </button>
               <p className="text-xs text-[#7FA897]">Acesso livre para estudantes e comunidade.</p>
@@ -74,7 +74,7 @@ export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = ({ onOpen
           {/* O que tem no tutorial: cada card abre direto no tópico */}
           <div className="lg:col-span-7">
             <span className="block mb-4 text-[10px] font-mono uppercase tracking-widest font-bold text-[#86E49E]">
-              O que você encontra no tutorial
+              O que você encontra no laboratório
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {topicos.map(({ tab, icon: Icon, title, desc }) => (

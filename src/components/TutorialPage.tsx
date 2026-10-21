@@ -1,7 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  ArrowLeft,
+  ArrowRight,
+  Check,
+  ChevronDown,
+  Slice,
+  Glasses,
+  BatteryMedium,
+  Gauge,
+  Scissors,
+  Flame,
+  Droplet,
+  Lightbulb,
+  ShieldCheck,
+  TriangleAlert,
+  RotateCcw,
+  Power,
+} from 'lucide-react';
 import { InteractiveRecoveryLamp } from './InteractiveRecoveryLamp';
-import { repairSteps } from '../data/projectData';
 
+/** Pontos de entrada usados pelos atalhos da página inicial. */
 export type TutorialTab = 'simulador' | 'passos' | 'seguranca' | 'ferramentas' | 'circuito';
 
 interface TutorialPageProps {
@@ -9,409 +27,489 @@ interface TutorialPageProps {
   initialTab?: TutorialTab;
 }
 
-export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack, initialTab = 'simulador' }) => {
-  const [currentStep, setCurrentStep] = useState<number>(5);
-  const [activeTab, setActiveTab] = useState<TutorialTab>(initialTab);
+/* ---------- Dados do laboratório ---------- */
+
+type ToolId = 'oculos' | 'espatula' | 'pilhas' | 'multimetro' | 'alicate' | 'ferro' | 'estanho' | 'serie';
+
+const TOOLS: Record<ToolId, { name: string; desc: string; icon: React.ElementType }> = {
+  oculos: { name: 'Óculos de proteção', desc: 'EPI contra respingos de solda e estilhaços.', icon: Glasses },
+  espatula: { name: 'Espátula plástica', desc: 'Separa o bulbo da carcaça sem quebrar as travas.', icon: Slice },
+  pilhas: { name: 'Duas pilhas AA (3V)', desc: 'Fonte segura para testar um LED de cada vez.', icon: BatteryMedium },
+  multimetro: { name: 'Multímetro digital', desc: 'Escala de diodo para achar o LED aberto.', icon: Gauge },
+  alicate: { name: 'Alicate de bico fino', desc: 'Retira o corpo do LED danificado.', icon: Scissors },
+  ferro: { name: 'Ferro de solda (30–40 W)', desc: 'Derrete o estanho para fazer o jumper.', icon: Flame },
+  estanho: { name: 'Estanho com fluxo', desc: 'Une os dois pads e fecha o circuito.', icon: Droplet },
+  serie: { name: 'Lâmpada série', desc: 'Protege o primeiro teste contra curto-circuito.', icon: Lightbulb },
+};
+
+const SAFETY = [
+  {
+    title: 'Lâmpada fora da tomada',
+    desc: 'Nunca abra ou solde uma lâmpada ligada ao soquete de 127 V/220 V.',
+  },
+  {
+    title: 'Capacitores descarregados',
+    desc: 'O driver pode guardar até 300 V mesmo desligado. Descarregue com um resistor de 1 kΩ antes de tocar na placa.',
+  },
+  {
+    title: 'Primeiro teste com lâmpada série',
+    desc: 'Se houver curto, a lâmpada série acende e protege a instalação.',
+  },
+  {
+    title: 'Ferro de solda no suporte',
+    desc: 'A ponta passa de 300 °C. Não encoste na carcaça plástica e use óculos de proteção.',
+  },
+];
+
+interface LabStep {
+  title: string;
+  short: string;
+  instruction: string;
+  tools: ToolId[];
+  warning?: string;
+  tip?: string;
+  extra?: { question: string; answer: string[] };
+}
+
+const STEPS: LabStep[] = [
+  {
+    title: 'Abrir a lâmpada',
+    short: 'Abertura',
+    instruction:
+      'Encaixe a espátula na junção entre o bulbo e a carcaça e percorra a volta inteira, soltando o bulbo sem romper as travas.',
+    tools: ['espatula', 'oculos'],
+    tip: 'Com a placa à mostra, procure um ponto preto no centro de algum LED. Costuma ser exatamente o que queimou.',
+  },
+  {
+    title: 'Encontrar o LED queimado',
+    short: 'Diagnóstico',
+    instruction:
+      'Com duas pilhas AA em série (3 V) ou o multímetro na escala de diodo, toque nos terminais de cada LED. Os bons acendem; o queimado fica apagado (circuito aberto).',
+    tools: ['pilhas', 'multimetro'],
+    tip: 'Placas com LEDs de 6 V ou 9 V precisam de uma fonte de 6 V com resistor de 470 Ω em série para o teste.',
+    extra: {
+      question: 'E se todos os LEDs acenderem?',
+      answer: [
+        'Então o defeito está no driver, o circuito que alimenta os LEDs. Procure um capacitor eletrolítico estufado no topo ou um resistor de entrada aberto.',
+        'A troca é feita por um componente igual, retirado de outra lâmpada do mesmo lote. Atenção à faixa negativa do capacitor para não inverter a polaridade.',
+      ],
+    },
+  },
+  {
+    title: 'Retirar o LED',
+    short: 'Remoção',
+    instruction:
+      'Com o alicate de bico fino (ou o ferro de solda), retire só o corpo do LED danificado, deixando à mostra os dois pads metálicos da placa.',
+    tools: ['alicate', 'ferro'],
+    tip: 'Preserve os pads de cobre: são eles que vão receber a solda na próxima etapa.',
+  },
+  {
+    title: 'Soldar o jumper',
+    short: 'Jumper',
+    instruction:
+      'Aqueça o ferro, aplique fluxo e una os dois pads com uma gota de estanho. Essa ponte (jumper) fecha o circuito no lugar do LED removido.',
+    tools: ['ferro', 'estanho'],
+    tip: 'A placa tem fundo de alumínio e dissipa muito calor: mantenha a ponta firme por 3 a 4 segundos até a solda fluir.',
+    extra: {
+      question: 'Por que o jumper faz a lâmpada voltar?',
+      answer: [
+        'Os LEDs de uma lâmpada (de 10 a 24 chips) ficam ligados em série, como um pisca-pisca de Natal: se um abre, a corrente para em todos.',
+        'A ponte de estanho devolve o caminho para a corrente. O driver mantém a corrente constante e se ajusta à tensão um pouco menor, sem sobrecarregar os outros LEDs.',
+        'Com 1 ou 2 LEDs substituídos por jumper, a perda de luz é praticamente imperceptível.',
+      ],
+    },
+  },
+  {
+    title: 'Testar e fechar',
+    short: 'Teste',
+    instruction:
+      'Ligue a lâmpada num soquete de bancada protegido por lâmpada série. Se acender normalmente, recoloque o bulbo e ela está pronta para voltar ao uso.',
+    tools: ['serie', 'oculos'],
+    warning: 'O primeiro teste depois do reparo é sempre feito com lâmpada série, nunca direto na tomada.',
+    tip: 'Deixe ligada uns 15 minutos: a carcaça deve se manter abaixo de 68 °C.',
+  },
+];
+
+/** step 0 = checagem de segurança; 1..5 = etapas da bancada */
+const tabToStep: Record<TutorialTab, number> = {
+  seguranca: 0,
+  simulador: 1,
+  passos: 1,
+  ferramentas: 1,
+  circuito: 4,
+};
+
+/* ---------- Página ---------- */
+
+export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack, initialTab = 'seguranca' }) => {
+  const [step, setStep] = useState<number>(tabToStep[initialTab]);
+  const [visited, setVisited] = useState<Set<number>>(() => new Set([tabToStep[initialTab]]));
+  const [checked, setChecked] = useState<boolean[]>(() => SAFETY.map(() => initialTab !== 'seguranca'));
+  const [extraOpen, setExtraOpen] = useState<boolean>(initialTab === 'circuito');
+  const [done, setDone] = useState(false);
+  const workspaceRef = useRef<HTMLDivElement>(null);
+  const toolsRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
+    if (initialTab === 'ferramentas') {
+      toolsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [initialTab]);
 
-  const stepsList = [
-    { num: '01', title: 'Coleta', desc: 'Recebimento de lâmpadas descartadas pela comunidade.' },
-    { num: '02', title: 'Avaliação', desc: 'Inspeção visual preliminar e checagem da integridade física.' },
-    { num: '03', title: 'Diagnóstico', desc: 'Identificação de LED aberto ou falha no driver via bancada.' },
-    { num: '04', title: 'Recuperação', desc: 'Remoção do chip com defeito e fechamento de circuito (jumper/substituição).' },
-    { num: '05', title: 'Testes', desc: 'Ensaio em lâmpada série e medição de consumo antes da liberação.' },
-    { num: '06', title: 'Reutilização', desc: 'Devolução ao uso em ambientes comunitários e institucionais.' },
-  ];
+  const safetyOk = checked.every(Boolean);
+  const current = step > 0 ? STEPS[step - 1] : null;
 
-  const animationStages = [
-    {
-      num: '01',
-      name: 'Abertura da lâmpada',
-      detail: 'Com auxílio de uma espátula plástica ou metálica fina, descole cuidadosamente o bulbo de policarbonato da carcaça plástica sem romper as travas.',
-    },
-    {
-      num: '02',
-      name: 'Teste com pilhas (3V)',
-      detail: 'Com duas pilhas AA em série (3V) ou multímetro na escala de diodo, toque nos terminais de cada LED SMD até identificar qual não acende (circuito aberto).',
-    },
-    {
-      num: '03',
-      name: 'Remoção do LED',
-      detail: 'Retire o corpo do LED danificado com auxílio de um alicate de bico fino ou ferro de solda, deixando expostos os dois pads metálicos da placa.',
-    },
-    {
-      num: '04',
-      name: 'Soldagem do ponto',
-      detail: 'Com o ferro de solda (30W-40W) e estanho de boa qualidade, realize uma ponte de solda (jumper) unindo os dois terminais do diodo removido.',
-    },
-    {
-      num: '05',
-      name: 'Testar e Recondicionar',
-      detail: 'Conecte a lâmpada em soquete seguro com lâmpada série de proteção para teste elétrico e, após aprovação, recoloque o bulbo de policarbonato.',
-    },
-  ];
+  const goTo = (s: number) => {
+    setDone(false);
+    setStep(s);
+    setExtraOpen(false);
+    setVisited((v) => new Set(v).add(s));
+    // Em telas pequenas, mantém a bancada à vista ao trocar de etapa
+    if (window.innerWidth < 1024) {
+      workspaceRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
-  const tools = [
-    { name: 'Multímetro Digital', desc: 'Para medição de continuidade, tensão e escala de diodo.', icon: '⚡' },
-    { name: 'Ferro de Solda (30W–40W)', desc: 'Para fusão do estanho e confecção do jumper entre pads.', icon: '🔥' },
-    { name: 'Estanho 60/40 com fluxo', desc: 'Para soldagem eletrônica de precisão.', icon: '🧪' },
-    { name: 'Duas Pilhas AA (3V)', desc: 'Fonte segura de baixa tensão para teste individual de LEDs.', icon: '🔋' },
-    { name: 'Espátula de Desmontagem', desc: 'Para descolar o bulbo de policarbonato sem quebrar.', icon: '🪛' },
-    { name: 'Alicate de Bico Fino', desc: 'Para manipulação mecânica e remoção do encapsulamento.', icon: '✂️' },
-    { name: 'Lâmpada Série de Proteção', desc: 'Para ensaio elétrico inicial seguro contra curto-circuitos.', icon: '💡' },
-    { name: 'Óculos de Proteção', desc: 'EPI indispensável contra fagulhas ou estilhaços de solda.', icon: '🥽' },
-  ];
+  const restart = () => {
+    setVisited(new Set([0]));
+    setChecked(SAFETY.map(() => false));
+    goTo(0);
+  };
+
+  const stepper = [{ short: 'Segurança' }, ...STEPS];
 
   return (
     <div className="min-h-screen bg-[#071913] text-[#EAF3EE] font-sans">
-      {/* Top Navigation Bar */}
-      <nav className="sticky top-0 z-50 bg-[#06140F]/95 backdrop-blur-md border-b border-[#143B2E] px-4 sm:px-6 lg:px-8 py-3.5">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={onBack}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#0E2C22] hover:bg-[#164334] text-white text-xs font-semibold border border-[#1C5240] transition-colors cursor-pointer shadow-2xs"
-            >
-              <span>←</span>
-              <span>Voltar à Página Principal</span>
-            </button>
-
-            <div className="hidden sm:flex items-center gap-2 pl-3 border-l border-[#1C5240] text-xs font-semibold text-[#8EBBA6]">
-              <span>IFSC Câmpus Florianópolis</span>
-              <span>·</span>
-              <span className="text-white">Projeto ReLED</span>
-            </div>
-          </div>
+      {/* Barra superior */}
+      <nav className="sticky top-0 z-50 bg-[#06140F]/95 backdrop-blur-md border-b border-[#143B2E] px-4 sm:px-6 lg:px-8 py-3">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+          <button
+            type="button"
+            onClick={onBack}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-[#C2DEC9] hover:text-white hover:bg-[#0E2C22] text-xs font-semibold transition-colors cursor-pointer"
+          >
+            <ArrowLeft className="w-4 h-4" aria-hidden="true" />
+            <span>Voltar ao site</span>
+          </button>
 
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#FFB938] animate-pulse" />
-            <span className="text-[11px] font-sans font-bold tracking-wider uppercase text-[#FFB938]">
-              TUTORIAL DE REPARO
-            </span>
+            <span className="text-[11px] font-bold tracking-wider uppercase text-[#FFB938]">Laboratório virtual</span>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section of Tutorial */}
-      <header className="relative py-12 sm:py-16 bg-gradient-to-b from-[#0B251C] to-[#071913] border-b border-[#143B2E]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-[#0E2F23] border border-[#1E5742] text-[#86E49E] text-xs font-bold">
-            <span className="w-2 h-2 rounded-full bg-[#2F9E41]" />
-            <span>GUIA TÉCNICO DE BANCADA · SISTEMAS DE ENERGIA IFSC</span>
-          </div>
-
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-display font-extrabold text-white tracking-tight leading-[1.1]">
-            Tutorial de Recuperação de Lâmpadas LED
+      {/* Abertura */}
+      <header className="bg-gradient-to-b from-[#0B251C] to-[#071913] border-b border-[#143B2E]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-8 space-y-5">
+          <span className="block text-[11px] font-mono uppercase tracking-widest font-bold text-[#86E49E]">
+            ReLED · Sistemas de Energia IFSC
+          </span>
+          <h1
+            className="title-2l text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight leading-[1.1]"
+            style={{ '--fit': '6.95cqi' } as React.CSSProperties}
+          >
+            <span className="title-line">Recupere uma lâmpada LED</span>
+            <span className="title-line text-[#FFB938]">na bancada virtual.</span>
           </h1>
-
-          <p className="text-base sm:text-lg text-[#9EC7B5] max-w-3xl leading-relaxed">
-            Metodologia prática desenvolvida pelos estudantes do curso Superior de Tecnologia em Sistemas de Energia do IFSC. Passo a passo detalhado para abertura, diagnóstico, remoção de chip queimado, soldagem de jumper e testes de segurança.
+          <p className="text-sm sm:text-base text-[#9EC7B5] max-w-2xl leading-relaxed">
+            O mesmo processo usado pelos estudantes no laboratório, em cinco etapas. Em cada uma você vê o que muda na lâmpada, que ferramentas entram em cena e quais cuidados tomar.
           </p>
+        </div>
 
-          {/* Navigation Tabs */}
-          <div className="pt-4 flex flex-wrap gap-2">
-            {[
-              { id: 'simulador', label: '1. Simulador Interativo' },
-              { id: 'passos', label: '2. 6 Etapas do Processo' },
-              { id: 'ferramentas', label: '3. Ferramentas Necessárias' },
-              { id: 'circuito', label: '4. Como Funciona o Jumper' },
-              { id: 'seguranca', label: '5. Segurança Elétrica' },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                  activeTab === tab.id
-                    ? 'bg-[#FFB938] text-[#161204] font-bold shadow-md'
-                    : 'bg-[#0E2C22] text-[#C2DEC9] hover:bg-[#153F31] border border-[#1B4D3C]'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+        {/* Progresso do experimento */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6">
+          <ol className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1" aria-label="Etapas do experimento">
+            {stepper.map((s, i) => {
+              const active = i === step && !done;
+              const seen = visited.has(i) || (done && i <= STEPS.length);
+              return (
+                <li key={s.short} className="shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => goTo(i)}
+                    aria-current={active ? 'step' : undefined}
+                    className={`flex items-center gap-2 pl-2 pr-3.5 py-2 rounded-xl text-xs font-semibold border transition-colors cursor-pointer ${
+                      active
+                        ? 'bg-[#FFB938] text-[#161204] border-[#FFB938]'
+                        : 'bg-[#0B231B] text-[#C2DEC9] border-[#1B4D3C] hover:border-[#2F7A5C]'
+                    }`}
+                  >
+                    <span
+                      className={`w-6 h-6 rounded-lg flex items-center justify-center text-[11px] font-bold ${
+                        active ? 'bg-[#161204] text-[#FFB938]' : seen ? 'bg-[#1A7F5A] text-white' : 'bg-[#123A2C] text-[#7FA897]'
+                      }`}
+                    >
+                      {i === 0 ? (
+                        <ShieldCheck className="w-3.5 h-3.5" aria-hidden="true" />
+                      ) : seen && !active ? (
+                        <Check className="w-3.5 h-3.5" strokeWidth={3} aria-hidden="true" />
+                      ) : (
+                        i
+                      )}
+                    </span>
+                    <span>{s.short}</span>
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
         </div>
       </header>
 
-      {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
-        
-        {/* TAB 1: SIMULADOR INTERATIVO */}
-        {activeTab === 'simulador' && (
-          <section className="space-y-8 animate-fadeIn">
-            <div className="max-w-3xl space-y-2">
-              <span className="text-xs font-bold text-[#FFB938] uppercase tracking-wider block">
-                Bancada Virtual Interativa
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-display font-bold text-white">
-                Simulador das 5 Etapas de Reparo
-              </h2>
-              <p className="text-sm text-[#9EC7B5] leading-relaxed">
-                Clique nas etapas abaixo para acompanhar visualmente as transformações que ocorrem na lâmpada durante o processo de reparo no laboratório:
-              </p>
-            </div>
-
-            <div className="p-6 sm:p-10 rounded-3xl bg-[#05140F] border border-[#164636] shadow-xl">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                {/* Visual Bulb Canvas */}
-                <div className="lg:col-span-5 flex flex-col items-center">
-                  <InteractiveRecoveryLamp
-                    currentStep={currentStep}
-                    onSelectStep={setCurrentStep}
-                  />
-                  <span className="mt-3 text-[11px] font-mono text-[#6A9482]">
-                    Etapa {currentStep} de 5 selecionada
-                  </span>
-                </div>
-
-                {/* Steps Selector and Details */}
-                <div className="lg:col-span-7 space-y-3">
-                  {animationStages.map((stage, idx) => {
-                    const stageNum = idx + 1;
-                    const isSelected = currentStep === stageNum;
-                    return (
-                      <div
-                        key={stage.num}
-                        onClick={() => setCurrentStep(stageNum)}
-                        className={`p-4 rounded-2xl border transition-all duration-300 cursor-pointer ${
-                          isSelected
-                            ? 'bg-[#FFB938] text-[#161204] border-[#FFB938] shadow-lg font-bold'
-                            : 'bg-[#0E2920] border-[#174637] text-white hover:bg-[#13382C]'
-                        }`}
-                      >
-                        <div className="flex items-center justify-between text-xs sm:text-sm font-semibold">
-                          <span>{stage.num}. {stage.name}</span>
-                          {isSelected && (
-                            <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-[#161204] text-[#FFB938]">
-                              Ativa
-                            </span>
-                          )}
-                        </div>
-                        {isSelected && (
-                          <p className="mt-2 text-xs sm:text-sm font-normal leading-relaxed text-[#2B1F04] animate-fadeIn">
-                            {stage.detail}
-                          </p>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-14">
+        {/* Bancada */}
+        <div ref={workspaceRef} className="scroll-mt-20 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Visual da lâmpada */}
+          <div className="lg:col-span-5 lg:sticky lg:top-24">
+            <div className="relative">
+              <div className={`transition-all duration-500 ${step === 0 && !done ? 'opacity-40 grayscale pointer-events-none' : ''}`}>
+                <InteractiveRecoveryLamp
+                  currentStep={done ? 5 : Math.max(step, 1)}
+                  onSelectStep={(s) => goTo(s)}
+                  compact
+                />
               </div>
-            </div>
-          </section>
-        )}
-
-        {/* TAB 2: PASSOS DO REPARO */}
-        {activeTab === 'passos' && (
-          <section className="space-y-8 animate-fadeIn">
-            <div className="max-w-3xl space-y-2">
-              <span className="text-xs font-bold text-[#FFB938] uppercase tracking-wider block">
-                Fluxo Completo de Recondicionamento
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-display font-bold text-white">
-                As 6 Etapas Institucionais
-              </h2>
-              <p className="text-sm text-[#9EC7B5] leading-relaxed">
-                Cada lâmpada que chega ao laboratório passa por um protocolo padronizado para garantir segurança, funcionalidade e durabilidade:
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {stepsList.map((step) => (
-                <div key={step.num} className="p-6 rounded-2xl bg-[#092219] border border-[#164939] space-y-3">
-                  <span className="text-sm font-bold text-[#FFB938] block">
-                    ETAPA {step.num}
+              {step === 0 && !done && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#06140F]/90 border border-[#1B4D3C] text-xs font-bold text-[#C2DEC9]">
+                    <Power className="w-4 h-4 text-[#FFB938]" aria-hidden="true" />
+                    Bancada desligada
                   </span>
-                  <h3 className="text-lg font-display font-bold text-white">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-[#9EC7B5] leading-relaxed">
-                    {step.desc}
-                  </p>
                 </div>
-              ))}
+              )}
             </div>
+          </div>
 
-            {/* Detailed Steps list from projectData */}
-            <div className="pt-6 space-y-4">
-              <h3 className="text-xl font-display font-bold text-white">
-                Procedimento Técnico Detalhado de Bancada
-              </h3>
-              <div className="space-y-3">
-                {repairSteps.map((step) => (
-                  <div key={step.number} className="p-5 rounded-2xl bg-[#092219] border border-[#164939] space-y-2">
-                    <div className="flex items-center gap-3">
-                      <span className="px-2.5 py-0.5 rounded-md bg-[#FFB938] text-[#161204] font-bold text-xs">
-                        {step.number}
-                      </span>
-                      <h4 className="text-base font-bold text-white">
-                        {step.title}
-                      </h4>
-                    </div>
-                    <p className="text-sm text-[#A7CEBE] leading-relaxed">
-                      {step.description}
+          {/* Painel da etapa */}
+          <div className="lg:col-span-7">
+            <div className="rounded-3xl bg-[#0A221A] border border-[#164939] p-6 sm:p-8 space-y-6">
+              {done ? (
+                /* Conclusão */
+                <div className="space-y-5 text-center sm:text-left">
+                  <span className="inline-flex w-12 h-12 rounded-2xl bg-[#FFB938] items-center justify-center">
+                    <Lightbulb className="w-6 h-6 text-[#161204]" aria-hidden="true" />
+                  </span>
+                  <div className="space-y-2">
+                    <h2 className="text-2xl sm:text-3xl font-display font-bold text-white">Lâmpada recuperada.</h2>
+                    <p className="text-sm text-[#9EC7B5] leading-relaxed">
+                      Você passou pelas cinco etapas da bancada. Na vida real, essa lâmpada seria testada mais uma vez e voltaria a iluminar uma sala ou um espaço comunitário.
                     </p>
-                    {step.warning && (
-                      <div className="p-3 rounded-xl bg-amber-950/40 border border-amber-600/50 text-xs text-amber-200">
-                        <strong>⚠️ Atenção:</strong> {step.warning}
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-3 pt-1">
+                    <button
+                      type="button"
+                      onClick={onBack}
+                      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#FFB938] hover:bg-[#F5A623] text-[#161204] text-sm font-bold transition-colors cursor-pointer"
+                    >
+                      Conhecer o projeto e participar
+                      <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={restart}
+                      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-[#1E5742] text-[#C2DEC9] hover:text-white hover:border-[#2F7A5C] text-sm font-semibold transition-colors cursor-pointer"
+                    >
+                      <RotateCcw className="w-4 h-4" aria-hidden="true" />
+                      Refazer
+                    </button>
+                  </div>
+                </div>
+              ) : step === 0 ? (
+                /* Checagem de segurança */
+                <>
+                  <div className="space-y-2">
+                    <span className="text-[11px] font-mono uppercase tracking-widest font-bold text-rose-300">
+                      Antes de começar
+                    </span>
+                    <h2 className="text-2xl sm:text-3xl font-display font-bold text-white">Checagem de segurança</h2>
+                    <p className="text-sm text-[#9EC7B5] leading-relaxed">
+                      Confirme os quatro cuidados (NR-10) para ligar a bancada.
+                    </p>
+                  </div>
+
+                  <ul className="space-y-2.5">
+                    {SAFETY.map((item, i) => (
+                      <li key={item.title}>
+                        <label
+                          className={`flex items-start gap-3 p-4 rounded-2xl border cursor-pointer transition-colors ${
+                            checked[i] ? 'bg-[#0F3125] border-[#2F7A5C]' : 'bg-[#071A14] border-[#1B4D3C] hover:border-[#2F7A5C]'
+                          }`}
+                        >
+                          <input
+                            type="checkbox"
+                            className="sr-only peer"
+                            checked={checked[i]}
+                            onChange={() => setChecked((c) => c.map((v, j) => (j === i ? !v : v)))}
+                          />
+                          <span
+                            className={`mt-0.5 w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition-colors peer-focus-visible:outline-2 peer-focus-visible:outline-[#FFB938] ${
+                              checked[i] ? 'bg-[#2F9E41] border-[#2F9E41]' : 'border-[#3E6E5B]'
+                            }`}
+                          >
+                            {checked[i] && <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} aria-hidden="true" />}
+                          </span>
+                          <span className="space-y-0.5">
+                            <span className="block text-sm font-bold text-white">{item.title}</span>
+                            <span className="block text-xs text-[#9EC7B5] leading-relaxed">{item.desc}</span>
+                          </span>
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="flex items-center justify-between gap-4 pt-1">
+                    <span className="text-xs text-[#7FA897]">
+                      {checked.filter(Boolean).length} de {SAFETY.length} confirmados
+                    </span>
+                    <button
+                      type="button"
+                      disabled={!safetyOk}
+                      onClick={() => goTo(1)}
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-bold transition-colors bg-[#FFB938] hover:bg-[#F5A623] text-[#161204] cursor-pointer disabled:bg-[#163A2D] disabled:text-[#5E8573] disabled:cursor-not-allowed"
+                    >
+                      <Power className="w-4 h-4" aria-hidden="true" />
+                      Ligar a bancada
+                    </button>
+                  </div>
+                </>
+              ) : (
+                current && (
+                  /* Etapa da bancada */
+                  <>
+                    <div className="space-y-2">
+                      <span className="text-[11px] font-mono uppercase tracking-widest font-bold text-[#FFB938]">
+                        Etapa {step} de {STEPS.length}
+                      </span>
+                      <h2 className="text-2xl sm:text-3xl font-display font-bold text-white">{current.title}</h2>
+                      <p className="text-sm sm:text-base text-[#C0DFCF] leading-relaxed">{current.instruction}</p>
+                    </div>
+
+                    <div className="space-y-2.5">
+                      <span className="block text-[10px] font-mono uppercase tracking-widest font-bold text-[#7FA897]">
+                        Na bancada
+                      </span>
+                      <div className="flex flex-wrap gap-2">
+                        {current.tools.map((id) => {
+                          const { name, icon: Icon } = TOOLS[id];
+                          return (
+                            <span
+                              key={id}
+                              className="inline-flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-lg bg-[#0F3125] border border-[#1E5742] text-xs font-semibold text-white"
+                            >
+                              <Icon className="w-4 h-4 text-[#FFB938]" aria-hidden="true" />
+                              {name}
+                            </span>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {current.warning && (
+                      <div className="flex gap-3 p-4 rounded-2xl bg-rose-950/40 border border-rose-500/40">
+                        <TriangleAlert className="w-5 h-5 text-rose-300 shrink-0" aria-hidden="true" />
+                        <p className="text-xs sm:text-sm text-rose-100 leading-relaxed">{current.warning}</p>
                       </div>
                     )}
-                  </div>
-                ))}
-              </div>
+
+                    {current.tip && (
+                      <div className="flex gap-3 p-4 rounded-2xl bg-[#0E2E22] border border-[#235845]">
+                        <Lightbulb className="w-5 h-5 text-[#86E49E] shrink-0" aria-hidden="true" />
+                        <p className="text-xs sm:text-sm text-[#BFE9CC] leading-relaxed">
+                          <strong className="text-[#86E49E]">Dica de bancada: </strong>
+                          {current.tip}
+                        </p>
+                      </div>
+                    )}
+
+                    {current.extra && (
+                      <div className="rounded-2xl border border-[#1B4D3C] overflow-hidden">
+                        <button
+                          type="button"
+                          onClick={() => setExtraOpen((o) => !o)}
+                          aria-expanded={extraOpen}
+                          className="w-full flex items-center justify-between gap-3 px-4 py-3.5 text-left text-sm font-bold text-white hover:bg-[#0E2C22] transition-colors cursor-pointer"
+                        >
+                          {current.extra.question}
+                          <ChevronDown
+                            className={`w-4 h-4 text-[#7FA897] transition-transform ${extraOpen ? 'rotate-180' : ''}`}
+                            aria-hidden="true"
+                          />
+                        </button>
+                        {extraOpen && (
+                          <div className="px-4 pb-4 space-y-2 text-xs sm:text-sm text-[#A8C7B8] leading-relaxed">
+                            {current.extra.answer.map((p) => (
+                              <p key={p}>{p}</p>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    <div className="flex items-center justify-between gap-3 pt-2 border-t border-[#164939]">
+                      <button
+                        type="button"
+                        onClick={() => goTo(step - 1)}
+                        className="inline-flex items-center gap-2 px-3 py-2.5 mt-4 rounded-xl text-[#C2DEC9] hover:text-white text-sm font-semibold transition-colors cursor-pointer"
+                      >
+                        <ArrowLeft className="w-4 h-4" aria-hidden="true" />
+                        {step === 1 ? 'Segurança' : 'Anterior'}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => (step === STEPS.length ? setDone(true) : goTo(step + 1))}
+                        className="inline-flex items-center gap-2 px-5 py-3 mt-4 rounded-xl bg-[#FFB938] hover:bg-[#F5A623] text-[#161204] text-sm font-bold transition-colors cursor-pointer"
+                      >
+                        {step === STEPS.length ? 'Concluir reparo' : `Próxima: ${STEPS[step].short}`}
+                        <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                      </button>
+                    </div>
+                  </>
+                )
+              )}
             </div>
-          </section>
-        )}
-
-        {/* TAB 3: FERRAMENTAS */}
-        {activeTab === 'ferramentas' && (
-          <section className="space-y-8 animate-fadeIn">
-            <div className="max-w-3xl space-y-2">
-              <span className="text-xs font-bold text-[#FFB938] uppercase tracking-wider block">
-                Instrumental de Laboratório
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-display font-bold text-white">
-                Ferramentas e Equipamentos
-              </h2>
-              <p className="text-sm text-[#9EC7B5] leading-relaxed">
-                Equipamentos simples e de baixo custo utilizados pelos estudantes no laboratório de Sistemas de Energia do IFSC:
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {tools.map((t) => (
-                <div key={t.name} className="p-5 rounded-2xl bg-[#092219] border border-[#164939] space-y-2.5">
-                  <span className="text-2xl block">{t.icon}</span>
-                  <h3 className="text-base font-bold text-white">
-                    {t.name}
-                  </h3>
-                  <p className="text-xs text-[#9EC7B5] leading-relaxed">
-                    {t.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* TAB 4: CIRCUITO & JUMPER */}
-        {activeTab === 'circuito' && (
-          <section className="space-y-8 animate-fadeIn">
-            <div className="max-w-3xl space-y-2">
-              <span className="text-xs font-bold text-[#FFB938] uppercase tracking-wider block">
-                Teoria Elétrica Aplicada
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-display font-bold text-white">
-                Como Funciona o Jumper (Curto-Circuito Controlado)
-              </h2>
-              <p className="text-sm text-[#9EC7B5] leading-relaxed">
-                Por que a soldagem de uma ponte reativa a lâmpada inteira? Entenda a topologia de circuito série:
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-              <div className="p-6 rounded-3xl bg-[#092219] border border-[#164939] space-y-4">
-                <h3 className="text-lg font-bold text-[#FFB938]">
-                  Topologia em Série dos LEDs SMD
-                </h3>
-                <p className="text-sm text-[#C0DFCF] leading-relaxed">
-                  Em uma lâmpada LED convencional, cerca de 10 a 24 chips SMD estão ligados em série como em um colar de lâmpadas natalinas. Se um único diodo abre o circuito (queima), a corrente é interrompida para todos os demais diodos.
-                </p>
-                <p className="text-sm text-[#C0DFCF] leading-relaxed">
-                  Ao remover o diodo queimado e aplicar uma gota de estanho unindo seus dois terminais, restabelecemos o caminho para a circulação da corrente elétrica.
-                </p>
-              </div>
-
-              <div className="p-6 rounded-3xl bg-[#092219] border border-[#164939] space-y-4">
-                <h3 className="text-lg font-bold text-[#FFB938]">
-                  O Papel do Driver de Corrente Constante
-                </h3>
-                <p className="text-sm text-[#C0DFCF] leading-relaxed">
-                  O driver eletrônico da lâmpada é projetado para manter a corrente elétrica constante (geralmente entre 60mA e 120mA). Ao remover um LED e fazer o jumper, a tensão total do circuito cai ligeiramente (~3V a ~6V), e o driver ajusta a saída sem sobrecarregar excessivamente os demais chips.
-                </p>
-                <div className="p-3.5 rounded-xl bg-[#0E2E22] border border-[#235845] text-xs text-[#8BE4A6]">
-                  <strong>Dica de ouro:</strong> Em lâmpadas com até 1 ou 2 LEDs danificados, o jumper restaura a lâmpada com perda imperceptível de fluxo luminoso e anos adicionais de vida útil.
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* TAB 5: SEGURANÇA */}
-        {activeTab === 'seguranca' && (
-          <section className="space-y-8 animate-fadeIn">
-            <div className="max-w-3xl space-y-2">
-              <span className="text-xs font-bold text-rose-400 uppercase tracking-wider block">
-                Segurança em Primeiro Lugar
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-display font-bold text-white">
-                Cuidados Elétricos e Normas Técnicas
-              </h2>
-              <p className="text-sm text-[#9EC7B5] leading-relaxed">
-                Antes de iniciar qualquer atividade de bancada, siga rigorosamente as diretrizes de segurança da NR-10:
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {[
-                {
-                  title: '1. Desconecte sempre da rede elétrica',
-                  desc: 'Nunca manuseie lâmpadas energizadas ou conectadas a soquetes de 127V/220V durante a desmontagem ou soldagem.',
-                },
-                {
-                  title: '2. Descarga de capacitores eletrolíticos',
-                  desc: 'O driver pode armazenar cargas de até 300V nos capacitores mesmo desligado da tomada. Descarregue-os utilizando um resistor de 1kΩ ou lâmpada de filamento.',
-                },
-                {
-                  title: '3. Ensaio com Lâmpada Série',
-                  desc: 'Após soldar o jumper, o primeiro teste deve ser feito obrigatoriamente através de um circuito de lâmpada série. Se houver curto-circuito, a lâmpada série acende e impede disparo de disjuntores.',
-                },
-                {
-                  title: '4. Cuidado térmico com a solda',
-                  desc: 'O ferro de solda atinge temperaturas superiores a 300°C. Não encoste a ponta na carcaça plástica e utilize suporte adequado.',
-                },
-              ].map((item) => (
-                <div key={item.title} className="p-6 rounded-2xl bg-[#0E1E18] border border-[#234A3B] space-y-2">
-                  <h3 className="text-base font-bold text-white flex items-center gap-2">
-                    <span className="text-amber-400">⚠️</span>
-                    <span>{item.title}</span>
-                  </h3>
-                  <p className="text-xs sm:text-sm text-[#A8C7B8] leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Bottom CTA to return */}
-        <div className="p-8 rounded-3xl bg-gradient-to-r from-[#0C291E] to-[#123E2E] border border-[#1E5742] flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="space-y-1 text-center sm:text-left">
-            <h3 className="text-lg font-bold text-white">
-              Quer saber mais sobre o Projeto ReLED?
-            </h3>
-            <p className="text-xs sm:text-sm text-[#A8CEBC]">
-              Conheça os pontos de coleta, resultados de impacto e como participar no IFSC Florianópolis.
-            </p>
           </div>
-          <button
-            type="button"
-            onClick={onBack}
-            className="px-6 py-3 rounded-xl bg-white hover:bg-[#F0F5F1] text-[#0D241C] text-xs font-bold uppercase tracking-wider transition-all shadow-md cursor-pointer whitespace-nowrap"
-          >
-            ← Voltar ao Início
-          </button>
         </div>
 
+        {/* Inventário da bancada */}
+        <section ref={toolsRef} className="scroll-mt-20 space-y-5">
+          <div className="space-y-1">
+            <h2 className="text-xl sm:text-2xl font-display font-bold text-white">Bancada completa</h2>
+            <p className="text-sm text-[#9EC7B5]">
+              Material simples e de baixo custo. Os itens em destaque são os usados na etapa atual.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {(Object.keys(TOOLS) as ToolId[]).map((id) => {
+              const { name, desc, icon: Icon } = TOOLS[id];
+              const inUse = !!current && !done && current.tools.includes(id);
+              return (
+                <div
+                  key={id}
+                  className={`flex gap-3 p-4 rounded-2xl border transition-colors ${
+                    inUse ? 'bg-[#13392C] border-[#FFB938]/60' : 'bg-[#092219] border-[#164939]'
+                  }`}
+                >
+                  <span
+                    className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
+                      inUse ? 'bg-[#FFB938] text-[#161204]' : 'bg-[#0F382A] text-[#86E49E]'
+                    }`}
+                  >
+                    <Icon className="w-4.5 h-4.5" aria-hidden="true" />
+                  </span>
+                  <div className="space-y-0.5">
+                    <h3 className="text-sm font-bold text-white">{name}</h3>
+                    <p className="text-xs text-[#9EC7B5] leading-relaxed">{desc}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-[#143B2E] py-8 text-center text-xs text-[#7B9E8F] bg-[#05120D]">
         <p>Instituto Federal de Santa Catarina · Câmpus Florianópolis · CST em Sistemas de Energia</p>
         <p className="mt-1">Projeto ReLED: Recuperação de Lâmpadas LED · Extensão Universitária</p>
