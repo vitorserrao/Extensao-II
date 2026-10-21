@@ -35,11 +35,11 @@ export const TheProblemSection: React.FC = () => {
     <section id="o-problema" className="py-16 sm:py-24 bg-white border-b border-[#E0E6DC] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
         
-        {/* Mesmo padrão da seção 1: 12 colunas, duas metades. Cards à esquerda, texto à direita. */}
+        {/* Mesmo padrão da seção 1: 12 colunas, duas metades. Texto à esquerda, cards à direita. */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
 
           {/* Texto */}
-          <div className="lg:order-2 lg:col-span-6 space-y-5">
+          <div className="lg:col-span-6 space-y-5">
             <div className="flex items-center gap-2 text-xs font-sans font-bold text-[#2F9E41] uppercase tracking-wider">
               <span className="w-2.5 h-2.5 rounded-full bg-[#FFB938] shadow-[0_0_8px_rgba(255,185,56,0.9)] animate-pulse shrink-0" />
               <span>2 — O PROBLEMA</span>
@@ -56,7 +56,7 @@ export const TheProblemSection: React.FC = () => {
           </div>
 
           {/* Cards 2×2 */}
-          <div className="lg:order-1 lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
             {steps.map((item) => (
               <div
                 key={item.etapa}
