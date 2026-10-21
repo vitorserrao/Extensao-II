@@ -54,9 +54,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenTutorial }) => {
               <span className="font-display font-black text-xl tracking-[0.12em] text-[#0E1A16] block">
                 ReLED
               </span>
-              <span className="font-sans text-[10px] uppercase tracking-wider text-[#2A5E4D] font-bold block">
-                Recuperação de Lâmpadas LED · IFSC
-              </span>
             </div>
           </a>
 
