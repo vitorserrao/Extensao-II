@@ -40,8 +40,8 @@ const terminalPos = (i: number, pole: Pole) => {
 };
 
 type ProbeId = 'red' | 'black';
-type Probe = { x: number; y: number; at: { led: number; pole: Pole } | null };
-const PROBE_PARK: Record<ProbeId, { x: number; y: number }> = { red: { x: 300, y: 382 }, black: { x: 348, y: 346 } };
+const PROBE_PARK: Record<ProbeId, { x: number; y: number }> = { red: { x: 336, y: 372 }, black: { x: 304, y: 372 } };
+const SNAP_R = 26;
 const PROBE_ANGLE: Record<ProbeId, number> = { red: 25, black: -25 };
 const BATT = { red: { x: 94, y: 362 }, black: { x: 94, y: 380 } };
 const probeEnd = (id: ProbeId, p: { x: number; y: number }) => {
@@ -54,7 +54,7 @@ const TOOL_BY_STEP: Record<number, Tool> = { 1: 'espatula', 2: 'sonda', 3: 'pinc
 
 const HINTS: Record<number, string> = {
   1: 'Segure e arraste a espátula ao longo da borda do difusor.',
-  2: 'Arraste a ponta vermelha até o terminal + e a preta até o terminal − do mesmo LED.',
+  2: 'Leve as duas pontas de prova até um LED: elas encaixam sozinhas nos terminais + e −.',
   3: 'Segure o LED queimado com a pinça e puxe para fora da placa.',
   4: 'Segure o ferro de solda sobre os dois pads até o estanho derreter.',
   5: 'Ligue a lâmpada no circuito de teste.',
@@ -76,11 +76,6 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
   const [closed, setClosed] = useState(false);
   const [done, setDone] = useState(false);
   const [scene, setScene] = useState<'open' | 'light' | null>(null);
-  const [probes, setProbes] = useState<Record<ProbeId, Probe>>(() => ({
-    red: { ...PROBE_PARK.red, at: null },
-    black: { ...PROBE_PARK.black, at: null },
-  }));
-  const [carrying, setCarrying] = useState<ProbeId | null>(null);
   const [probeMsg, setProbeMsg] = useState<string | null>(null);
 
   // Reinicia ao trocar de etapa
@@ -175,26 +170,7 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
 
     if (step === 1 && !domeOff) scrape(p);
 
-    if (step === 2 && !done) {
-      // pega a ponta mais próxima (pela ponta ou pelo cabo da caneta)
-      let best: ProbeId | null = null;
-      let bestD = 30;
-      (['red', 'black'] as ProbeId[]).forEach((id) => {
-        const pr = probes[id];
-        const end = probeEnd(id, pr);
-        const mid = { x: (pr.x + end.x) / 2, y: (pr.y + end.y) / 2 };
-        const d = Math.min(dist(p, pr), dist(p, mid), dist(p, end));
-        if (d < bestD) {
-          bestD = d;
-          best = id;
-        }
-      });
-      if (best) {
-        setCarrying(best);
-        setProbes((ps) => ({ ...ps, [best as ProbeId]: { x: p.x, y: p.y, at: null } }));
-        setProbeMsg(null);
-      }
-    }
+
 
     if (step === 3 && !removed && dist(p, BAD_POS) < 20) {
       setGrab({ dx: 0, dy: 0 });
@@ -207,9 +183,7 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
     setPointer(p);
     if (!pressed) return;
     if (step === 1 && !domeOff) scrape(p);
-    if (step === 2 && carrying) {
-      setProbes((ps) => ({ ...ps, [carrying]: { x: p.x, y: p.y, at: null } }));
-    }
+
     if (step === 3 && grab && !removed) {
       const dx = p.x - BAD_POS.x;
       const dy = p.y - BAD_POS.y;
@@ -223,49 +197,43 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
     }
   };
 
-  const dropProbe = () => {
-    if (!carrying) return;
-    const id = carrying;
-    setCarrying(null);
-    const pr = probes[id];
-    // encaixa no terminal mais próximo
-    let snap: { led: number; pole: Pole; x: number; y: number } | null = null;
-    let bestD = 15;
+  /* --- Etapa 2: o par de pontas encaixa no LED mais próximo --- */
+  const nearLed = (() => {
+    if (step !== 2) return null;
+    if (done) return BAD;
+    if (!pointer) return null;
+    let best: number | null = null;
+    let bestD = SNAP_R;
     for (let i = 0; i < N_LEDS; i++) {
-      for (const pole of ['+', '-'] as Pole[]) {
-        const tp = terminalPos(i, pole);
-        const d = dist(pr, tp);
-        if (d < bestD) {
-          bestD = d;
-          snap = { led: i, pole, ...tp };
-        }
+      const d = dist(pointer, ledPos(i));
+      if (d < bestD) {
+        bestD = d;
+        best = i;
       }
     }
-    const next = { ...probes, [id]: snap ? { x: snap.x, y: snap.y, at: { led: snap.led, pole: snap.pole } } : { ...pr, at: null } };
-    setProbes(next);
+    return best;
+  })();
 
-    const r = next.red.at;
-    const b = next.black.at;
-    if (r && b && r.led === b.led && r.pole !== b.pole) {
-      if (r.pole === '-') {
-        setProbeMsg('Polaridade invertida: o LED só conduz com o vermelho no + e o preto no −.');
-        return;
-      }
-      setTested((t) => new Set(t).add(r.led));
-      if (r.led === BAD) {
-        setProbeMsg(null);
-        finish();
-      } else {
-        setProbeMsg('Acendeu: esse LED está bom. Teste o próximo.');
-      }
-    } else if (r && b && r.led !== b.led) {
-      setProbeMsg('As duas pontas precisam estar no mesmo LED.');
+  useEffect(() => {
+    if (step !== 2 || done || nearLed === null) return;
+    setTested((t) => new Set(t).add(nearLed));
+    if (nearLed === BAD) {
+      setProbeMsg(null);
+      finish();
+    } else {
+      setProbeMsg('Acendeu: esse LED está bom. Teste o próximo.');
     }
-  };
+  }, [nearLed, step, done, finish]);
+
+  const probePos: Record<ProbeId, { x: number; y: number }> =
+    nearLed !== null
+      ? { red: terminalPos(nearLed, '+'), black: terminalPos(nearLed, '-') }
+      : pointer
+      ? { red: { x: pointer.x + 16, y: pointer.y }, black: { x: pointer.x - 16, y: pointer.y } }
+      : PROBE_PARK;
 
   const onUp = () => {
     setPressed(false);
-    dropProbe();
     if (grab) setGrab(null); // soltou antes: o LED volta ao lugar
   };
 
@@ -308,7 +276,7 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
         viewBox="0 0 400 400"
         className="w-full h-auto rounded-2xl bg-[#E9EEE8]"
         style={{
-          cursor: step === 2 && !done ? (carrying ? 'grabbing' : 'grab') : tool && !done ? 'none' : 'default',
+          cursor: tool && !done ? 'none' : 'default',
           touchAction: tool && !done ? 'none' : 'auto',
         }}
         onPointerDown={onDown}
@@ -360,12 +328,7 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
           const { x, y, deg } = ledPos(i);
           const isBad = i === BAD;
           const isTested = tested.has(i);
-          const onProbes =
-            step === 2 &&
-            probes.red.at?.led === i &&
-            probes.black.at?.led === i &&
-            probes.red.at.pole === '+' &&
-            probes.black.at.pole === '-';
+          const onProbes = step === 2 && nearLed === i;
           const lit = (onProbes && !isBad) || (powered && !isBad);
 
           if (isBad && removed) {
@@ -481,7 +444,7 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
             <rect x={56} y={373} width={34} height={14} rx={3} fill="#D97706" />
             <text x={54} y={348} textAnchor="middle" fontSize="10" fontWeight="bold" fontFamily="monospace" fill="#374151">2× AA · 3V</text>
             {(['black', 'red'] as ProbeId[]).map((id) => {
-              const pr = probes[id];
+              const pr = probePos[id];
               const end = probeEnd(id, pr);
               const from = BATT[id];
               const color = id === 'red' ? '#DC2626' : '#111827';
@@ -502,7 +465,7 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
                     <rect x={-6} y={-74} width={12} height={60} rx={5} fill={color} stroke={id === 'red' ? '#7F1D1D' : '#000'} strokeWidth="1.5" />
                     <rect x={-6} y={-30} width={12} height={4} fill="#F8FAFC" opacity="0.5" />
                   </g>
-                  {pr.at && <circle cx={pr.x} cy={pr.y} r={5} fill="none" stroke={color} strokeWidth="2" />}
+                  {nearLed !== null && <circle cx={pr.x} cy={pr.y} r={5} fill="none" stroke={color} strokeWidth="2" />}
                 </g>
               );
             })}
