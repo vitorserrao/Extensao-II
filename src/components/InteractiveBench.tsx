@@ -22,7 +22,8 @@ const LED_R = 84;
 const BAD = 4; // índice do LED queimado
 const SEAM_R = 150;
 const SEAM_SEGMENTS = 36;
-const SEAM_NEEDED = 30;
+const SEAM_NEEDED = SEAM_SEGMENTS; // a volta inteira precisa ser solta
+const DROP_R = 172; // o LED só sai quando é levado para fora da lâmpada
 
 const ledPos = (i: number) => {
   const a = (i / N_LEDS) * Math.PI * 2 - Math.PI / 2;
@@ -68,7 +69,7 @@ const TOOL_BY_STEP: Record<number, Tool> = { 1: 'espatula', 2: 'sonda', 3: 'pinc
 const HINTS: Record<number, string> = {
   1: 'Segure e arraste a espátula ao longo da borda do difusor.',
   2: 'Leve as duas pontas de prova até um LED: elas encaixam sozinhas nos terminais + e −.',
-  3: 'Segure o LED queimado com a pinça e puxe para fora da placa.',
+  3: 'Segure o LED queimado com a pinça, leve-o para fora da lâmpada e solte.',
   4: 'Segure o ferro com o estanho sobre os dois pads até a solda derreter e unir os dois.',
   5: 'Ligue a lâmpada no circuito de teste.',
 };
@@ -83,6 +84,7 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
   const [domeOff, setDomeOff] = useState(step > 1);
   const [tested, setTested] = useState<Set<number>>(() => (step > 2 ? new Set([BAD]) : new Set()));
   const [grab, setGrab] = useState<{ dx: number; dy: number } | null>(null);
+  const [droppedAt, setDroppedAt] = useState<{ x: number; y: number } | null>(null);
   const [removed, setRemoved] = useState(step > 3);
   const [heat, setHeat] = useState(step > 4 ? 1 : 0);
   const [powered, setPowered] = useState(false);
@@ -142,7 +144,7 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
           setScene('open');
           setTimeout(() => setScene(null), 2900);
           finish();
-        }, 150);
+        }, 700); // deixa ver o anel completo antes da cena
       }
       return next;
     });
@@ -198,15 +200,7 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
     if (step === 1 && !domeOff) scrape(p);
 
     if (step === 3 && grab && !removed) {
-      const dx = p.x - BAD_POS.x;
-      const dy = p.y - BAD_POS.y;
-      if (Math.hypot(dx, dy) > 55) {
-        setGrab(null);
-        setRemoved(true);
-        finish();
-      } else {
-        setGrab({ dx, dy });
-      }
+      setGrab({ dx: p.x - BAD_POS.x, dy: p.y - BAD_POS.y });
     }
   };
 
@@ -265,7 +259,15 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
 
   const onUp = () => {
     setPressed(false);
-    if (grab) setGrab(null); // soltou antes: o LED volta ao lugar
+    if (grab) {
+      const at = { x: BAD_POS.x + grab.dx, y: BAD_POS.y + grab.dy };
+      setGrab(null);
+      if (dist(at, { x: C, y: C }) > DROP_R) {
+        setDroppedAt(at);
+        setRemoved(true);
+        finish();
+      } // soltou dentro da lâmpada: o LED volta ao lugar
+    }
   };
 
   const tool = TOOL_BY_STEP[step];
@@ -283,6 +285,10 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
         4: 'Jumper soldado. O circuito em série está fechado de novo.',
         5: 'A lâmpada acendeu. Reparo concluído!',
       }[step]
+    : step === 3 && grab
+    ? dist({ x: BAD_POS.x + grab.dx, y: BAD_POS.y + grab.dy }, { x: C, y: C }) > DROP_R
+      ? 'Pode soltar: o LED está fora da lâmpada.'
+      : 'Continue puxando até sair da lâmpada.'
     : step === 2 && probeMsg
     ? probeMsg
     : step === 5 && powered
@@ -432,6 +438,21 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
             </g>
           );
         })}
+
+        {/* etapa 3: limite da lâmpada enquanto puxa, e o LED retirado onde foi solto */}
+        {step === 3 && grab && (
+          <circle cx={C} cy={C} r={DROP_R} fill="none" stroke="#DC2626" strokeWidth="1.5" strokeDasharray="5 5" opacity="0.6" pointerEvents="none" />
+        )}
+        {step === 3 && droppedAt && (
+          <g transform={`translate(${droppedAt.x} ${droppedAt.y})`} pointerEvents="none" className="scene-fade">
+            <rect x={-12} y={-12} width={24} height={24} rx={3} fill="#F8FAFC" stroke="#94A3B8" />
+            <circle r={8} fill="#FCD34D" stroke="#D97706" strokeWidth="0.8" />
+            <circle r={2.6} fill="#1F2937" />
+            <text y={26} textAnchor="middle" fontSize="9" fontWeight="bold" fontFamily="monospace" fill="#B91C1C">
+              queimado
+            </text>
+          </g>
+        )}
 
         {/* alvo da solda */}
         {step === 4 && heat < 1 && (

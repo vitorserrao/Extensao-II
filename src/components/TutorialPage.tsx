@@ -165,7 +165,6 @@ export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack, initialTab =
   const [extraOpen, setExtraOpen] = useState<boolean>(initialTab === 'circuito');
   const [done, setDone] = useState(false);
   const [actionDone, setActionDone] = useState(false);
-  const [autoNext, setAutoNext] = useState(true);
   const [recoveredCount, setRecoveredCount] = useState(0);
 
   // Conta quantas lâmpadas a pessoa já recuperou neste navegador
@@ -194,21 +193,11 @@ export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack, initialTab =
   const safetyOk = checked.every(Boolean);
   const current = step > 0 ? STEPS[step - 1] : null;
 
-  // Ao concluir a ação, mostra o que aconteceu e segue sozinho para a próxima etapa
-  const advanceDelay = step === 1 ? 7000 : 5500; // etapa 1 tem a cena do difusor antes
-  useEffect(() => {
-    if (!actionDone || !autoNext || step < 1 || step >= STEPS.length || done) return;
-    const t = setTimeout(() => goTo(step + 1), advanceDelay);
-    return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [actionDone, autoNext, step, done]);
-
   const goTo = (s: number) => {
     setDone(false);
     setStep(s);
     setExtraOpen(false);
     setActionDone(false);
-    setAutoNext(true);
     setVisited((v) => new Set(v).add(s));
     // Em telas pequenas, mantém a bancada à vista ao trocar de etapa
     if (window.innerWidth < 1024) {
@@ -460,35 +449,8 @@ export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack, initialTab =
                           <div className="space-y-1">
                             <span className="block text-sm font-bold text-white">Etapa concluída</span>
                             <p className="text-xs sm:text-sm text-[#BFE9CC] leading-relaxed">{current.result}</p>
-                            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-2">
-                              <button
-                                type="button"
-                                onClick={() => goTo(step + 1)}
-                                className="text-xs font-bold text-[#FFB938] hover:text-[#FFD27A] cursor-pointer"
-                              >
-                                {autoNext ? 'Ir agora' : `Ir para ${STEPS[step].short}`} →
-                              </button>
-                              {autoNext && (
-                                <button
-                                  type="button"
-                                  onClick={() => setAutoNext(false)}
-                                  className="text-xs font-semibold text-[#7FA897] hover:text-white cursor-pointer"
-                                >
-                                  Ficar nesta etapa
-                                </button>
-                              )}
-                            </div>
                           </div>
                         </div>
-                        {autoNext && (
-                          <div className="h-1 bg-[#0B2A1F]">
-                            <div
-                              key={step}
-                              className="h-full bg-[#FFB938] countdown-bar"
-                              style={{ animationDuration: `${advanceDelay}ms` }}
-                            />
-                          </div>
-                        )}
                       </div>
                     )}
 

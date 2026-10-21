@@ -320,15 +320,3 @@
   }
 }
 
-/* Barra de contagem para avançar de etapa no laboratório virtual */
-.countdown-bar {
-  width: 100%;
-  transform-origin: left;
-  animation-name: countdown;
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
-}
-@keyframes countdown {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
-}
