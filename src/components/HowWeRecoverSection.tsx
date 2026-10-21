@@ -64,7 +64,6 @@ export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = ({ onOpen
             </div>
 
             <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-2xl bg-[#061611]/80 border border-[#164939] text-center space-y-4">
-              <div className="text-4xl">🔧⚡💡</div>
               <div>
                 <span className="text-sm font-bold text-white block">Página do Tutorial</span>
                 <span className="text-xs text-[#8BB7A3]">Acesso livre para estudantes e comunidade</span>
