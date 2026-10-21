@@ -17,7 +17,7 @@ import {
   RotateCcw,
   Power,
 } from 'lucide-react';
-import { InteractiveRecoveryLamp } from './InteractiveRecoveryLamp';
+import { InteractiveBench } from './InteractiveBench';
 
 /** Pontos de entrada usados pelos atalhos da página inicial. */
 export type TutorialTab = 'simulador' | 'passos' | 'seguranca' | 'ferramentas' | 'circuito';
@@ -147,6 +147,7 @@ export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack, initialTab =
   const [checked, setChecked] = useState<boolean[]>(() => SAFETY.map(() => initialTab !== 'seguranca'));
   const [extraOpen, setExtraOpen] = useState<boolean>(initialTab === 'circuito');
   const [done, setDone] = useState(false);
+  const [actionDone, setActionDone] = useState(false);
   const workspaceRef = useRef<HTMLDivElement>(null);
   const toolsRef = useRef<HTMLElement>(null);
 
@@ -165,6 +166,7 @@ export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack, initialTab =
     setDone(false);
     setStep(s);
     setExtraOpen(false);
+    setActionDone(false);
     setVisited((v) => new Set(v).add(s));
     // Em telas pequenas, mantém a bancada à vista ao trocar de etapa
     if (window.innerWidth < 1024) {
@@ -266,11 +268,7 @@ export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack, initialTab =
           <div className="lg:col-span-5 lg:sticky lg:top-24">
             <div className="relative">
               <div className={`transition-all duration-500 ${step === 0 && !done ? 'opacity-40 grayscale pointer-events-none' : ''}`}>
-                <InteractiveRecoveryLamp
-                  currentStep={done ? 5 : Math.max(step, 1)}
-                  onSelectStep={(s) => goTo(s)}
-                  compact
-                />
+                <InteractiveBench key={step} step={Math.max(step, 1)} onDone={() => setActionDone(true)} />
               </div>
               {step === 0 && !done && (
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -457,14 +455,27 @@ export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack, initialTab =
                         <ArrowLeft className="w-4 h-4" aria-hidden="true" />
                         {step === 1 ? 'Segurança' : 'Anterior'}
                       </button>
-                      <button
-                        type="button"
-                        onClick={() => (step === STEPS.length ? setDone(true) : goTo(step + 1))}
-                        className="inline-flex items-center gap-2 px-5 py-3 mt-4 rounded-xl bg-[#FFB938] hover:bg-[#F5A623] text-[#161204] text-sm font-bold transition-colors cursor-pointer"
-                      >
-                        {step === STEPS.length ? 'Concluir reparo' : `Próxima: ${STEPS[step].short}`}
-                        <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                      </button>
+                      {actionDone ? (
+                        <button
+                          type="button"
+                          onClick={() => (step === STEPS.length ? setDone(true) : goTo(step + 1))}
+                          className="inline-flex items-center gap-2 px-5 py-3 mt-4 rounded-xl bg-[#FFB938] hover:bg-[#F5A623] text-[#161204] text-sm font-bold transition-colors cursor-pointer"
+                        >
+                          {step === STEPS.length ? 'Concluir reparo' : `Próxima: ${STEPS[step].short}`}
+                          <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                        </button>
+                      ) : (
+                        <div className="mt-4 flex items-center gap-3 text-right">
+                          <span className="hidden sm:inline text-xs text-[#7FA897]">Faça a etapa na bancada para continuar</span>
+                          <button
+                            type="button"
+                            onClick={() => (step === STEPS.length ? setDone(true) : goTo(step + 1))}
+                            className="px-3 py-2 rounded-lg text-xs font-semibold text-[#7FA897] hover:text-white underline underline-offset-4 cursor-pointer"
+                          >
+                            Pular etapa
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </>
                 )
