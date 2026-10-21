@@ -42,7 +42,7 @@ export const HeroSection: React.FC = () => {
           </div>
 
           {/* Main Headline - Bloqueado estritamente em exatamente duas linhas */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.4rem] font-display font-extrabold tracking-tight leading-[1.12] text-[#1A1A1A]">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.4rem] font-display font-extrabold tracking-tight leading-[1.12] text-[#0D241C]">
             <span className="block whitespace-nowrap">
               Antes de descartar,
             </span>

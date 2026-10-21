@@ -26,7 +26,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({ num, label, line
         </span>
       </div>
 
-      <Title className="title-2l section-title text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#1A1A1A] tracking-tight leading-[1.12]">
+      <Title className="title-2l section-title text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#0D241C] tracking-tight leading-[1.12]">
         <span className="title-line">{line1}</span>
         {line2 && <span className="title-line">{line2}</span>}
       </Title>

@@ -68,7 +68,7 @@ export const TheProblemSection: React.FC = () => {
                     </span>
                     <item.icon className="w-5 h-5 text-[#2F9E41] group-hover:scale-110 transition-transform" strokeWidth={2} aria-hidden="true" />
                   </div>
-                  <h3 className="text-lg font-display font-bold text-[#1A1A1A] mb-2.5">
+                  <h3 className="text-lg font-display font-bold text-[#0D241C] mb-2.5">
                     {item.title}
                   </h3>
                   <p className="text-xs sm:text-sm text-[#4A554E] leading-relaxed">

@@ -89,7 +89,7 @@ export const UnderstandLampSection: React.FC = () => {
                       <div className="flex-1 space-y-1">
                         <div className="flex items-center justify-between">
                           <h3 className={`font-display font-bold text-base transition-colors ${
-                            isActive ? 'text-[#0E241C]' : 'text-[#1A1A1A]'
+                            isActive ? 'text-[#0E241C]' : 'text-[#0D241C]'
                           }`}>
                             {layer.name} <span className="font-sans font-normal text-xs text-[#556961]">({layer.subtitle})</span>
                           </h3>

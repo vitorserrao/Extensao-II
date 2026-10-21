@@ -82,7 +82,7 @@ export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = ({ onOpen
                   <ArrowRight className="w-4 h-4 text-[#9DB3A6] group-hover:text-[#2F9E41] group-hover:translate-x-0.5 transition-all" aria-hidden="true" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-display font-bold text-[#1A1A1A] mb-2.5">{title}</h3>
+                  <h3 className="text-lg font-display font-bold text-[#0D241C] mb-2.5">{title}</h3>
                   <p className="text-xs sm:text-sm text-[#4A554E] leading-relaxed">{desc}</p>
                 </div>
               </button>

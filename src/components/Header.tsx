@@ -51,7 +51,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenTutorial }) => {
               </svg>
             </div>
             <div className="leading-tight">
-              <span className="font-display font-black text-xl tracking-[0.12em] text-[#0E1A16] block">
+              <span className="font-display font-black text-xl tracking-[0.12em] text-[#0D241C] block">
                 ReLED
               </span>
             </div>

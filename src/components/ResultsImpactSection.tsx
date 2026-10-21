@@ -235,7 +235,7 @@ export const ResultsImpactSection: React.FC = () => {
             <div className="lg:col-span-5 space-y-6 lg:pr-4 lg:border-r lg:border-[#D5E2D6]/70">
               
               <div className="space-y-2">
-                <h4 className="text-xl sm:text-2xl font-display font-bold text-[#1A1A1A] leading-tight">
+                <h4 className="text-xl sm:text-2xl font-display font-bold text-[#0D241C] leading-tight">
                   Quantas lâmpadas você tem paradas?
                 </h4>
                 <p className="text-xs sm:text-sm text-[#384C43] leading-relaxed">

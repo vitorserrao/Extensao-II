@@ -132,7 +132,7 @@ export const ParticipateSection: React.FC<ParticipateSectionProps> = () => {
                         {selectedPoint.campus}
                       </span>
                     </div>
-                    <h3 className="text-xl font-display font-bold text-[#1A1A1A] mt-0.5">
+                    <h3 className="text-xl font-display font-bold text-[#0D241C] mt-0.5">
                       {selectedPoint.name}
                     </h3>
                   </div>
