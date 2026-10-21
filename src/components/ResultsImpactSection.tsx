@@ -91,9 +91,6 @@ export const ResultsImpactSection: React.FC = () => {
                 </span>
               </div>
 
-              <div className="bg-[#FAFBF9] px-4 py-3 border-t border-[#E0E6DC] text-[10px] font-mono text-[#556961] leading-relaxed">
-                Valores ilustrativos institucionais — serão formalmente atualizados conforme fechamento dos relatórios semestrais de extensão.
-              </div>
             </div>
           </div>
           </div>
