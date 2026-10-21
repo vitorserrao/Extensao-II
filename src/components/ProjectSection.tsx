@@ -72,7 +72,7 @@ export const ProjectSection: React.FC = () => {
 
         {/* Figure 2: Lab photo */}
         <div>
-          <div className="rounded-3xl overflow-hidden bg-white border border-[#D5DDD2] shadow-sm aspect-[21/9] sm:aspect-[24/8] max-h-[360px] group">
+          <div className="rounded-3xl overflow-hidden bg-white border border-[#D5E2D6] shadow-sm aspect-[21/9] sm:aspect-[24/8] max-h-[360px] group">
             <img
               src={labBenchImage}
               alt="Bancada do laboratório com lâmpadas aguardando avaliação"

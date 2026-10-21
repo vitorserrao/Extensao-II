@@ -64,7 +64,7 @@ export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = ({ onOpen
                 <span>Entrar no laboratório virtual</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
               </button>
-              <p className="text-xs text-[#556961]">Acesso livre para estudantes e comunidade.</p>
+              <p className="text-xs text-[#6B7F74]">Acesso livre para estudantes e comunidade.</p>
             </div>
           </div>
 
@@ -79,7 +79,7 @@ export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = ({ onOpen
               >
                 <div className="flex items-center justify-between">
                   <Icon className="w-5 h-5 text-[#2F9E41] group-hover:scale-110 transition-transform" aria-hidden="true" />
-                  <ArrowRight className="w-4 h-4 text-[#9DB3A6] group-hover:text-[#2F9E41] group-hover:translate-x-0.5 transition-all" aria-hidden="true" />
+                  <ArrowRight className="w-4 h-4 text-[#6B7F74] group-hover:text-[#2F9E41] group-hover:translate-x-0.5 transition-all" aria-hidden="true" />
                 </div>
                 <div>
                   <h3 className="text-lg font-display font-bold text-[#0D241C] mb-2.5">{title}</h3>

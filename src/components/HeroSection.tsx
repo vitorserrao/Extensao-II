@@ -27,7 +27,7 @@ export const HeroSection: React.FC = () => {
           
           {/* Header Tag Oficial IFSC & Destaque do Curso */}
           <div className="space-y-2 font-sans">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-[#EAF5EC] border border-[#BBDCBE] text-[#124B1E] text-xs font-bold shadow-2xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-[#EBF7ED] border border-[#D5E2D6] text-[#124B1E] text-xs font-bold shadow-2xs">
               <span className="w-2.5 h-2.5 rounded-full bg-[#CD191E]" />
               <span className="font-sans font-bold text-xs tracking-wider uppercase">
                 PROJETO DE EXTENSÃO · IFSC
@@ -56,7 +56,7 @@ export const HeroSection: React.FC = () => {
             <span className="text-[11px] font-sans uppercase tracking-wider text-[#2F9E41] font-bold block">
               RESUMO INSTITUCIONAL
             </span>
-            <p className="text-xs sm:text-sm text-[#2A352D] leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-[#3A453F] leading-relaxed font-normal">
               O <strong className="font-bold text-[#1A1A1A]">Projeto ReLED: Recuperação de Lâmpadas LED</strong> é um projeto de extensão do curso de Sistemas de Energia do IFSC focado em recuperar lâmpadas LED, prolongar sua vida útil e transformar o conhecimento acadêmico em eficiência energética e sustentabilidade para a sociedade.
             </p>
           </div>
@@ -65,14 +65,14 @@ export const HeroSection: React.FC = () => {
           <div className="pt-1 flex flex-wrap items-center gap-3">
             <a
               href="#projeto"
-              className="px-5 py-3 rounded-xl text-xs font-sans uppercase font-bold tracking-wider text-white bg-[#2F9E41] hover:bg-[#258535] transition-all shadow-xs hover:shadow-sm"
+              className="px-5 py-3 rounded-xl text-xs font-sans uppercase font-bold tracking-wider text-white bg-[#2F9E41] hover:bg-[#1E6B2C] transition-all shadow-xs hover:shadow-sm"
             >
               Sobre o Projeto →
             </a>
 
             <a
               href="#participe"
-              className="px-5 py-3 rounded-xl text-xs font-sans uppercase font-bold tracking-wider text-[#1A1A1A] bg-white hover:bg-[#F2F6F2] border border-[#D5E2D6] transition-all shadow-2xs"
+              className="px-5 py-3 rounded-xl text-xs font-sans uppercase font-bold tracking-wider text-[#1A1A1A] bg-white hover:bg-[#F4F8F4] border border-[#D5E2D6] transition-all shadow-2xs"
             >
               Como participar
             </a>

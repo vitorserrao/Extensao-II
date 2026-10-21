@@ -52,17 +52,17 @@ export const ResultsImpactSection: React.FC = () => {
           {/* LADO DIREITO (5 Colunas): Tabela 1 — Registro Oficial dos Indicadores */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#1B4D3E]">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#2F9E41]">
                 Contador
               </span>
-              <span className="text-[10px] font-mono text-[#6A8277]">CST Sistemas de Energia</span>
+              <span className="text-[10px] font-mono text-[#6B7F74]">CST Sistemas de Energia</span>
             </div>
 
             <div className="rounded-2xl border border-[#D5E2D6] bg-white overflow-hidden shadow-2xs">
-              <div className="bg-[#08211A] text-white px-5 py-3.5 flex items-center justify-between">
+              <div className="bg-[#0D241C] text-white px-5 py-3.5 flex items-center justify-between">
                 <div>
                   <h4 className="text-xs font-bold uppercase tracking-wider">Contador de lâmpadas</h4>
-                  <p className="text-[10px] text-emerald-300">Bancada de Extensão Universitária</p>
+                  <p className="text-[10px] text-[#EBF7ED]">Bancada de Extensão Universitária</p>
                 </div>
               </div>
 
@@ -75,14 +75,14 @@ export const ResultsImpactSection: React.FC = () => {
                 </div>
                 <div className="p-5 sm:p-6 space-y-1">
                   <span className="block text-[10px] font-mono uppercase tracking-widest font-bold text-[#2F9E41]">Recuperadas</span>
-                  <CountUp to={RECUPERADAS} className="block font-display font-black text-5xl sm:text-6xl text-[#1A7F5A] tracking-tight leading-none" />
+                  <CountUp to={RECUPERADAS} className="block font-display font-black text-5xl sm:text-6xl text-[#2F9E41] tracking-tight leading-none" />
                   <span className="block text-xs text-[#4A554E]">testadas e funcionando</span>
                 </div>
               </div>
 
               <div className="px-5 sm:px-6 pb-5 space-y-1.5">
                 <CountBar pct={(RECUPERADAS / RECEBIDAS) * 100} />
-                <span className="block text-[11px] text-[#557065]">
+                <span className="block text-[11px] text-[#6B7F74]">
                   {Math.round((RECUPERADAS / RECEBIDAS) * 100)}% das lâmpadas recebidas voltaram a funcionar
                 </span>
               </div>
@@ -94,10 +94,10 @@ export const ResultsImpactSection: React.FC = () => {
           {/* LADO ESQUERDO (7 Colunas): Painel de Métricas Comunitárias em Destaque */}
           <div className="lg:col-span-6 space-y-5">
             <div className="flex items-center justify-between">
-              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-[#EBF0E8] border border-[#D5E2D6] text-[10px] font-mono font-bold text-[#2E6B56] uppercase tracking-wider">
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-[#F4F8F4] border border-[#D5E2D6] text-[10px] font-mono font-bold text-[#2F9E41] uppercase tracking-wider">
                 <span>Painel Aberto de Impacto Comunitário</span>
               </div>
-              <span className="text-[11px] font-mono text-[#557065]">Metas do ciclo 2024/2025</span>
+              <span className="text-[11px] font-mono text-[#6B7F74]">Metas do ciclo 2024/2025</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -108,7 +108,7 @@ export const ResultsImpactSection: React.FC = () => {
                   <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-[#2F9E41]">
                     Eficiência Técnica
                   </span>
-                  <span className="w-6 h-6 rounded-md bg-amber-50 text-amber-700 flex items-center justify-center text-xs font-bold font-mono">
+                  <span className="w-6 h-6 rounded-md bg-[#FFF6DF] text-[#9A6700] flex items-center justify-center text-xs font-bold font-mono">
                     82%
                   </span>
                 </div>
@@ -119,8 +119,8 @@ export const ResultsImpactSection: React.FC = () => {
                   <strong className="text-xs font-bold text-[#1A1A1A] block mt-0.5">
                     Taxa de Recuperação
                   </strong>
-                  <div className="w-full bg-[#E8EFE5] h-1.5 rounded-full overflow-hidden my-2">
-                    <div className="bg-[#1E4D3E] h-full rounded-full" style={{ width: '82%' }} />
+                  <div className="w-full bg-[#E3ECE4] h-1.5 rounded-full overflow-hidden my-2">
+                    <div className="bg-[#2F9E41] h-full rounded-full" style={{ width: '82%' }} />
                   </div>
                   <p className="text-xs sm:text-sm text-[#4A554E] leading-relaxed">
                     Na maioria dos casos, apenas 1 componente pontual falhou enquanto a estrutura permanece íntegra.
@@ -134,7 +134,7 @@ export const ResultsImpactSection: React.FC = () => {
                   <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-[#2F9E41]">
                     Equipamentos Salvos
                   </span>
-                  <span className="w-6 h-6 rounded-md bg-emerald-50 text-emerald-700 flex items-center justify-center text-xs">
+                  <span className="w-6 h-6 rounded-md bg-[#EBF7ED] text-[#2F9E41] flex items-center justify-center text-xs">
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                     </svg>
@@ -147,7 +147,7 @@ export const ResultsImpactSection: React.FC = () => {
                   <strong className="text-xs font-bold text-[#1A1A1A] block mt-0.5">
                     Lâmpadas Recuperadas
                   </strong>
-                  <span className="inline-block px-1.5 py-0.5 rounded bg-emerald-50 border border-emerald-200 text-[10px] font-mono text-emerald-800 my-1 font-semibold">
+                  <span className="inline-block px-1.5 py-0.5 rounded bg-[#EBF7ED] border border-[#D5E2D6] text-[10px] font-mono text-[#1E6B2C] my-1 font-semibold">
                     100% testadas e aprovadas
                   </span>
                   <p className="text-xs sm:text-sm text-[#4A554E] leading-relaxed">
@@ -162,7 +162,7 @@ export const ResultsImpactSection: React.FC = () => {
                   <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-[#2F9E41]">
                     Economia Circular
                   </span>
-                  <span className="w-6 h-6 rounded-md bg-teal-50 text-teal-700 flex items-center justify-center text-xs">
+                  <span className="w-6 h-6 rounded-md bg-[#EBF7ED] text-[#2F9E41] flex items-center justify-center text-xs">
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                     </svg>
@@ -187,14 +187,14 @@ export const ResultsImpactSection: React.FC = () => {
                   <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-[#2F9E41]">
                     Impacto Social
                   </span>
-                  <span className="w-6 h-6 rounded-md bg-amber-50 text-amber-700 flex items-center justify-center text-xs">
+                  <span className="w-6 h-6 rounded-md bg-[#FFF6DF] text-[#9A6700] flex items-center justify-center text-xs">
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </span>
                 </div>
                 <div className="my-1">
-                  <div className="text-3xl font-display font-extrabold text-[#87550B] tracking-tight">
+                  <div className="text-3xl font-display font-extrabold text-[#9A6700] tracking-tight">
                     R$ 4.460
                   </div>
                   <strong className="text-xs font-bold text-[#1A1A1A] block mt-0.5">
@@ -215,9 +215,9 @@ export const ResultsImpactSection: React.FC = () => {
         <div id="simulador-impacto" className="rounded-3xl bg-white border border-[#D5E2D6] shadow-sm overflow-hidden">
           
           {/* Faixa Superior do Simulador */}
-          <div className="bg-[#0A261E] text-white px-6 sm:px-10 py-5 flex items-center justify-between border-b border-[#183F33]">
+          <div className="bg-[#0D241C] text-white px-6 sm:px-10 py-5 flex items-center justify-between border-b border-white/10">
             <div className="flex items-center gap-3">
-              <span className="w-8 h-8 rounded-lg bg-[#143B2F] text-amber-300 flex items-center justify-center shadow-xs">
+              <span className="w-8 h-8 rounded-lg bg-white/10 text-[#FFB938] flex items-center justify-center shadow-xs">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
@@ -238,22 +238,22 @@ export const ResultsImpactSection: React.FC = () => {
                 <h4 className="text-xl sm:text-2xl font-display font-bold text-[#0D241C] leading-tight">
                   Quantas lâmpadas você tem paradas?
                 </h4>
-                <p className="text-xs sm:text-sm text-[#384C43] leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#3A453F] leading-relaxed">
                   Ajuste a quantidade para calcular o benefício imediato de recuperar no IFSC em vez de comprar novas e gerar lixo:
                 </p>
               </div>
 
               {/* Display do Contador e Slider */}
-              <div className="p-5 rounded-2xl bg-[#F7F9F5] border border-[#D5E2D6] space-y-4">
+              <div className="p-5 rounded-2xl bg-[#F4F8F4] border border-[#D5E2D6] space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#2A4237]">
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#3A453F]">
                     Lâmpadas selecionadas:
                   </span>
                   <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-white rounded-full border border-[#D5E2D6] shadow-2xs">
                     <span className="text-2xl font-display font-black text-[#1A1A1A]">
                       {lampCount}
                     </span>
-                    <span className="text-xs font-mono font-bold text-[#4E6B5F]">
+                    <span className="text-xs font-mono font-bold text-[#6B7F74]">
                       {lampCount === 1 ? 'unidade' : 'unidades'}
                     </span>
                   </div>
@@ -267,10 +267,10 @@ export const ResultsImpactSection: React.FC = () => {
                     max="40"
                     value={lampCount}
                     onChange={(e) => setLampCount(Number(e.target.value))}
-                    className="w-full h-3 bg-[#D4DDD1] rounded-lg accent-[#134436] cursor-pointer"
+                    className="w-full h-3 bg-[#E3ECE4] rounded-lg accent-[#2F9E41] cursor-pointer"
                     aria-label="Ajustar quantidade de lâmpadas para simulação de impacto"
                   />
-                  <div className="flex justify-between text-[10px] font-mono text-[#627D71]">
+                  <div className="flex justify-between text-[10px] font-mono text-[#6B7F74]">
                     <span>1 un.</span>
                     <span>10 un.</span>
                     <span>20 un.</span>
@@ -280,8 +280,8 @@ export const ResultsImpactSection: React.FC = () => {
                 </div>
 
                 {/* Atalhos Rápidos com Contexto Prático */}
-                <div className="space-y-2 pt-1 border-t border-[#E1E8DC]">
-                  <span className="text-[10px] font-mono text-[#557065] uppercase font-bold block">
+                <div className="space-y-2 pt-1 border-t border-[#D5E2D6]">
+                  <span className="text-[10px] font-mono text-[#6B7F74] uppercase font-bold block">
                     Cenários comuns:
                   </span>
                   <div className="grid grid-cols-2 gap-2">
@@ -293,11 +293,11 @@ export const ResultsImpactSection: React.FC = () => {
                         className={`p-2 rounded-xl text-left transition-all cursor-pointer border ${
                           lampCount === opt.count
                             ? 'bg-[#0D241C] text-white border-[#0D241C] shadow-2xs'
-                            : 'bg-white text-[#2A4237] hover:bg-gray-50 border-[#D5E2D6]'
+                            : 'bg-white text-[#3A453F] hover:bg-[#F4F8F4] border-[#D5E2D6]'
                         }`}
                       >
                         <div className="text-xs font-mono font-bold">{opt.label}</div>
-                        <div className={`text-[10px] ${lampCount === opt.count ? 'text-emerald-200' : 'text-[#627D71]'}`}>
+                        <div className={`text-[10px] ${lampCount === opt.count ? 'text-[#EBF7ED]' : 'text-[#6B7F74]'}`}>
                           {opt.note}
                         </div>
                       </button>
@@ -311,10 +311,10 @@ export const ResultsImpactSection: React.FC = () => {
             <div className="lg:col-span-7 space-y-4">
               
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#1E4D3E]">
+                <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#2F9E41]">
                   Impacto Calculado em Tempo Real
                 </span>
-                <span className="text-[11px] font-mono text-[#557065]">
+                <span className="text-[11px] font-mono text-[#6B7F74]">
                   Base: {lampCount} {lampCount === 1 ? 'lâmpada' : 'lâmpadas'}
                 </span>
               </div>
@@ -327,13 +327,13 @@ export const ResultsImpactSection: React.FC = () => {
                     <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-[#2F9E41]">
                       Resíduos Evitados
                     </span>
-                    <span className="w-5 h-5 rounded flex items-center justify-center text-emerald-700 bg-emerald-50">
+                    <span className="w-5 h-5 rounded flex items-center justify-center text-[#2F9E41] bg-[#EBF7ED]">
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                       </svg>
                     </span>
                   </div>
-                  <div className="text-3xl sm:text-4xl font-display font-extrabold text-[#1A1A1A] tracking-tight group-hover:text-[#134436] transition-colors">
+                  <div className="text-3xl sm:text-4xl font-display font-extrabold text-[#1A1A1A] tracking-tight group-hover:text-[#2F9E41] transition-colors">
                     ~{avoidedKg} kg
                   </div>
                   <p className="text-xs font-bold text-[#1A1A1A] mt-1 mb-0.5">
@@ -350,16 +350,16 @@ export const ResultsImpactSection: React.FC = () => {
                     <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-[#2F9E41]">
                       Economia no Bolso
                     </span>
-                    <span className="w-5 h-5 rounded flex items-center justify-center text-amber-800 bg-amber-50">
+                    <span className="w-5 h-5 rounded flex items-center justify-center text-[#9A6700] bg-[#FFF6DF]">
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </span>
                   </div>
-                  <div className="text-3xl sm:text-4xl font-display font-extrabold text-amber-800 tracking-tight">
+                  <div className="text-3xl sm:text-4xl font-display font-extrabold text-[#9A6700] tracking-tight">
                     R$ {moneySaved},00
                   </div>
-                  <p className="text-xs font-bold text-amber-950 mt-1 mb-0.5">
+                  <p className="text-xs font-bold text-[#9A6700] mt-1 mb-0.5">
                     Sem precisar comprar novas
                   </p>
                   <p className="text-xs sm:text-sm text-[#4A554E] leading-relaxed">
@@ -373,13 +373,13 @@ export const ResultsImpactSection: React.FC = () => {
                     <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-[#2F9E41]">
                       Pegada de Carbono
                     </span>
-                    <span className="w-5 h-5 rounded flex items-center justify-center text-emerald-700 bg-emerald-50">
+                    <span className="w-5 h-5 rounded flex items-center justify-center text-[#2F9E41] bg-[#EBF7ED]">
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </span>
                   </div>
-                  <div className="text-3xl sm:text-4xl font-display font-extrabold text-[#1A1A1A] tracking-tight group-hover:text-[#134436] transition-colors">
+                  <div className="text-3xl sm:text-4xl font-display font-extrabold text-[#1A1A1A] tracking-tight group-hover:text-[#2F9E41] transition-colors">
                     ~{co2Avoided} kg
                   </div>
                   <p className="text-xs font-bold text-[#1A1A1A] mt-1 mb-0.5">
@@ -396,13 +396,13 @@ export const ResultsImpactSection: React.FC = () => {
                     <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-[#2F9E41]">
                       Iluminação Útil
                     </span>
-                    <span className="w-5 h-5 rounded flex items-center justify-center text-emerald-700 bg-emerald-50">
+                    <span className="w-5 h-5 rounded flex items-center justify-center text-[#2F9E41] bg-[#EBF7ED]">
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </span>
                   </div>
-                  <div className="text-3xl sm:text-4xl font-display font-extrabold text-[#164E3A] tracking-tight">
+                  <div className="text-3xl sm:text-4xl font-display font-extrabold text-[#2F9E41] tracking-tight">
                     +{hoursRecovered} h
                   </div>
                   <p className="text-xs font-bold text-[#1A1A1A] mt-1 mb-0.5">
@@ -416,9 +416,9 @@ export const ResultsImpactSection: React.FC = () => {
               </div>
 
               {/* Resumo Consolidado do Impacto com Barra Visual */}
-              <div className="p-4 rounded-2xl bg-[#0F2D24] text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="p-4 rounded-2xl bg-[#0D241C] text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <div className="text-xs font-mono text-emerald-300 font-bold uppercase tracking-wider">
+                  <div className="text-xs font-mono text-[#EBF7ED] font-bold uppercase tracking-wider">
                     Equivalente Ambiental Coletivo:
                   </div>
                   <div className="text-sm font-semibold text-white mt-0.5">
@@ -427,7 +427,7 @@ export const ResultsImpactSection: React.FC = () => {
                 </div>
                 <a
                   href="#participe"
-                  className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-amber-400 text-[#0A231C] font-mono text-xs font-bold hover:bg-amber-300 transition-colors shrink-0 shadow-xs"
+                  className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-[#FFB938] text-[#0D241C] font-mono text-xs font-bold hover:bg-[#F5A623] transition-colors shrink-0 shadow-xs"
                 >
                   <span>Entregar lâmpadas</span>
                   <span>→</span>

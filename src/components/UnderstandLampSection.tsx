@@ -77,21 +77,21 @@ export const UnderstandLampSection: React.FC = () => {
                     key={layer.num}
                     onClick={() => setActiveLayer(layerId)}
                     className={`py-4 transition-all duration-300 cursor-pointer ${
-                      isActive ? 'bg-[#EAEFE8]/80 -mx-3 px-3 rounded-2xl shadow-2xs' : 'hover:bg-[#F2F6F0]/60'
+                      isActive ? 'bg-[#F4F8F4]/80 -mx-3 px-3 rounded-2xl shadow-2xs' : 'hover:bg-[#F4F8F4]/60'
                     }`}
                   >
                     <div className="flex items-start gap-4">
                       <span className={`font-mono text-xs font-bold px-2 py-0.5 rounded transition-colors ${
-                        isActive ? 'bg-[#143B2C] text-white' : 'text-[#2A5E4D] bg-[#E0ECE5]'
+                        isActive ? 'bg-[#0D241C] text-white' : 'text-[#2F9E41] bg-[#EBF7ED]'
                       }`}>
                         {layer.num}
                       </span>
                       <div className="flex-1 space-y-1">
                         <div className="flex items-center justify-between">
                           <h3 className={`font-display font-bold text-base transition-colors ${
-                            isActive ? 'text-[#0E241C]' : 'text-[#0D241C]'
+                            isActive ? 'text-[#0D241C]' : 'text-[#0D241C]'
                           }`}>
-                            {layer.name} <span className="font-sans font-normal text-xs text-[#556961]">({layer.subtitle})</span>
+                            {layer.name} <span className="font-sans font-normal text-xs text-[#6B7F74]">({layer.subtitle})</span>
                           </h3>
                           {isActive && (
                             <span className="text-[10px] font-mono uppercase tracking-wider text-[#2F9E41] font-bold">
@@ -99,15 +99,15 @@ export const UnderstandLampSection: React.FC = () => {
                             </span>
                           )}
                         </div>
-                        <p className="text-xs sm:text-sm text-[#2E3D35] leading-relaxed">
+                        <p className="text-xs sm:text-sm text-[#3A453F] leading-relaxed">
                           <span className="font-semibold text-[#1A1A1A]">Função: </span>
                           {layer.function}
                         </p>
 
                         {isActive && (
-                          <div className="pt-2 text-xs text-[#3E574B] space-y-2 border-t border-[#D5E2D6]/50 mt-2 animate-fadeIn">
+                          <div className="pt-2 text-xs text-[#3A453F] space-y-2 border-t border-[#D5E2D6]/50 mt-2 animate-fadeIn">
                             <p className="leading-relaxed whitespace-pre-line">{layer.description}</p>
-                            <div className="p-3 rounded-xl bg-white/80 border border-[#D5E2D6] text-[#2C483B]">
+                            <div className="p-3 rounded-xl bg-white/80 border border-[#D5E2D6] text-[#3A453F]">
                               <span className="font-bold text-[10px] uppercase font-mono tracking-wider block text-[#2F9E41]">
                                 Observação Técnica:
                               </span>
@@ -129,7 +129,7 @@ export const UnderstandLampSection: React.FC = () => {
                 activeLayer={activeLayer}
                 onSelectLayer={setActiveLayer}
               />
-              <p className="mt-3 text-[11px] text-[#556961] italic text-center">
+              <p className="mt-3 text-[11px] text-[#6B7F74] italic text-center">
                 Modelo interativo em camadas da lâmpada LED. Clique nas peças para inspecionar.
               </p>
             </div>

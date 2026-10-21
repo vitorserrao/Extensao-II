@@ -35,24 +35,24 @@ export const ExtensionCommunitySection: React.FC = () => {
           </div>
 
           {/* Linear Chain */}
-          <div className="p-6 rounded-2xl bg-[#F7F8F5] border border-[#CCD6C7] overflow-x-auto shadow-2xs">
+          <div className="p-6 rounded-2xl bg-[#F4F8F4] border border-[#D5E2D6] overflow-x-auto shadow-2xs">
             <div className="flex items-center gap-2 sm:gap-3 min-w-[620px]">
               {extensionChain.map((node, idx) => (
                 <React.Fragment key={node.name}>
                   <div
                     className={`px-4 py-3 rounded-lg font-mono text-xs uppercase font-bold text-center shrink-0 shadow-2xs ${
                       node.isAmber
-                        ? 'bg-[#FFB938] text-[#1E1704]'
+                        ? 'bg-[#FFB938] text-[#161204]'
                         : node.isHighlight
                         ? 'bg-[#0D241C] text-white'
-                        : 'bg-white text-[#193328] border border-[#CCD6C7]'
+                        : 'bg-white text-[#0D241C] border border-[#D5E2D6]'
                     }`}
                   >
                     {node.name}
                   </div>
 
                   {idx < extensionChain.length - 1 && (
-                    <span className="text-[#88A397] font-mono text-base font-bold shrink-0">→</span>
+                    <span className="text-[#6B7F74] font-mono text-base font-bold shrink-0">→</span>
                   )}
                 </React.Fragment>
               ))}
@@ -65,9 +65,9 @@ export const ExtensionCommunitySection: React.FC = () => {
         </div>
 
         {/* PARTE 2: Quem faz acontecer (Estudantes, Orientação, Parceiros + 3 fotos reais) */}
-        <div className="space-y-8 pt-8 border-t border-[#CCD6C7]">
+        <div className="space-y-8 pt-8 border-t border-[#D5E2D6]">
           <div className="space-y-2">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[#2E6B56] font-bold block">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[#2F9E41] font-bold block">
               Quem faz acontecer
             </span>
             <h3 className="text-2xl sm:text-3xl font-display font-bold text-[#0D241C]">
@@ -80,7 +80,7 @@ export const ExtensionCommunitySection: React.FC = () => {
             
             {/* Card 1: ESTUDANTES */}
             <div className="space-y-3.5">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-[#D5DDD2] shadow-xs relative group">
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-[#D5E2D6] shadow-xs relative group">
                 <img
                   src={studentsBenchImage}
                   alt="Estudantes trabalhando no laboratório"
@@ -91,14 +91,14 @@ export const ExtensionCommunitySection: React.FC = () => {
                   FOTO REAL · BANCADA DE ENSAIOS
                 </span>
               </div>
-              <p className="text-[11px] font-mono text-[#556961] italic">
+              <p className="text-[11px] font-mono text-[#6B7F74] italic">
                 Figura 7 — Estudantes trabalhando no laboratório.
               </p>
-              <div className="pt-2 border-t border-[#D5DDD2]">
-                <span className="font-mono text-[10px] uppercase font-bold text-[#4E6B5F] block mb-0.5">
+              <div className="pt-2 border-t border-[#D5E2D6]">
+                <span className="font-mono text-[10px] uppercase font-bold text-[#6B7F74] block mb-0.5">
                   ESTUDANTES
                 </span>
-                <p className="text-xs sm:text-sm text-[#1D332A] font-semibold">
+                <p className="text-xs sm:text-sm text-[#0D241C] font-semibold">
                   Alunos do Curso Superior de Tecnologia em Sistemas de Energia
                 </p>
               </div>
@@ -106,7 +106,7 @@ export const ExtensionCommunitySection: React.FC = () => {
 
             {/* Card 2: ORIENTAÇÃO */}
             <div className="space-y-3.5">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-[#D5DDD2] shadow-xs relative group">
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-[#D5E2D6] shadow-xs relative group">
                 <img
                   src={handLampImage}
                   alt="Lâmpada em avaliação"
@@ -117,14 +117,14 @@ export const ExtensionCommunitySection: React.FC = () => {
                   FOTO REAL · AVALIAÇÃO DE BANCADA
                 </span>
               </div>
-              <p className="text-[11px] font-mono text-[#556961] italic">
+              <p className="text-[11px] font-mono text-[#6B7F74] italic">
                 Figura 8 — Lâmpada em avaliação.
               </p>
-              <div className="pt-2 border-t border-[#D5DDD2]">
-                <span className="font-mono text-[10px] uppercase font-bold text-[#4E6B5F] block mb-0.5">
+              <div className="pt-2 border-t border-[#D5E2D6]">
+                <span className="font-mono text-[10px] uppercase font-bold text-[#6B7F74] block mb-0.5">
                   ORIENTAÇÃO
                 </span>
-                <p className="text-xs sm:text-sm text-[#1D332A] font-semibold">
+                <p className="text-xs sm:text-sm text-[#0D241C] font-semibold">
                   Professores e Orientadores do IFSC
                 </p>
               </div>
@@ -132,7 +132,7 @@ export const ExtensionCommunitySection: React.FC = () => {
 
             {/* Card 3: PARCEIROS */}
             <div className="space-y-3.5">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-[#D5DDD2] shadow-xs relative group">
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-[#D5E2D6] shadow-xs relative group">
                 <img
                   src={lampPartsImage}
                   alt="Placa de LEDs e ferramentas de reparo"
@@ -143,14 +143,14 @@ export const ExtensionCommunitySection: React.FC = () => {
                   FOTO REAL · CIRCUITO E INSTRUMENTAÇÃO
                 </span>
               </div>
-              <p className="text-[11px] font-mono text-[#556961] italic">
+              <p className="text-[11px] font-mono text-[#6B7F74] italic">
                 Figura 9 — Placa de LEDs e ferramentas de reparo.
               </p>
-              <div className="pt-2 border-t border-[#D5DDD2]">
-                <span className="font-mono text-[10px] uppercase font-bold text-[#4E6B5F] block mb-0.5">
+              <div className="pt-2 border-t border-[#D5E2D6]">
+                <span className="font-mono text-[10px] uppercase font-bold text-[#6B7F74] block mb-0.5">
                   PARCEIROS
                 </span>
-                <p className="text-xs sm:text-sm text-[#1D332A] font-semibold">
+                <p className="text-xs sm:text-sm text-[#0D241C] font-semibold">
                   Pontos de Coleta Comunitários e Sociedade Civil
                 </p>
               </div>

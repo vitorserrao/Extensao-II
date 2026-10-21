@@ -107,7 +107,7 @@ export const TheProblemSection: React.FC = () => {
                 <span className="font-sans font-bold text-[11px] uppercase text-[#2F9E41] tracking-wider block">
                   PRINCÍPIO DE ECONOMIA CIRCULAR
                 </span>
-                <p className="leading-relaxed text-[#2C3831]">
+                <p className="leading-relaxed text-[#3A453F]">
                   Recuperar uma lâmpada é uma oportunidade de prolongar sua vida útil, reduzir o desperdício de materiais e evitar, quando possível, a necessidade de fabricar um produto novo.
                 </p>
               </div>
