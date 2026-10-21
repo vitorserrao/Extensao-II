@@ -16,9 +16,9 @@ export const ProjectSection: React.FC = () => {
               <span>1 — O PROJETO</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#1A1A1A] tracking-tight leading-[1.12]">
-              Conhecimento de sala<br />
-              de aula, <span className="marker-yellow">aplicado numa bancada.</span>
+            <h2 className="title-2l text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#1A1A1A] tracking-tight leading-[1.12]" style={{ '--fit': '5.92cqi' } as React.CSSProperties}>
+              <span className="title-line">Conhecimento de sala</span>
+              <span className="title-line">de aula, <span className="marker-yellow">aplicado numa bancada.</span></span>
             </h2>
 
             <p className="text-sm sm:text-base text-[#3A453F] leading-relaxed font-normal space-y-3">

@@ -27,8 +27,9 @@ export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = ({ onOpen
               <span>5 — COMO RECUPERAMOS</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-white tracking-tight leading-tight">
-              Da bancada à nova luz.
+            <h2 className="title-2l text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-white tracking-tight leading-tight" style={{ '--fit': '16.58cqi' } as React.CSSProperties}>
+              <span className="title-line">Da bancada</span>
+              <span className="title-line">à nova luz.</span>
             </h2>
             <p className="text-sm sm:text-base text-[#A8CCBC] leading-relaxed">
               Conheça o fluxo de trabalho institucional do projeto e acesse o guia prático passo a passo de recuperação de lâmpadas LED.

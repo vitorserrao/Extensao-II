@@ -36,9 +36,9 @@ export const ResultsImpactSection: React.FC = () => {
               <span>6 — RESULTADOS & IMPACTO</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#0D241C] tracking-tight leading-[1.12]">
-              Depois de conhecer o projeto:<br />
-              <span className="marker-yellow">quanto já foi feito?</span>
+            <h2 className="title-2l text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#0D241C] tracking-tight leading-[1.12]" style={{ '--fit': '6.54cqi' } as React.CSSProperties}>
+              <span className="title-line">Depois de conhecer o projeto:</span>
+              <span className="title-line"><span className="marker-yellow">quanto já foi feito?</span></span>
             </h2>
 
             <p className="text-sm sm:text-base text-[#384F45] leading-relaxed">

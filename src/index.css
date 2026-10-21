@@ -226,3 +226,19 @@
 }
 
 
+
+/* Títulos de seção em exatamente duas linhas (a partir de 640px).
+   Cada linha é um .title-line; --fit é calculado pela largura da linha mais longa,
+   para que o texto encolha em vez de quebrar em uma terceira linha. */
+.title-2l {
+  container-type: inline-size;
+}
+.title-2l > .title-line {
+  display: block;
+}
+@media (min-width: 640px) {
+  .title-2l > .title-line {
+    white-space: nowrap;
+    font-size: min(var(--title-max, 3rem), var(--fit, 6cqi));
+  }
+}

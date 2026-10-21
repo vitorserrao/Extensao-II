@@ -59,9 +59,9 @@ export const UnderstandLampSection: React.FC = () => {
               <span>4 — ENTENDA A LÂMPADA · ANATOMIA</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#1A1A1A] tracking-tight leading-[1.12]">
-              Cinco partes, cada uma com<br />
-              <span className="marker-yellow">seu papel.</span>
+            <h2 className="title-2l text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#1A1A1A] tracking-tight leading-[1.12]" style={{ '--fit': '6.91cqi' } as React.CSSProperties}>
+              <span className="title-line">Cinco partes, cada uma com</span>
+              <span className="title-line"><span className="marker-yellow">seu papel.</span></span>
             </h2>
             <p className="text-xs sm:text-sm text-[#3A453F] max-w-2xl">
               Uma lâmpada LED moderna é um sistema integrado de componentes mecânicos, elétricos e térmicos. Clique nas camadas para inspecionar cada elemento:

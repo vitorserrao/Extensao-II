@@ -25,9 +25,9 @@ export const ExtensionCommunitySection: React.FC = () => {
               <span>7 — EXTENSÃO E COMUNIDADE</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#0D241C] tracking-tight leading-[1.12]">
-              Extensão é colocar o<br />
-              conhecimento em <span className="marker-yellow">movimento.</span>
+            <h2 className="title-2l text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#0D241C] tracking-tight leading-[1.12]" style={{ '--fit': '6.28cqi' } as React.CSSProperties}>
+              <span className="title-line">Extensão é colocar o</span>
+              <span className="title-line">conhecimento em <span className="marker-yellow">movimento.</span></span>
             </h2>
 
             <p className="text-sm sm:text-base text-[#2E423A] leading-relaxed font-normal pt-1">

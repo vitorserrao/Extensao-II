@@ -37,8 +37,9 @@ export const ParticipateSection: React.FC<ParticipateSectionProps> = () => {
                 <span className="w-2.5 h-2.5 rounded-full bg-[#FFB938] shadow-[0_0_8px_rgba(255,185,56,0.9)] animate-pulse shrink-0" />
                 <span>8 — PONTOS DE COLETA</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-[#0D241C] tracking-tight">
-                Pontos de Coleta
+              <h2 className="title-2l text-3xl sm:text-4xl font-display font-extrabold text-[#0D241C] tracking-tight" style={{ '--fit': '19.59cqi', '--title-max': '2.25rem' } as React.CSSProperties}>
+                <span className="title-line">Pontos de</span>
+                <span className="title-line">Coleta</span>
               </h2>
               <p className="text-sm sm:text-base text-[#384C43] max-w-2xl leading-relaxed">
                 Selecione um posto para conferir o endereço completo, horários de atendimento e a localização exata no mapa.

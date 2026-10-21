@@ -41,12 +41,12 @@ export const TheProblemSection: React.FC = () => {
             <span>2 — O PROBLEMA</span>
           </div>
 
-          <div className="max-w-3xl space-y-4">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#1A1A1A] tracking-tight leading-[1.12]">
-              Uma lâmpada para de funcionar.<br />
-              <span className="marker-yellow">Nem todos os seus componentes chegaram ao fim da vida útil.</span>
+          <div className="space-y-4">
+            <h2 className="title-2l text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#1A1A1A] tracking-tight leading-[1.12]" style={{ '--fit': '4.01cqi' } as React.CSSProperties}>
+              <span className="title-line">Uma lâmpada para de funcionar. <span className="marker-yellow">Nem todos os</span></span>
+              <span className="title-line"><span className="marker-yellow">seus componentes chegaram ao fim da vida útil.</span></span>
             </h2>
-            <p className="text-sm sm:text-base text-[#3A453F] leading-relaxed">
+            <p className="max-w-3xl text-sm sm:text-base text-[#3A453F] leading-relaxed">
               Muitas lâmpadas LED deixam de funcionar devido à falha de um único componente, enquanto outras partes ainda podem estar em boas condições. Sem avaliação ou possibilidade de recuperação, essas lâmpadas podem ser descartadas prematuramente, desperdiçando materiais e recursos que ainda têm valor.
             </p>
           </div>
@@ -88,9 +88,9 @@ export const TheProblemSection: React.FC = () => {
                 <span>3 — EFICIÊNCIA ENERGÉTICA</span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#1A1A1A] tracking-tight leading-[1.12]">
-                Eficiência também é<br />
-                <span className="marker-yellow">aproveitar melhor o que já existe.</span>
+              <h2 className="title-2l text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#1A1A1A] tracking-tight leading-[1.12]" style={{ '--fit': '5.72cqi' } as React.CSSProperties}>
+                <span className="title-line">Eficiência também é</span>
+                <span className="title-line"><span className="marker-yellow">aproveitar melhor o que já existe.</span></span>
               </h2>
 
               <p className="text-sm sm:text-base text-[#3A453F] leading-relaxed font-normal">
