@@ -1,4 +1,5 @@
 import React from 'react';
+import { SectionHeading } from './SectionHeading';
 import studentsBenchImage from '../assets/images/estudantes_bancada_eletronica_1791041208045.jpg';
 import handLampImage from '../assets/images/mao_lampada_led_verdadeira_1791413076620.jpg';
 import lampPartsImage from '../assets/images/lampada_led_acesa_amarela_1791035780889.jpg';
@@ -19,20 +20,18 @@ export const ExtensionCommunitySection: React.FC = () => {
         
         {/* PARTE 1: Cabeçalho e Fluxo de Extensão */}
         <div className="space-y-8">
-          <div className="max-w-3xl space-y-3">
-            <div className="flex items-center gap-2 text-xs font-sans font-bold text-[#2A5E4D] uppercase tracking-wider">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#FFB938] shadow-[0_0_8px_rgba(255,185,56,0.9)] animate-pulse shrink-0" />
-              <span>7 — EXTENSÃO E COMUNIDADE</span>
-            </div>
-
-            <h2 className="title-2l text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#0D241C] tracking-tight leading-[1.12]" style={{ '--fit': '6.28cqi' } as React.CSSProperties}>
-              <span className="title-line">Extensão é colocar o</span>
-              <span className="title-line">conhecimento em <span className="marker-yellow">movimento.</span></span>
-            </h2>
-
-            <p className="text-sm sm:text-base text-[#2E423A] leading-relaxed font-normal pt-1">
-              No projeto, aquilo que é aprendido no curso de Sistemas de Energia ganha aplicação prática e retorna para a comunidade em forma de conhecimento, serviço e participação.
-            </p>
+          {/* mesma largura de meia coluna das outras seções, para o título ficar do mesmo tamanho */}
+          <div className="lg:w-[calc((100%-3.5rem)/2)]">
+            <SectionHeading
+              num={7}
+              label="Extensão e comunidade"
+              line1="Extensão é colocar o"
+              line2={<>conhecimento em <span className="marker-yellow">movimento.</span></>}
+            >
+              <p>
+                No projeto, aquilo que é aprendido no curso de Sistemas de Energia ganha aplicação prática e retorna para a comunidade em forma de conhecimento, serviço e participação.
+              </p>
+            </SectionHeading>
           </div>
 
           {/* Linear Chain */}
