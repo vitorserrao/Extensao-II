@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { InteractiveRecoveryLamp } from './InteractiveRecoveryLamp';
 import { repairSteps } from '../data/projectData';
 
+export type TutorialTab = 'simulador' | 'passos' | 'seguranca' | 'ferramentas' | 'circuito';
+
 interface TutorialPageProps {
   onBack: () => void;
+  initialTab?: TutorialTab;
 }
 
-export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack }) => {
+export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack, initialTab = 'simulador' }) => {
   const [currentStep, setCurrentStep] = useState<number>(5);
-  const [activeTab, setActiveTab] = useState<'simulador' | 'passos' | 'seguranca' | 'ferramentas' | 'circuito'>('simulador');
+  const [activeTab, setActiveTab] = useState<TutorialTab>(initialTab);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

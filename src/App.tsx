@@ -11,7 +11,7 @@ import { ParticipateSection } from './components/ParticipateSection';
 import { Footer } from './components/Footer';
 import { DonationTicketModal } from './components/DonationTicketModal';
 import { FullRepairGuideModal } from './components/FullRepairGuideModal';
-import { TutorialPage } from './components/TutorialPage';
+import { TutorialPage, type TutorialTab } from './components/TutorialPage';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<'home' | 'tutorial'>(() => {
@@ -41,7 +41,12 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  const openTutorial = () => {
+  const [tutorialTab, setTutorialTab] = useState<TutorialTab>('simulador');
+
+  const openTutorial = (tab?: unknown) => {
+    // Header passa o evento de clique; só aceitamos nomes de aba válidos.
+    const abas: TutorialTab[] = ['simulador', 'passos', 'seguranca', 'ferramentas', 'circuito'];
+    setTutorialTab(typeof tab === 'string' && abas.includes(tab as TutorialTab) ? (tab as TutorialTab) : 'simulador');
     window.location.hash = 'tutorial-de-reparo';
     setCurrentView('tutorial');
   };
@@ -52,7 +57,7 @@ export default function App() {
   };
 
   if (currentView === 'tutorial') {
-    return <TutorialPage onBack={openHome} />;
+    return <TutorialPage onBack={openHome} initialTab={tutorialTab} />;
   }
 
   return (
