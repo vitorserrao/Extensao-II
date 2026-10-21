@@ -244,12 +244,23 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
     nearLed !== null
       ? { red: terminalPos(nearLed, '+'), black: terminalPos(nearLed, '-') }
       : probePair(pointer ?? PARK_MID, probeA);
+  /** Cabo: sai da caneta em linha reta para fora, contorna a lâmpada em arco e só então desce às pilhas. */
   const wireFor = (id: ProbeId) => {
     const end = probeEnd(probePos[id], probeRot(id, probeA));
     const from = BATT[id];
-    // o cabo sai pela borda externa antes de descer até as pilhas
-    const out = { x: end.x + (end.x - C) * 0.35, y: end.y + (end.y - C) * 0.35 };
-    return `M ${from.x} ${from.y} C ${from.x + 50} ${from.y + 30}, ${out.x} ${out.y}, ${end.x} ${end.y}`;
+    const R = id === 'red' ? 176 : 186; // cada cabo em sua "pista" ao redor da lâmpada
+    const ang = (p: { x: number; y: number }) => Math.atan2(p.y - C, p.x - C);
+    const aEnd = ang(end);
+    const aBat = ang(from);
+    const onRing = (a: number) => ({ x: C + R * Math.cos(a), y: C + R * Math.sin(a) });
+    const p1 = onRing(aEnd);
+    const p2 = onRing(aBat);
+    let d = aBat - aEnd;
+    while (d > Math.PI) d -= 2 * Math.PI;
+    while (d < -Math.PI) d += 2 * Math.PI;
+    const sweep = d > 0 ? 1 : 0;
+    const large = Math.abs(d) > Math.PI ? 1 : 0;
+    return `M ${end.x} ${end.y} L ${p1.x} ${p1.y} A ${R} ${R} 0 ${large} ${sweep} ${p2.x} ${p2.y} L ${from.x} ${from.y}`;
   };
 
   const onUp = () => {
@@ -353,6 +364,7 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
               strokeWidth="3.5"
               fill="none"
               strokeLinecap="round"
+              strokeLinejoin="round"
               opacity="0.85"
               pointerEvents="none"
             />
