@@ -66,12 +66,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenTutorial }) => {
               O projeto
             </a>
             <a 
-              href="#o-problema" 
-              className="hover:text-[#1A7F5A] transition-colors"
-            >
-              O problema
-            </a>
-            <a 
               href="#eficiencia-energetica" 
               className="hover:text-[#1A7F5A] transition-colors"
             >
@@ -144,13 +138,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenTutorial }) => {
             className="block py-2 px-3 rounded-lg hover:bg-[#F2F6F3] hover:text-[#1A7F5A]"
           >
             O projeto
-          </a>
-          <a 
-            href="#o-problema" 
-            onClick={() => setMobileMenuOpen(false)}
-            className="block py-2 px-3 rounded-lg hover:bg-[#F2F6F3] hover:text-[#1A7F5A]"
-          >
-            O problema
           </a>
           <a 
             href="#eficiencia-energetica" 
