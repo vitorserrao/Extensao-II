@@ -14,7 +14,7 @@ export const ExtensionCommunitySection: React.FC = () => {
   ];
 
   return (
-    <section id="extensao" className="py-16 sm:py-24 section-alt border-b border-[#E0E6DC] scroll-mt-20">
+    <section id="extensao" className="py-16 sm:py-24 border-b border-[#E0E6DC] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-18">
         
         {/* PARTE 1: Cabeçalho e Fluxo de Extensão */}

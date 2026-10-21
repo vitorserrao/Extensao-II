@@ -25,7 +25,7 @@ export const ParticipateSection: React.FC<ParticipateSectionProps> = () => {
   )}`;
 
   return (
-    <section id="participe" className="py-16 sm:py-24 border-b border-[#E0E6DC] scroll-mt-20">
+    <section id="participe" className="py-16 sm:py-24 section-alt border-b border-[#E0E6DC] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div id="pontos-de-entrega" className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
 

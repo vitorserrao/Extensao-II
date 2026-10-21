@@ -33,6 +33,7 @@ export const TheProblemSection: React.FC = () => {
   ];
 
   return (
+    <>
     <section id="o-problema" className="py-16 sm:py-24 section-alt border-b border-[#E0E6DC] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
         
@@ -80,8 +81,13 @@ export const TheProblemSection: React.FC = () => {
 
         </div>
 
-        {/* Bloco 3: Eficiência Energética e Ciclo de Vida */}
-        <div id="eficiencia-energetica" className="pt-14 sm:pt-20 border-t border-[#D5E2D6] scroll-mt-20">
+      </div>
+    </section>
+
+    {/* Seção 3: Eficiência Energética e Ciclo de Vida (seção própria, para alternar o tom) */}
+    <section id="eficiencia-energetica" className="py-16 sm:py-24 border-b border-[#E0E6DC] scroll-mt-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             
             {/* Left Column: Conceito de Eficiência */}
@@ -117,5 +123,6 @@ export const TheProblemSection: React.FC = () => {
 
       </div>
     </section>
+    </>
   );
 };
