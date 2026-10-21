@@ -64,10 +64,6 @@ export const ResultsImpactSection: React.FC = () => {
                   <h4 className="text-xs font-bold uppercase tracking-wider">Contador de lâmpadas</h4>
                   <p className="text-[10px] text-emerald-300">Bancada de Extensão Universitária</p>
                 </div>
-                <span className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-200">
-                  <span className="w-2 h-2 rounded-full bg-[#FFB938] animate-pulse" />
-                  AO VIVO
-                </span>
               </div>
 
               {/* Placar */}
