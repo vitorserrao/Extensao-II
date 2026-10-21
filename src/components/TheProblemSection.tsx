@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Trash2, Search, Wrench, Leaf } from 'lucide-react';
 
 export const TheProblemSection: React.FC = () => {
 
@@ -7,25 +8,25 @@ export const TheProblemSection: React.FC = () => {
       etapa: 'ETAPA 1',
       title: 'Descarte',
       desc: 'Uma lâmpada que deixa de funcionar pode acabar sendo descartada por completo.',
-      icon: '🗑️',
+      icon: Trash2,
     },
     {
       etapa: 'ETAPA 2',
       title: 'Diagnóstico',
       desc: 'Em alguns casos, a falha está concentrada em um ou poucos componentes.',
-      icon: '🔍',
+      icon: Search,
     },
     {
       etapa: 'ETAPA 3',
       title: 'Reaproveitamento',
       desc: 'Quando a recuperação é tecnicamente viável, parte do equipamento pode voltar a ter uso.',
-      icon: '🛠️',
+      icon: Wrench,
     },
     {
       etapa: 'ETAPA 4',
       title: 'Recursos',
       desc: 'Quando um equipamento segue em uso, pode diminuir a demanda por materiais e energia para fabricar outro.',
-      icon: '🌱',
+      icon: Leaf,
     },
   ];
 
@@ -63,9 +64,7 @@ export const TheProblemSection: React.FC = () => {
                   <span className="text-[10px] font-mono uppercase tracking-widest text-[#2F9E41] font-bold">
                     {item.etapa}
                   </span>
-                  <span className="text-xl group-hover:scale-110 transition-transform">
-                    {item.icon}
-                  </span>
+                  <item.icon className="w-5 h-5 text-[#2F9E41] group-hover:scale-110 transition-transform" strokeWidth={2} aria-hidden="true" />
                 </div>
                 <h3 className="text-lg font-display font-bold text-[#1A1A1A] mb-2.5">
                   {item.title}
