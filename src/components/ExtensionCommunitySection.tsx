@@ -58,6 +58,10 @@ export const ExtensionCommunitySection: React.FC = () => {
               ))}
             </div>
           </div>
+
+          <p className="text-sm sm:text-base text-[#3A453F] leading-relaxed">
+            Estudantes e professores do IFSC aplicam conhecimentos de energia, eletrônica e eficiência energética em uma ação que chega à comunidade.
+          </p>
         </div>
 
         {/* PARTE 2: Quem faz acontecer (Estudantes, Orientação, Parceiros + 3 fotos reais) */}
@@ -163,9 +167,6 @@ export const ExtensionCommunitySection: React.FC = () => {
               <h4 className="text-2xl sm:text-3xl font-display font-extrabold tracking-tight leading-tight">
                 Conhecimento que sai da sala de aula.
               </h4>
-              <p className="text-xs sm:text-sm text-[#B7D1C5] leading-relaxed font-normal">
-                Estudantes e professores do IFSC aplicam conhecimentos de energia, eletrônica e eficiência energética em uma ação que chega à comunidade.
-              </p>
             </div>
 
             <div className="lg:col-span-6 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
