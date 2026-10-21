@@ -2,16 +2,25 @@
 
 @layer base {
   :root {
-    --font-display: 'Plus Jakarta Sans', 'Space Grotesk', system-ui, -apple-system, sans-serif;
-    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --font-display: 'Open Sans', system-ui, -apple-system, sans-serif;
+    --font-sans: 'Open Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'Open Sans', system-ui, -apple-system, sans-serif;
     --font-handwriting: 'Caveat', cursive;
+    
+    /* Cores Institucionais Oficiais IFSC (Manual da Marca 2024) */
+    --ifsc-green: #2F9E41;
+    --ifsc-green-dark: #1E6B2C;
+    --ifsc-green-deep: #124B1E;
+    --ifsc-green-light: #EBF7ED;
+    --ifsc-red: #CD191E;
+    --ifsc-gray-bg: #F8FAF8;
+    --ifsc-text: #1A1A1A;
   }
 
   body {
     font-family: var(--font-sans);
-    background-color: #FAF9F5;
-    color: #0A231C;
+    background-color: #F8FAF8;
+    color: #1A1A1A;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -33,49 +42,49 @@
   font-family: var(--font-handwriting);
 }
 
-/* Background grid patterns from prototype */
+/* Background patterns alinhados ao IFSC */
 .bg-paper-grid {
-  background-color: #FAF9F5;
+  background-color: #F8FAF8;
   background-image: 
-    radial-gradient(rgba(14, 35, 28, 0.08) 1.2px, transparent 1.2px);
+    radial-gradient(rgba(47, 158, 65, 0.09) 1.2px, transparent 1.2px);
   background-size: 24px 24px;
 }
 
 .bg-tech-grid {
-  background-color: #F4F6F1;
+  background-color: #F2F6F2;
   background-image: 
-    linear-gradient(to right, rgba(14, 35, 28, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(14, 35, 28, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(47, 158, 65, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(47, 158, 65, 0.05) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
 .bg-quadriculado {
-  background-color: #FAF9F5;
+  background-color: #F8FAF8;
   background-image: 
-    linear-gradient(to right, rgba(14, 35, 28, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(14, 35, 28, 0.06) 1px, transparent 1px);
+    linear-gradient(to right, rgba(47, 158, 65, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(47, 158, 65, 0.06) 1px, transparent 1px);
   background-size: 28px 28px;
 }
 
 .bg-dark-grid {
-  background-color: #0A211A;
+  background-color: #0E3516;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
 /* Custom soft light elevation & transitions */
 .card-soft {
   background: #FFFFFF;
-  border: 1px solid #D5DDD2;
-  box-shadow: 0 2px 10px -2px rgba(10, 35, 28, 0.04);
+  border: 1px solid #D5E2D6;
+  box-shadow: 0 2px 10px -2px rgba(27, 94, 32, 0.04);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-soft:hover {
-  box-shadow: 0 12px 28px -4px rgba(10, 35, 28, 0.08);
-  border-color: #A2B8AC;
+  box-shadow: 0 12px 28px -4px rgba(27, 94, 32, 0.08);
+  border-color: #2F9E41;
   transform: translateY(-2px);
 }
 
@@ -97,6 +106,17 @@
   transform-box: fill-box;
   transform-origin: center;
   animation: lampDotGlow 2s ease-in-out infinite;
+}
+
+/* Marca-texto amarelo LED que acompanha estritamente os caracteres do texto sem sobras */
+.marker-yellow {
+  display: inline;
+  background-image: linear-gradient(to top, rgba(255, 199, 44, 0.82) 0%, rgba(255, 199, 44, 0.82) 46%, transparent 46%);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding-left: 3px;
+  padding-right: 3px;
+  border-radius: 2px;
 }
 
 /* Floating animation for illustrations & cards */

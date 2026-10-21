@@ -218,8 +218,8 @@ export const FullRepairGuideModal: React.FC<FullRepairGuideModalProps> = ({ isOp
 
         {/* Modal Footer */}
         <div className="p-4 bg-zinc-50 border-t border-zinc-200 flex items-center justify-between shrink-0">
-          <span className="text-xs font-mono text-zinc-400">
-            Projeto de Extensão II · IFSC
+          <span className="text-xs font-sans text-zinc-500">
+            Projeto de Extensão · IFSC
           </span>
           <button
             type="button"

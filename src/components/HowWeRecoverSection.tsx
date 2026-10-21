@@ -1,64 +1,50 @@
-import React, { useState } from 'react';
-import { InteractiveRecoveryLamp } from './InteractiveRecoveryLamp';
+import React from 'react';
 
 interface HowWeRecoverSectionProps {
+  onOpenTutorial?: () => void;
   onOpenGuideModal?: () => void;
 }
 
-export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = () => {
-  const [currentStep, setCurrentStep] = useState<number>(5);
-
+export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = ({ onOpenTutorial }) => {
   const stepsList = [
-    { num: '01', title: 'Coleta', desc: 'Recebemos lâmpadas que deixaram de funcionar.' },
-    { num: '02', title: 'Avaliação', desc: 'Triagem inicial do estado geral.' },
-    { num: '03', title: 'Diagnóstico', desc: 'Identificamos onde está a falha.' },
-    { num: '04', title: 'Recuperação', desc: 'Substituição ou reparo do componente defeituoso, quando tecnicamente viável.' },
-    { num: '05', title: 'Testes', desc: 'Verificamos o funcionamento antes de liberar.' },
-    { num: '06', title: 'Reutilização', desc: 'A lâmpada volta a ter uso.' },
-  ];
-
-  const animationStages = [
-    {
-      num: '01',
-      name: 'Abertura da lâmpada',
-      detail: 'Utilizando uma espátula realize a abertura da lâmpada',
-    },
-    {
-      num: '02',
-      name: 'Teste com pilhas (3V)',
-      detail: 'Com o auxílio de duas pilhas AA (3V), teste os LEDs individualmente até identificar o LED queimado',
-    },
-    {
-      num: '03',
-      name: 'Remoção do LED',
-      detail: 'Retire o LED queimado com um alicate',
-    },
-    {
-      num: '04',
-      name: 'Soldagem do ponto',
-      detail: 'Com o ferro de solda e estanho, solde o local que o LED foi retirado',
-    },
-    {
-      num: '05',
-      name: 'Testar',
-      detail: 'A lâmpada é testada antes de voltar a ter uso. Só então segue para reutilização.',
-    },
+    { num: '01', title: 'Coleta', desc: 'Recebimento de lâmpadas que deixaram de funcionar nos postos do IFSC.' },
+    { num: '02', title: 'Avaliação', desc: 'Triagem visual inicial da carcaça e integridade dos componentes.' },
+    { num: '03', title: 'Diagnóstico', desc: 'Identificação na bancada do circuito aberto ou componente com falha.' },
+    { num: '04', title: 'Recuperação', desc: 'Remoção do chip danificado e confecção de jumper ou substituição.' },
+    { num: '05', title: 'Testes', desc: 'Ensaio elétrico e verificação de fluxo luminoso antes da liberação.' },
+    { num: '06', title: 'Reutilização', desc: 'A lâmpada volta a iluminar salas e espaços comunitários.' },
   ];
 
   return (
     <section id="como-recuperamos" className="py-16 sm:py-24 bg-dark-grid text-white border-b border-[#143B2F] scroll-mt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
-        {/* Header */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#FFB938] uppercase tracking-wider">
-            <span className="w-2.5 h-2.5 bg-[#FFB938]" />
-            <span>4 — COMO RECUPERAMOS</span>
+        {/* Header com botão de acesso ao Tutorial */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="space-y-4 max-w-2xl">
+            <div className="flex items-center gap-2 text-xs font-sans font-bold text-[#FFB938] uppercase tracking-wider">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FFB938] shadow-[0_0_8px_rgba(255,185,56,0.9)] animate-pulse shrink-0" />
+              <span>5 — COMO RECUPERAMOS</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-white tracking-tight leading-tight">
+              Da bancada à nova luz.
+            </h2>
+            <p className="text-sm sm:text-base text-[#A8CCBC] leading-relaxed">
+              Conheça o fluxo de trabalho institucional do projeto e acesse o guia prático passo a passo de recuperação de lâmpadas LED.
+            </p>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-white tracking-tight leading-tight">
-            Da bancada à nova luz.
-          </h2>
+          <div>
+            <button
+              type="button"
+              onClick={onOpenTutorial}
+              className="px-6 py-3.5 rounded-xl text-xs sm:text-sm font-sans font-bold uppercase tracking-wider text-[#161204] bg-[#FFB938] hover:bg-[#F5A623] transition-all shadow-md hover:shadow-lg flex items-center gap-2.5 cursor-pointer whitespace-nowrap"
+            >
+              <span>Acessar Tutorial de Reparo</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
         </div>
 
         {/* 6 Top Steps */}
@@ -78,45 +64,43 @@ export const HowWeRecoverSection: React.FC<HowWeRecoverSectionProps> = () => {
           ))}
         </div>
 
-        {/* Animated Interactive Stage Box (Figura 6) */}
-        <div className="p-7 sm:p-10 rounded-3xl bg-[#061712] border border-[#164636] space-y-6 shadow-md">
+        {/* Card de Destaque da Página do Tutorial com Simulador */}
+        <div className="p-7 sm:p-10 rounded-3xl bg-gradient-to-r from-[#061712] via-[#0A261D] to-[#0E3327] border border-[#1B523F] shadow-xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
-            {/* Visual Realistic LED Bulb in Recovery */}
-            <div className="lg:col-span-5">
-              <InteractiveRecoveryLamp
-                currentStep={currentStep}
-                onSelectStep={setCurrentStep}
-              />
+            <div className="lg:col-span-8 space-y-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#0F382A] border border-[#1E6047] text-[#86E49E] text-xs font-bold uppercase tracking-wider">
+                <span className="w-2 h-2 rounded-full bg-[#FFB938] animate-pulse" />
+                <span>Página Dedicada · Laboratório Virtual</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-display font-bold text-white">
+                Quer aprender a recuperar na prática?
+              </h3>
+              <p className="text-sm sm:text-base text-[#9EC7B5] leading-relaxed max-w-2xl">
+                Preparamos uma página completa com o simulador visual das 5 etapas da bancada (abertura, teste 3V, remoção, solda e recondicionamento), lista de ferramentas, teoria do jumper e orientações de segurança elétrica (NR-10).
+              </p>
+              
+              <div className="pt-2 flex flex-wrap gap-2 text-xs text-[#C6E6D5]">
+                <span className="px-3 py-1 rounded-lg bg-[#0E2F23] border border-[#1B4F3B]">✓ Simulador Interativo 3D</span>
+                <span className="px-3 py-1 rounded-lg bg-[#0E2F23] border border-[#1B4F3B]">✓ Guia de Ferramentas</span>
+                <span className="px-3 py-1 rounded-lg bg-[#0E2F23] border border-[#1B4F3B]">✓ Teoria do Circuito Jumper</span>
+                <span className="px-3 py-1 rounded-lg bg-[#0E2F23] border border-[#1B4F3B]">✓ Normas de Segurança NR-10</span>
+              </div>
             </div>
 
-            {/* Stages Selector Buttons */}
-            <div className="lg:col-span-7 space-y-3">
-              {animationStages.map((stage, idx) => {
-                const stageNum = idx + 1;
-                const isSelected = currentStep === stageNum;
-                return (
-                  <div
-                    key={stage.num}
-                    onClick={() => setCurrentStep(stageNum)}
-                    className={`p-4 rounded-xl border transition-all duration-300 cursor-pointer ${
-                      isSelected
-                        ? 'bg-[#FFB938] text-[#161204] border-[#FFB938] shadow-md font-bold'
-                        : 'bg-[#0E2920] border-[#174637] text-white hover:bg-[#13382C]'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between text-xs font-mono">
-                      <span>{stage.num} {stage.name}</span>
-                      {isSelected && <span className="text-[10px] uppercase font-bold tracking-wider">Etapa Ativa</span>}
-                    </div>
-                    {isSelected && (
-                      <p className="mt-2 text-xs font-normal leading-relaxed text-[#2B1F04] animate-fadeIn">
-                        {stage.detail}
-                      </p>
-                    )}
-                  </div>
-                );
-              })}
+            <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-2xl bg-[#061611]/80 border border-[#164939] text-center space-y-4">
+              <div className="text-4xl">🔧⚡💡</div>
+              <div>
+                <span className="text-sm font-bold text-white block">Página do Tutorial</span>
+                <span className="text-xs text-[#8BB7A3]">Acesso livre para estudantes e comunidade</span>
+              </div>
+              <button
+                type="button"
+                onClick={onOpenTutorial}
+                className="w-full py-3 px-5 rounded-xl bg-[#FFB938] hover:bg-[#F5A623] text-[#161204] text-xs font-bold uppercase tracking-wider transition-all shadow-md cursor-pointer"
+              >
+                Abrir Tutorial de Reparo →
+              </button>
             </div>
 
           </div>

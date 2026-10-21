@@ -20,15 +20,14 @@ export const ExtensionCommunitySection: React.FC = () => {
         {/* PARTE 1: Cabeçalho e Fluxo de Extensão */}
         <div className="space-y-8">
           <div className="max-w-3xl space-y-3">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#2A5E4D] uppercase tracking-wider">
-              <span className="w-2.5 h-2.5 bg-[#C97A3D]" />
-              <span>6 — EXTENSÃO E COMUNIDADE</span>
+            <div className="flex items-center gap-2 text-xs font-sans font-bold text-[#2A5E4D] uppercase tracking-wider">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FFB938] shadow-[0_0_8px_rgba(255,185,56,0.9)] animate-pulse shrink-0" />
+              <span>7 — EXTENSÃO E COMUNIDADE</span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#0D241C] tracking-tight leading-[1.12]">
               Extensão é colocar o<br />
-              conhecimento em<br />
-              movimento.
+              conhecimento em <span className="marker-yellow">movimento.</span>
             </h2>
 
             <p className="text-sm sm:text-base text-[#2E423A] leading-relaxed font-normal pt-1">

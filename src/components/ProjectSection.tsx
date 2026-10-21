@@ -11,58 +11,62 @@ export const ProjectSection: React.FC = () => {
           
           {/* Left Column: Heading and Description */}
           <div className="lg:col-span-6 space-y-5">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#2A5E4D] uppercase tracking-wider">
-              <span className="w-2.5 h-2.5 bg-[#C97A3D]" />
+            <div className="flex items-center gap-2 text-xs font-sans font-bold text-[#2F9E41] uppercase tracking-wider">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FFB938] shadow-[0_0_8px_rgba(255,185,56,0.9)] animate-pulse shrink-0" />
               <span>1 — O PROJETO</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#0D241C] tracking-tight leading-[1.12]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#1A1A1A] tracking-tight leading-[1.12]">
               Conhecimento de sala<br />
-              de aula, aplicado numa<br />
-              bancada.
+              de aula, <span className="marker-yellow">aplicado numa bancada.</span>
             </h2>
 
-            <p className="text-sm sm:text-base text-[#2E423A] leading-relaxed font-normal">
-              Somos estudantes do Curso Superior de Tecnologia em Sistemas de Energia do IFSC, e o <strong className="text-[#0D241C] font-bold">REACENDE</strong> é o nosso Projeto de Extensão II. Recebemos lâmpadas LED que deixaram de funcionar, investigamos o que falhou e avaliamos se vale recuperar.
+            <p className="text-sm sm:text-base text-[#3A453F] leading-relaxed font-normal space-y-3">
+              <span className="block">
+                O <strong className="text-[#1A1A1A] font-bold">Projeto ReLED</strong> é uma iniciativa de extensão universitária vinculada ao curso Superior de Tecnologia em Sistemas de Energia do Instituto Federal de Santa Catarina (IFSC), Câmpus Florianópolis. O projeto tem como objetivo promover a recuperação de lâmpadas LED, contribuindo para o prolongamento de sua vida útil e para o uso mais eficiente dos recursos.
+              </span>
+              <span className="block">
+                A iniciativa busca incentivar a economia circular, reduzir o descarte de resíduos eletroeletrônicos e minimizar os impactos ambientais associados ao fim da vida útil desses produtos. Também destaca o papel da tecnologia LED na promoção da eficiência energética nos sistemas de iluminação. Além disso, integra ensino, pesquisa e extensão, aproximando a comunidade acadêmica e a sociedade de práticas mais sustentáveis e conscientes.
+              </span>
             </p>
           </div>
 
           {/* Right Column: Key Facts Table */}
-          <div className="lg:col-span-6 border-t border-b border-[#CCD6C7] divide-y divide-[#CCD6C7] text-xs sm:text-sm bg-white/70 backdrop-blur-xs rounded-xl px-4 sm:px-6 py-1 shadow-2xs">
+          <div className="lg:col-span-6 border-t border-b border-[#D5E2D6] divide-y divide-[#D5E2D6] text-xs sm:text-sm bg-white/90 backdrop-blur-xs rounded-xl px-4 sm:px-6 py-1 shadow-2xs">
             
             <div className="py-4 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-baseline">
-              <span className="sm:col-span-4 font-mono font-bold text-[11px] text-[#47665B] uppercase tracking-wider">
-                QUEM PARTICIPA
+              <span className="sm:col-span-4 font-sans font-bold text-xs text-[#2F9E41] uppercase tracking-wider">
+                PÚBLICO-ALVO
               </span>
-              <p className="sm:col-span-8 text-[#172E25] font-medium leading-relaxed">
-                Estudantes e professores do curso, junto com a comunidade que entrega as lâmpadas.
+              <p className="sm:col-span-8 text-[#1A1A1A] font-medium leading-relaxed">
+                Estudantes e servidores do IFSC, além da comunidade externa interessada em sustentabilidade, eficiência energética e recuperação de lâmpadas LED.
               </p>
             </div>
 
             <div className="py-4 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-baseline">
-              <span className="sm:col-span-4 font-mono font-bold text-[11px] text-[#47665B] uppercase tracking-wider">
+              <span className="sm:col-span-4 font-sans font-bold text-xs text-[#2F9E41] uppercase tracking-wider">
                 ONDE ACONTECE
               </span>
-              <p className="sm:col-span-8 text-[#172E25] font-medium leading-relaxed">
-                [CAMPUS E LABORATÓRIO DO IFSC] · Laboratórios de Eletrotécnica e Sistemas de Energia.
+              <p className="sm:col-span-8 text-[#1A1A1A] font-medium leading-relaxed">
+                Departamento Acadêmico de Eletrotécnica (DAE) do Instituto Federal de Santa Catarina (IFSC), Câmpus Florianópolis.
               </p>
             </div>
 
             <div className="py-4 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-baseline">
-              <span className="sm:col-span-4 font-mono font-bold text-[11px] text-[#47665B] uppercase tracking-wider">
+              <span className="sm:col-span-4 font-sans font-bold text-xs text-[#2F9E41] uppercase tracking-wider">
                 O QUE FAZEMOS
               </span>
-              <p className="sm:col-span-8 text-[#172E25] font-medium leading-relaxed">
-                Coletamos, avaliamos, diagnosticamos, recuperamos quando é viável e testamos.
+              <p className="sm:col-span-8 text-[#1A1A1A] font-medium leading-relaxed">
+                Realizamos a coleta, triagem, avaliação, recuperação e distribuição de lâmpadas LED recuperadas. Também realizamos oficinas práticas de recuperação de lâmpadas e palestras sobre eficiência energética, sustentabilidade e economia circular, compartilhando conhecimentos e incentivando práticas mais conscientes.
               </p>
             </div>
 
             <div className="py-4 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-baseline">
-              <span className="sm:col-span-4 font-mono font-bold text-[11px] text-[#47665B] uppercase tracking-wider">
-                POR QUE EXISTE
+              <span className="sm:col-span-4 font-sans font-bold text-xs text-[#2F9E41] uppercase tracking-wider">
+                POR QUE EXISTIMOS
               </span>
-              <p className="sm:col-span-8 text-[#172E25] font-medium leading-relaxed">
-                Porque nem toda lâmpada que para de funcionar chegou ao fim da sua vida útil.
+              <p className="sm:col-span-8 text-[#1A1A1A] font-medium leading-relaxed">
+                Porque uma lâmpada que deixa de funcionar nem sempre chegou ao fim de sua vida útil. Buscamos prolongar sua utilização, reduzir o descarte de resíduos eletroeletrônicos e contribuir para a preservação ambiental.
               </p>
             </div>
 
@@ -71,7 +75,7 @@ export const ProjectSection: React.FC = () => {
         </div>
 
         {/* Figure 2: Lab photo */}
-        <div className="space-y-2">
+        <div>
           <div className="rounded-3xl overflow-hidden bg-white border border-[#D5DDD2] shadow-sm aspect-[21/9] sm:aspect-[24/8] max-h-[360px] group">
             <img
               src={labBenchImage}
@@ -80,9 +84,6 @@ export const ProjectSection: React.FC = () => {
               className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-700"
             />
           </div>
-          <p className="text-[11px] font-mono text-[#556961] italic text-center sm:text-left">
-            Figura 2 — Bancada do laboratório com lâmpadas aguardando avaliação.
-          </p>
         </div>
 
       </div>

@@ -17,8 +17,8 @@ export const InteractiveLedBulb: React.FC<InteractiveLedBulbProps> = ({
     {
       idx: 0,
       num: '01',
-      name: 'Lente Difusora',
-      tag: 'Policarbonato',
+      name: 'Difusor',
+      tag: 'Bulbo de Policarbonato',
       color: '#E2E8DF',
       activeColor: '#164E3A',
     },
@@ -246,9 +246,9 @@ export const InteractiveLedBulb: React.FC<InteractiveLedBulbProps> = ({
             {viewMode === 'exploded' && (
               <g transform="translate(244, 52)">
                 <line x1="0" y1="0" x2="-15" y2="12" stroke="#164E3A" strokeWidth="1" strokeDasharray="2,2" />
-                <rect x="0" y="-12" width="68" height="22" rx="6" fill={activeLayer === 0 ? '#164E3A' : '#FAFBF9'} stroke={activeLayer === 0 ? '#164E3A' : '#C2D1C6'} strokeWidth="1.2" />
-                <text x="34" y="3" textAnchor="middle" fontSize="10" fontWeight="bold" fontFamily="monospace" fill={activeLayer === 0 ? '#FFFFFF' : '#164E3A'}>
-                  01 LENTE
+                <rect x="0" y="-12" width="82" height="22" rx="6" fill={activeLayer === 0 ? '#164E3A' : '#FAFBF9'} stroke={activeLayer === 0 ? '#164E3A' : '#C2D1C6'} strokeWidth="1.2" />
+                <text x="41" y="3" textAnchor="middle" fontSize="10" fontWeight="bold" fontFamily="monospace" fill={activeLayer === 0 ? '#FFFFFF' : '#164E3A'}>
+                  01 DIFUSOR
                 </text>
               </g>
             )}

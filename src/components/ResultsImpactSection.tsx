@@ -31,14 +31,14 @@ export const ResultsImpactSection: React.FC = () => {
         {/* CABEÇALHO DA SEÇÃO */}
         <div className="pb-4 border-b border-[#CCD6C7]/70">
           <div className="space-y-3 max-w-2xl">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#2A5E4D] uppercase tracking-wider">
-              <span className="w-2.5 h-2.5 bg-[#C97A3D] rounded-xs" />
-              <span>5 — RESULTADOS & IMPACTO</span>
+            <div className="flex items-center gap-2 text-xs font-sans font-bold text-[#2A5E4D] uppercase tracking-wider">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FFB938] shadow-[0_0_8px_rgba(255,185,56,0.9)] animate-pulse shrink-0" />
+              <span>6 — RESULTADOS & IMPACTO</span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#0D241C] tracking-tight leading-[1.12]">
               Depois de conhecer o projeto:<br />
-              <span className="text-[#1E4D3E]">quanto já foi feito?</span>
+              <span className="marker-yellow">quanto já foi feito?</span>
             </h2>
 
             <p className="text-sm sm:text-base text-[#384F45] leading-relaxed">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { ProjectSection } from './components/ProjectSection';
@@ -11,18 +11,58 @@ import { ParticipateSection } from './components/ParticipateSection';
 import { Footer } from './components/Footer';
 import { DonationTicketModal } from './components/DonationTicketModal';
 import { FullRepairGuideModal } from './components/FullRepairGuideModal';
+import { TutorialPage } from './components/TutorialPage';
 
 export default function App() {
+  const [currentView, setCurrentView] = useState<'home' | 'tutorial'>(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.toLowerCase();
+      if (hash === '#tutorial' || hash === '#tutorial-de-reparo') {
+        return 'tutorial';
+      }
+    }
+    return 'home';
+  });
+
   const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
   const [isGuideModalOpen, setIsGuideModalOpen] = useState(false);
 
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.toLowerCase();
+      if (hash === '#tutorial' || hash === '#tutorial-de-reparo') {
+        setCurrentView('tutorial');
+      } else if (!hash || hash === '#home') {
+        setCurrentView('home');
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const openTutorial = () => {
+    window.location.hash = 'tutorial-de-reparo';
+    setCurrentView('tutorial');
+  };
+
+  const openHome = () => {
+    window.location.hash = '';
+    setCurrentView('home');
+  };
+
+  if (currentView === 'tutorial') {
+    return <TutorialPage onBack={openHome} />;
+  }
+
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF9F5] text-[#0A231C] font-sans selection:bg-amber-200 selection:text-amber-950">
+    <div className="min-h-screen flex flex-col bg-[#F8FAF8] text-[#1A1A1A] font-sans selection:bg-[#2F9E41]/20 selection:text-[#124B1E]">
       
       {/* 00. Top Bar with institutional strip, navigation menu and pulsing amber lamp */}
       <Header
         onOpenDonate={() => setIsDonateModalOpen(true)}
         onOpenGuide={() => setIsGuideModalOpen(true)}
+        onOpenTutorial={openTutorial}
       />
 
       <main className="flex-1">
@@ -32,31 +72,32 @@ export default function App() {
         {/* 1 — O PROJETO */}
         <ProjectSection />
 
-        {/* 2 — O PROBLEMA (Unindo "Por que recuperar?" e "Eficiência energética") */}
+        {/* 2 — O PROBLEMA & 3 — EFICIÊNCIA ENERGÉTICA */}
         <TheProblemSection />
 
-        {/* 3 — ENTENDA A LÂMPADA (Unindo "Conheça a lâmpada" e "Diagnóstico") */}
+        {/* 4 — ENTENDA A LÂMPADA & DIAGNÓSTICO */}
         <UnderstandLampSection />
 
-        {/* 4 — COMO RECUPERAMOS (Etapas, esquema animado e guia de reparo) */}
+        {/* 5 — COMO RECUPERAMOS (Com atalho direto para a Página Dedicada do Tutorial) */}
         <HowWeRecoverSection
+          onOpenTutorial={openTutorial}
           onOpenGuideModal={() => setIsGuideModalOpen(true)}
         />
 
-        {/* 5 — RESULTADOS (Indicadores + Painel Aberto de Impacto Comunitário + Simulador de Impacto) */}
+        {/* 6 — RESULTADOS & IMPACTO */}
         <ResultsImpactSection />
 
-        {/* 6 — EXTENSÃO E COMUNIDADE (Fluxo de extensão + "Quem faz acontecer" + "Conhecimento que sai da sala de aula") */}
+        {/* 7 — EXTENSÃO E COMUNIDADE */}
         <ExtensionCommunitySection />
 
-        {/* 7 — PARTICIPE (Pontos de coleta, chamado para conserto e gerador de identificador) */}
+        {/* 8 — PARTICIPE & PONTOS DE COLETA */}
         <ParticipateSection
           onOpenDonateModal={() => setIsDonateModalOpen(true)}
           onOpenGuideModal={() => setIsGuideModalOpen(true)}
         />
       </main>
 
-      {/* RODAPÉ OFICIAL REACENDE / IFSC */}
+      {/* RODAPÉ OFICIAL PROJETO ReLED / IFSC */}
       <Footer />
 
       {/* Modais Interativos */}

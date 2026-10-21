@@ -7,11 +7,11 @@ export const LampAnatomySection: React.FC = () => {
   const layers = [
     {
       num: '01',
-      name: 'Lente',
+      name: 'Difusor',
       desc: 'Protege e distribui a luz.',
       barColor: '#E2E8DF',
-      tag: 'Policarbonato Difusor',
-      detail: 'Cúpula plástica que suaviza o ofuscamento dos diodos e dispersa o feixe luminoso de forma homogênea no ambiente.',
+      tag: 'Bulbo de Policarbonato',
+      detail: 'Bulbo termoplástico translúcido que suaviza o ofuscamento dos diodos e dispersa o feixe luminoso de forma homogênea no ambiente.',
       repairNote: 'Raramente quebra; basta remover com espátula plástica para ter acesso à placa interna.',
     },
     {

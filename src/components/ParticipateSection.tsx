@@ -33,9 +33,9 @@ export const ParticipateSection: React.FC<ParticipateSectionProps> = () => {
           {/* Cabeçalho direto da seção */}
           <div className="border-b border-[#CCD6C7] pb-6">
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#2A5E4D] uppercase tracking-wider">
-                <span className="w-2.5 h-2.5 bg-[#C97A3D]" />
-                <span>7 — PONTOS DE COLETA</span>
+              <div className="flex items-center gap-2 text-xs font-sans font-bold text-[#2A5E4D] uppercase tracking-wider">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#FFB938] shadow-[0_0_8px_rgba(255,185,56,0.9)] animate-pulse shrink-0" />
+                <span>8 — PONTOS DE COLETA</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-[#0D241C] tracking-tight">
                 Pontos de Coleta

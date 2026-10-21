@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 export const TheProblemSection: React.FC = () => {
-  const [highlightExtension, setHighlightExtension] = useState(true);
 
   const steps = [
     {
@@ -36,18 +35,18 @@ export const TheProblemSection: React.FC = () => {
         
         {/* Header Section */}
         <div className="space-y-6">
-          <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#2A5E4D] uppercase tracking-wider">
-            <span className="w-2.5 h-2.5 bg-[#C97A3D]" />
+          <div className="flex items-center gap-2 text-xs font-sans font-bold text-[#2F9E41] uppercase tracking-wider">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#FFB938] shadow-[0_0_8px_rgba(255,185,56,0.9)] animate-pulse shrink-0" />
             <span>2 — O PROBLEMA</span>
           </div>
 
           <div className="max-w-3xl space-y-4">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#0D241C] tracking-tight leading-[1.12]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#1A1A1A] tracking-tight leading-[1.12]">
               Uma lâmpada para de funcionar.<br />
-              Nem todas as suas peças pararam.
+              <span className="marker-yellow">Nem todos os seus componentes chegaram ao fim da vida útil.</span>
             </h2>
-            <p className="text-sm sm:text-base text-[#384C43] leading-relaxed">
-              Muitas lâmpadas LED são descartadas no lixo comum ou reciclagem apenas porque um único diodo ou capacitor abriu o circuito, enquanto 90% dos componentes e materiais nobres permanecem em perfeitas condições.
+            <p className="text-sm sm:text-base text-[#3A453F] leading-relaxed">
+              Muitas lâmpadas LED deixam de funcionar devido à falha de um único componente, enquanto outras partes ainda podem estar em boas condições. Sem avaliação ou possibilidade de recuperação, essas lâmpadas podem ser descartadas prematuramente, desperdiçando materiais e recursos que ainda têm valor.
             </p>
           </div>
         </div>
@@ -61,17 +60,17 @@ export const TheProblemSection: React.FC = () => {
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#55756B] font-bold">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#2F9E41] font-bold">
                     {item.etapa}
                   </span>
                   <span className="text-xl group-hover:scale-110 transition-transform">
                     {item.icon}
                   </span>
                 </div>
-                <h3 className="text-lg font-display font-bold text-[#0D241C] mb-2.5">
+                <h3 className="text-lg font-display font-bold text-[#1A1A1A] mb-2.5">
                   {item.title}
                 </h3>
-                <p className="text-xs text-[#3C5047] leading-relaxed">
+                <p className="text-xs text-[#4A554E] leading-relaxed">
                   {item.desc}
                 </p>
               </div>
@@ -79,88 +78,169 @@ export const TheProblemSection: React.FC = () => {
           ))}
         </div>
 
-        {/* Bloco Integrado: Eficiência Energética e Ciclo de Vida */}
-        <div className="pt-10 border-t border-[#E5EAE1]">
+        {/* Bloco 3: Eficiência Energética e Ciclo de Vida */}
+        <div id="eficiencia-energetica" className="pt-10 border-t border-[#D5E2D6] scroll-mt-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
             {/* Left Column: Conceito de Eficiência */}
             <div className="lg:col-span-6 space-y-4">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#2E6B56] font-bold block">
-                Eficiência Energética no Ciclo de Vida
-              </span>
+              <div className="flex items-center gap-2 text-xs font-sans font-bold text-[#2F9E41] uppercase tracking-wider">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#FFB938] shadow-[0_0_8px_rgba(255,185,56,0.9)] animate-pulse shrink-0" />
+                <span>3 — EFICIÊNCIA ENERGÉTICA</span>
+              </div>
 
-              <h3 className="text-2xl sm:text-3xl font-display font-bold text-[#0D241C] tracking-tight leading-tight">
-                Não é só gastar menos energia.
-              </h3>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#1A1A1A] tracking-tight leading-[1.12]">
+                Eficiência também é<br />
+                <span className="marker-yellow">aproveitar melhor o que já existe.</span>
+              </h2>
 
-              <p className="text-xs sm:text-sm text-[#384C43] leading-relaxed font-normal">
-                Eficiência energética também envolve aproveitar melhor os recursos ao longo da vida útil de um equipamento. O projeto relaciona a eficiência do LED com a possibilidade de prolongar sua utilização quando a recuperação é viável.
+              <p className="text-sm sm:text-base text-[#3A453F] leading-relaxed font-normal">
+                Prolongar a vida útil de uma lâmpada LED recuperável ajuda a aproveitar melhor os materiais e os recursos empregados em sua fabricação. Quando a recuperação é viável, evitar o descarte prematuro pode reduzir a necessidade de substituição e contribuir para uma iluminação mais sustentável.
               </p>
 
-              <div className="p-4 rounded-xl bg-[#F7F8F5] border border-[#CCD6C7] text-xs text-[#2A4237] space-y-1">
-                <span className="font-mono font-bold text-[10px] uppercase text-[#47665B] block">
-                  Princípio de Extensão:
+              <div className="p-4 rounded-xl bg-[#F4F8F4] border border-[#D5E2D6] text-xs text-[#1A1A1A] space-y-1.5">
+                <span className="font-sans font-bold text-[11px] uppercase text-[#2F9E41] tracking-wider block">
+                  PRINCÍPIO DE ECONOMIA CIRCULAR
                 </span>
-                <p>
-                  Fabricar uma nova lâmpada consome minérios, plásticos e energia elétrica. Evitar o descarte precoce é uma das formas mais diretas de eficiência sustentável.
+                <p className="leading-relaxed text-[#2C3831]">
+                  Recuperar uma lâmpada é uma oportunidade de prolongar sua vida útil, reduzir o desperdício de materiais e evitar, quando possível, a necessidade de fabricar um produto novo.
                 </p>
               </div>
             </div>
 
-            {/* Right Column: Comparative Life Cycle Bar Scheme */}
-            <div className="lg:col-span-6 p-7 rounded-3xl bg-[#F7F8F5] border border-[#D5DDD2] space-y-6 shadow-2xs">
-              
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#355246]">
-                  Esquema Comparativo de Ciclo de Vida
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setHighlightExtension(!highlightExtension)}
-                  className="text-[10px] font-mono font-semibold px-2 py-1 rounded bg-white border border-[#CCD6C7] text-[#0A231C] hover:bg-gray-50 cursor-pointer"
-                >
-                  {highlightExtension ? 'Modo Normal' : 'Destacar Extensão'}
-                </button>
-              </div>
+            {/* Right Column: Comparative Life Cycle - Dois Cards Claros */}
+            <div className="lg:col-span-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
+                {/* CARD 1: Sem Recuperação (Descarte Comum) */}
+                <div className="p-5 sm:p-6 rounded-2xl bg-[#FAFBF9] border border-[#DFE5DC] flex flex-col justify-between space-y-5 shadow-2xs">
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-rose-500" />
+                      <span className="text-[10px] font-mono uppercase font-bold text-rose-800 tracking-wider">
+                        Sem Projeto · Descarte Comum
+                      </span>
+                    </div>
 
-              {/* Sem recuperação (Modo normal) */}
-              <div className="space-y-1.5">
-                <span className="text-[11px] font-mono font-semibold text-[#445E54] block">
-                  Modo normal (Sem recuperação):
-                </span>
-                <div className="h-10 w-full rounded-xl overflow-hidden flex text-[10px] font-mono font-bold tracking-wider uppercase text-white shadow-2xs">
-                  <div className="bg-[#0D241C] w-1/3 flex items-center justify-center transition-all duration-500">
-                    Uso
+                    <div>
+                      <h4 className="text-lg font-display font-bold text-[#0D241C]">
+                        Lixo ao primeiro defeito
+                      </h4>
+                      <p className="text-xs text-[#4F685D] mt-1 leading-relaxed">
+                        A lâmpada inteira vai para o lixo comum assim que um componente para.
+                      </p>
+                    </div>
+
+                    <ul className="space-y-2.5 text-xs text-[#263D33] pt-1">
+                      <li className="flex items-start gap-2">
+                        <span className="text-rose-500 font-bold shrink-0 mt-0.5">✕</span>
+                        <span><strong>Falha pontual:</strong> Queima de 1 LED interrompe o circuito em série da lâmpada.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-rose-500 font-bold shrink-0 mt-0.5">✕</span>
+                        <span><strong>Desperdício total:</strong> Carcaça de alumínio, cúpula e rosca E27 vão para o aterro.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-rose-500 font-bold shrink-0 mt-0.5">✕</span>
+                        <span><strong>Perda de potencial:</strong> Perde-se até 80% da vida útil útil restante dos componentes sãos.</span>
+                      </li>
+                    </ul>
                   </div>
-                  <div className="bg-[#B0BDB5] text-[#243B32] w-2/3 flex items-center justify-center transition-all duration-500">
-                    Descarte prematuro
+
+                  {/* Resumo do impacto: Vida útil em Horas */}
+                  <div className="pt-4 border-t border-[#E1E7DE] space-y-2.5">
+                    <div className="flex items-baseline justify-between">
+                      <span className="font-mono text-[10px] uppercase font-bold text-[#5A7367] tracking-wider">
+                        Vida Útil Alcançada:
+                      </span>
+                      <div className="text-right">
+                        <span className="font-display font-black text-base text-rose-700">~3.000 h</span>
+                        <span className="font-mono text-[10px] text-[#698075]"> / 25.000 h</span>
+                      </div>
+                    </div>
+
+                    {/* Barra visual de horas comparativas */}
+                    <div className="w-full bg-[#E2E8DF] h-3 rounded-full overflow-hidden flex p-0.5">
+                      <div 
+                        className="bg-rose-500 h-full rounded-full w-[15%]" 
+                        title="3.000 horas aproveitadas" 
+                      />
+                      <div 
+                        className="h-full w-[85%] border-l border-dashed border-rose-300 bg-rose-100/40" 
+                        title="22.000 horas desperdiçadas no lixo"
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between text-[10px] font-mono">
+                      <span className="text-rose-700 font-semibold">🛑 22.000h desperdiçadas</span>
+                      <span className="text-[#688176]">~12% do potencial</span>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Com recuperação, quando viável */}
-              <div className="space-y-1.5">
-                <span className="text-[11px] font-mono font-semibold text-[#445E54] block">
-                  Com recuperação, quando viável:
-                </span>
-                <div className="h-10 w-full rounded-xl overflow-hidden flex text-[10px] font-mono font-bold tracking-wider uppercase shadow-2xs">
-                  <div className="bg-[#0D241C] text-white w-1/3 flex items-center justify-center">
-                    Uso
+                {/* CARD 2: Com o Projeto ReLED (Recuperação no IFSC) */}
+                <div className="p-5 sm:p-6 rounded-2xl bg-[#F2F8F3] border border-[#B8D8BF] ring-1 ring-[#1A7F5A]/20 flex flex-col justify-between space-y-5 shadow-xs">
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[#1A7F5A] animate-pulse" />
+                      <span className="text-[10px] font-mono uppercase font-bold text-[#145C41] tracking-wider">
+                        Com Projeto de Extensão
+                      </span>
+                    </div>
+
+                    <div>
+                      <h4 className="text-lg font-display font-bold text-[#0D241C]">
+                        Diagnóstico e vida prolongada
+                      </h4>
+                      <p className="text-xs text-[#285744] mt-1 leading-relaxed">
+                        Intervenção na bancada que repara a falha e preserva o equipamento.
+                      </p>
+                    </div>
+
+                    <ul className="space-y-2.5 text-xs text-[#1D3E30] pt-1">
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#1A7F5A] font-bold shrink-0 mt-0.5">✓</span>
+                        <span><strong>Reparo cirúrgico:</strong> Alunos identificam e trocam apenas o componente danificado.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#1A7F5A] font-bold shrink-0 mt-0.5">✓</span>
+                        <span><strong>Materiais preservados:</strong> 98,8% dos materiais nobres seguem em funcionamento.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#1A7F5A] font-bold shrink-0 mt-0.5">✓</span>
+                        <span><strong>Mais iluminação:</strong> Retorno de +15.000h a 20.000h de luz útil à comunidade.</span>
+                      </li>
+                    </ul>
                   </div>
-                  <div 
-                    className={`bg-[#FFB938] text-[#1E1704] w-2/3 flex items-center justify-center font-extrabold transition-all duration-500 ${
-                      highlightExtension ? 'shadow-[0_0_15px_rgba(255,185,56,0.6)] animate-pulse' : ''
-                    }`}
-                  >
-                    Uso prolongado (+ vida útil)
+
+                  {/* Resumo do impacto: Vida útil em Horas */}
+                  <div className="pt-4 border-t border-[#C7DFC9] space-y-2.5">
+                    <div className="flex items-baseline justify-between">
+                      <span className="font-mono text-[10px] uppercase font-bold text-[#145C41] tracking-wider">
+                        Vida Útil Alcançada:
+                      </span>
+                      <div className="text-right">
+                        <span className="font-display font-black text-base text-[#114E36]">Até 25.000 h</span>
+                        <span className="font-mono text-[10px] text-[#285744] font-semibold"> (plena)</span>
+                      </div>
+                    </div>
+
+                    {/* Barra visual de horas comparativas */}
+                    <div className="w-full bg-[#D5EADB] h-3 rounded-full overflow-hidden flex p-0.5">
+                      <div 
+                        className="bg-gradient-to-r from-[#1A7F5A] to-[#12533B] h-full rounded-full w-full shadow-2xs" 
+                        title="25.000 horas aproveitadas com o reparo do Projeto ReLED (IFSC)" 
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between text-[10px] font-mono">
+                      <span className="text-[#145C41] font-bold">✨ +20.000h restauradas</span>
+                      <span className="text-[#114E36] font-bold">100% do potencial</span>
+                    </div>
                   </div>
                 </div>
+
               </div>
-
-              <p className="text-[10px] font-mono text-[#5E756C] italic pt-2 border-t border-[#D5DDD2]">
-                Esquema sem escala: serve para explicar a ideia, não para medir resultados.
-              </p>
-
             </div>
 
           </div>

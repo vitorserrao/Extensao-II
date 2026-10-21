@@ -1,12 +1,14 @@
 import React from 'react';
 
-interface ReacendeLogoProps {
+export interface ReLedLogoProps {
   variant?: 'dark' | 'light' | 'amber';
   size?: 'sm' | 'md' | 'lg';
   showWordmark?: boolean;
 }
 
-export const ReacendeLogo: React.FC<ReacendeLogoProps> = ({
+export type ReacendeLogoProps = ReLedLogoProps;
+
+export const ReLedLogo: React.FC<ReLedLogoProps> = ({
   variant = 'dark',
   size = 'md',
   showWordmark = true,
@@ -44,7 +46,7 @@ export const ReacendeLogo: React.FC<ReacendeLogoProps> = ({
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="shrink-0 transition-transform duration-300 group-hover:scale-105"
-        aria-label="Símbolo REACENDE"
+        aria-label="Símbolo Projeto ReLED: Recuperação de Lâmpadas LED"
       >
         {/* Arco da Lâmpada (lado esquerdo até a rosca) */}
         <path
@@ -108,11 +110,14 @@ export const ReacendeLogo: React.FC<ReacendeLogoProps> = ({
 
       {showWordmark && (
         <span
-          className={`font-display font-extrabold uppercase ${textColor} ${textSizes[size]} leading-none`}
+          className={`font-display font-extrabold ${textColor} ${textSizes[size]} leading-none`}
         >
-          REACENDE
+          ReLED
         </span>
       )}
     </div>
   );
 };
+
+export const ReacendeLogo = ReLedLogo;
+

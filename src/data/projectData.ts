@@ -128,7 +128,7 @@ export const repairSteps: RepairGuideStep[] = [
     category: 'teste',
     description: 'Antes de fechar a cúpula, ligue a lâmpada em soquete de bancada protegido com lâmpada incandescente série de 60W (proteção contra curto-circuito). Verifique o acendimento instantâneo e meça a temperatura de estabilização da carcaça com pirômetro óptico por 15 minutos contínuos. Aprovada, fecha-se o difusor.',
     tools: ['Circuito de teste com lâmpada série', 'Termômetro infravermelho de bancada', 'Silicone neutro de vedação'],
-    proTip: 'A temperatura na carcaça metálica deve se manter abaixo de 68°C. Todas as unidades aprovadas recebem a chancela do Projeto REACENDE / IFSC.'
+    proTip: 'A temperatura na carcaça metálica deve se manter abaixo de 68°C. Todas as unidades aprovadas recebem a chancela do Projeto ReLED: Recuperação de Lâmpadas LED (IFSC).'
   }
 ];
 
