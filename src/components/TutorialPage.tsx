@@ -107,14 +107,14 @@ const STEPS: LabStep[] = [
     result: 'Sem o LED, os dois pads de cobre ficaram livres. Mas ainda não há caminho para a corrente passar: é isso que o jumper vai resolver.',
     short: 'Remoção',
     instruction:
-      'Com o alicate de bico fino (ou o ferro de solda), retire só o corpo do LED danificado, deixando à mostra os dois pads metálicos da placa.',
-    tools: ['alicate', 'ferro'],
+      'Com o alicate de bico fino, retire só o corpo do LED danificado, deixando à mostra os dois pads metálicos da placa.',
+    tools: ['alicate'],
     tip: 'Preserve os pads de cobre: são eles que vão receber a solda na próxima etapa.',
   },
   {
     title: 'Soldar o jumper',
     result: 'A gota de estanho ligou os dois pads. A corrente volta a percorrer todos os outros LEDs da série.',
-    short: 'Jumper',
+    short: 'Solda',
     instruction:
       'Aqueça o ferro, aplique fluxo e una os dois pads com uma gota de estanho. Essa ponte (jumper) fecha o circuito no lugar do LED removido.',
     tools: ['ferro', 'estanho'],
@@ -135,8 +135,6 @@ const STEPS: LabStep[] = [
     instruction:
       'Ligue a lâmpada num soquete de bancada protegido por lâmpada série. Se acender normalmente, recoloque o bulbo e ela está pronta para voltar ao uso.',
     tools: ['serie', 'oculos'],
-    warning: 'O primeiro teste depois do reparo é sempre feito com lâmpada série, nunca direto na tomada.',
-    tip: 'Deixe ligada uns 15 minutos: a carcaça deve se manter abaixo de 68 °C.',
   },
 ];
 
@@ -534,16 +532,7 @@ export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack, initialTab =
                           <ArrowRight className="w-4 h-4" aria-hidden="true" />
                         </button>
                       ) : (
-                        <div className="mt-4 flex items-center gap-3 text-right">
-                          <span className="hidden sm:inline text-xs text-[#7FA897]">Faça a etapa na bancada para continuar</span>
-                          <button
-                            type="button"
-                            onClick={() => (step === STEPS.length ? setDone(true) : goTo(step + 1))}
-                            className="px-3 py-2 rounded-lg text-xs font-semibold text-[#7FA897] hover:text-white underline underline-offset-4 cursor-pointer"
-                          >
-                            Pular etapa
-                          </button>
-                        </div>
+                        <span className="mt-4 text-xs text-[#7FA897] text-right">Faça a etapa na bancada para continuar</span>
                       )}
                     </div>
                   </>
