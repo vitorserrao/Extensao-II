@@ -30,12 +30,31 @@ const ledPos = (i: number) => {
 };
 const BAD_POS = ledPos(BAD);
 
+/** Terminais de cada LED: '+' (anodo) e '-' (catodo), nas laterais do chip. */
+type Pole = '+' | '-';
+const terminalPos = (i: number, pole: Pole) => {
+  const { x, y, deg } = ledPos(i);
+  const t = (deg * Math.PI) / 180;
+  const lx = pole === '+' ? 16 : -16;
+  return { x: x + lx * Math.cos(t), y: y + lx * Math.sin(t) };
+};
+
+type ProbeId = 'red' | 'black';
+type Probe = { x: number; y: number; at: { led: number; pole: Pole } | null };
+const PROBE_PARK: Record<ProbeId, { x: number; y: number }> = { red: { x: 300, y: 382 }, black: { x: 348, y: 346 } };
+const PROBE_ANGLE: Record<ProbeId, number> = { red: 25, black: -25 };
+const BATT = { red: { x: 94, y: 362 }, black: { x: 94, y: 380 } };
+const probeEnd = (id: ProbeId, p: { x: number; y: number }) => {
+  const t = (PROBE_ANGLE[id] * Math.PI) / 180;
+  return { x: p.x + 74 * Math.sin(t), y: p.y - 74 * Math.cos(t) };
+};
+
 type Tool = 'espatula' | 'sonda' | 'pinca' | 'ferro' | null;
 const TOOL_BY_STEP: Record<number, Tool> = { 1: 'espatula', 2: 'sonda', 3: 'pinca', 4: 'ferro', 5: null };
 
 const HINTS: Record<number, string> = {
   1: 'Segure e arraste a espátula ao longo da borda do difusor.',
-  2: 'Toque em cada LED com a ponta de prova até achar o que não acende.',
+  2: 'Arraste a ponta vermelha até o terminal + e a preta até o terminal − do mesmo LED.',
   3: 'Segure o LED queimado com a pinça e puxe para fora da placa.',
   4: 'Segure o ferro de solda sobre os dois pads até o estanho derreter.',
   5: 'Ligue a lâmpada no circuito de teste.',
@@ -57,6 +76,12 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
   const [closed, setClosed] = useState(false);
   const [done, setDone] = useState(false);
   const [scene, setScene] = useState<'open' | 'light' | null>(null);
+  const [probes, setProbes] = useState<Record<ProbeId, Probe>>(() => ({
+    red: { ...PROBE_PARK.red, at: null },
+    black: { ...PROBE_PARK.black, at: null },
+  }));
+  const [carrying, setCarrying] = useState<ProbeId | null>(null);
+  const [probeMsg, setProbeMsg] = useState<string | null>(null);
 
   // Reinicia ao trocar de etapa
   useEffect(() => {
@@ -150,13 +175,24 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
 
     if (step === 1 && !domeOff) scrape(p);
 
-    if (step === 2) {
-      for (let i = 0; i < N_LEDS; i++) {
-        if (dist(p, ledPos(i)) < 18) {
-          setTested((t) => new Set(t).add(i));
-          if (i === BAD) finish();
-          break;
+    if (step === 2 && !done) {
+      // pega a ponta mais próxima (pela ponta ou pelo cabo da caneta)
+      let best: ProbeId | null = null;
+      let bestD = 30;
+      (['red', 'black'] as ProbeId[]).forEach((id) => {
+        const pr = probes[id];
+        const end = probeEnd(id, pr);
+        const mid = { x: (pr.x + end.x) / 2, y: (pr.y + end.y) / 2 };
+        const d = Math.min(dist(p, pr), dist(p, mid), dist(p, end));
+        if (d < bestD) {
+          bestD = d;
+          best = id;
         }
+      });
+      if (best) {
+        setCarrying(best);
+        setProbes((ps) => ({ ...ps, [best as ProbeId]: { x: p.x, y: p.y, at: null } }));
+        setProbeMsg(null);
       }
     }
 
@@ -171,6 +207,9 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
     setPointer(p);
     if (!pressed) return;
     if (step === 1 && !domeOff) scrape(p);
+    if (step === 2 && carrying) {
+      setProbes((ps) => ({ ...ps, [carrying]: { x: p.x, y: p.y, at: null } }));
+    }
     if (step === 3 && grab && !removed) {
       const dx = p.x - BAD_POS.x;
       const dy = p.y - BAD_POS.y;
@@ -184,8 +223,49 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
     }
   };
 
+  const dropProbe = () => {
+    if (!carrying) return;
+    const id = carrying;
+    setCarrying(null);
+    const pr = probes[id];
+    // encaixa no terminal mais próximo
+    let snap: { led: number; pole: Pole; x: number; y: number } | null = null;
+    let bestD = 15;
+    for (let i = 0; i < N_LEDS; i++) {
+      for (const pole of ['+', '-'] as Pole[]) {
+        const tp = terminalPos(i, pole);
+        const d = dist(pr, tp);
+        if (d < bestD) {
+          bestD = d;
+          snap = { led: i, pole, ...tp };
+        }
+      }
+    }
+    const next = { ...probes, [id]: snap ? { x: snap.x, y: snap.y, at: { led: snap.led, pole: snap.pole } } : { ...pr, at: null } };
+    setProbes(next);
+
+    const r = next.red.at;
+    const b = next.black.at;
+    if (r && b && r.led === b.led && r.pole !== b.pole) {
+      if (r.pole === '-') {
+        setProbeMsg('Polaridade invertida: o LED só conduz com o vermelho no + e o preto no −.');
+        return;
+      }
+      setTested((t) => new Set(t).add(r.led));
+      if (r.led === BAD) {
+        setProbeMsg(null);
+        finish();
+      } else {
+        setProbeMsg('Acendeu: esse LED está bom. Teste o próximo.');
+      }
+    } else if (r && b && r.led !== b.led) {
+      setProbeMsg('As duas pontas precisam estar no mesmo LED.');
+    }
+  };
+
   const onUp = () => {
     setPressed(false);
+    dropProbe();
     if (grab) setGrab(null); // soltou antes: o LED volta ao lugar
   };
 
@@ -204,6 +284,8 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
         4: 'Jumper soldado. O circuito em série está fechado de novo.',
         5: 'A lâmpada acendeu. Reparo concluído!',
       }[step]
+    : step === 2 && probeMsg
+    ? probeMsg
     : step === 5 && powered
     ? 'Funcionou no teste. Agora recoloque o difusor.'
     : HINTS[step];
@@ -216,7 +298,7 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
           Bancada interativa
         </span>
         <span className="text-[#5A7367]">
-          {tool ? `Ferramenta: ${{ espatula: 'espátula', sonda: 'ponta de prova', pinca: 'pinça', ferro: 'ferro de solda' }[tool]}` : 'Teste final'}
+          {tool ? `Ferramenta: ${{ espatula: 'espátula', sonda: 'pontas de prova', pinca: 'pinça', ferro: 'ferro de solda' }[tool]}` : 'Teste final'}
         </span>
       </div>
 
@@ -225,7 +307,10 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
         ref={svgRef}
         viewBox="0 0 400 400"
         className="w-full h-auto rounded-2xl bg-[#E9EEE8]"
-        style={{ cursor: tool && !done ? 'none' : 'default', touchAction: tool && !done ? 'none' : 'auto' }}
+        style={{
+          cursor: step === 2 && !done ? (carrying ? 'grabbing' : 'grab') : tool && !done ? 'none' : 'default',
+          touchAction: tool && !done ? 'none' : 'auto',
+        }}
         onPointerDown={onDown}
         onPointerMove={onMove}
         onPointerUp={onUp}
@@ -275,7 +360,13 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
           const { x, y, deg } = ledPos(i);
           const isBad = i === BAD;
           const isTested = tested.has(i);
-          const lit = (step === 2 && isTested && !isBad) || (powered && !isBad);
+          const onProbes =
+            step === 2 &&
+            probes.red.at?.led === i &&
+            probes.black.at?.led === i &&
+            probes.red.at.pole === '+' &&
+            probes.black.at.pole === '-';
+          const lit = (onProbes && !isBad) || (powered && !isBad);
 
           if (isBad && removed) {
             return (
@@ -304,9 +395,21 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
           return (
             <g key={i} transform={`translate(${x + off.dx} ${y + off.dy}) rotate(${deg})`}>
               {lit && <circle r={22} fill="url(#ledLit)" />}
+              {step === 2 && (
+                <>
+                  <rect x={11} y={-5} width={9} height={10} rx={1.5} fill="#C9763A" />
+                  <rect x={-20} y={-5} width={9} height={10} rx={1.5} fill="#C9763A" />
+                </>
+              )}
               <rect x={-12} y={-12} width={24} height={24} rx={3} fill="#F8FAFC" stroke="#94A3B8" />
               <circle r={8} fill={lit ? '#FFF3B0' : '#FCD34D'} stroke="#D97706" strokeWidth="0.8" />
               {isBad && <circle r={2.6} fill="#1F2937" />}
+              {step === 2 && (
+                <g fontSize="9" fontWeight="bold" fontFamily="monospace" textAnchor="middle">
+                  <text x={16} y={-8} fill="#B91C1C">+</text>
+                  <text x={-16} y={-8} fill="#1F2937">−</text>
+                </g>
+              )}
               {step === 2 && isTested && isBad && (
                 <g stroke="#DC2626" strokeWidth="2.5" strokeLinecap="round">
                   <line x1={-14} y1={-14} x2={14} y2={14} />
@@ -368,19 +471,50 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
         </g>
 
         {/* ferramenta no ponteiro */}
-        {tool && !done && pointer && (
+        {/* pilhas, cabos e pontas de prova (etapa 2) */}
+        {step === 2 && (
+          <g pointerEvents="none">
+            <rect x={14} y={352} width={80} height={38} rx={6} fill="#1F2937" />
+            <rect x={18} y={356} width={34} height={14} rx={3} fill="#D97706" />
+            <rect x={18} y={373} width={34} height={14} rx={3} fill="#D97706" />
+            <rect x={56} y={356} width={34} height={14} rx={3} fill="#D97706" />
+            <rect x={56} y={373} width={34} height={14} rx={3} fill="#D97706" />
+            <text x={54} y={348} textAnchor="middle" fontSize="10" fontWeight="bold" fontFamily="monospace" fill="#374151">2× AA · 3V</text>
+            {(['black', 'red'] as ProbeId[]).map((id) => {
+              const pr = probes[id];
+              const end = probeEnd(id, pr);
+              const from = BATT[id];
+              const color = id === 'red' ? '#DC2626' : '#111827';
+              const sag = Math.max(from.y, end.y) + 40;
+              const t = PROBE_ANGLE[id];
+              return (
+                <g key={id}>
+                  <path
+                    d={`M ${from.x} ${from.y} C ${from.x + 60} ${sag}, ${end.x} ${sag}, ${end.x} ${end.y}`}
+                    stroke={color}
+                    strokeWidth="3.5"
+                    fill="none"
+                    strokeLinecap="round"
+                    opacity="0.9"
+                  />
+                  <g transform={`translate(${pr.x} ${pr.y}) rotate(${t})`}>
+                    <line x1={0} y1={0} x2={0} y2={-16} stroke="#9CA3AF" strokeWidth="2.5" strokeLinecap="round" />
+                    <rect x={-6} y={-74} width={12} height={60} rx={5} fill={color} stroke={id === 'red' ? '#7F1D1D' : '#000'} strokeWidth="1.5" />
+                    <rect x={-6} y={-30} width={12} height={4} fill="#F8FAFC" opacity="0.5" />
+                  </g>
+                  {pr.at && <circle cx={pr.x} cy={pr.y} r={5} fill="none" stroke={color} strokeWidth="2" />}
+                </g>
+              );
+            })}
+          </g>
+        )}
+
+        {tool && tool !== 'sonda' && !done && pointer && (
           <g transform={`translate(${pointer.x} ${pointer.y})`} pointerEvents="none">
             {tool === 'espatula' && (
               <g transform="rotate(-35)">
                 <path d="M -5 0 L 5 0 L 7 -46 L -7 -46 Z" fill="#E2E8F0" stroke="#475569" strokeWidth="1.5" />
                 <rect x={-8} y={-96} width={16} height={52} rx={5} fill="#2F9E41" stroke="#14532D" strokeWidth="1.5" />
-              </g>
-            )}
-            {tool === 'sonda' && (
-              <g transform="rotate(-30)">
-                <line x1={0} y1={0} x2={0} y2={-18} stroke="#9CA3AF" strokeWidth="2.5" />
-                <rect x={-6} y={-78} width={12} height={62} rx={5} fill="#DC2626" stroke="#7F1D1D" strokeWidth="1.5" />
-                <path d="M 0 -78 C 0 -100 30 -110 40 -140" stroke="#DC2626" strokeWidth="3" fill="none" />
               </g>
             )}
             {tool === 'pinca' && (
