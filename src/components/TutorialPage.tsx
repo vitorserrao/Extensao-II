@@ -241,7 +241,7 @@ export const TutorialPage: React.FC<TutorialPageProps> = ({ onBack, initialTab =
             <span className="title-line text-[#FFB938]">na bancada virtual.</span>
           </h1>
           <p className="text-sm sm:text-base text-[#9EC7B5] max-w-2xl leading-relaxed">
-            O mesmo processo usado pelos estudantes no laboratório, em cinco etapas. Em cada uma você vê o que muda na lâmpada, que ferramentas entram em cena e quais cuidados tomar.
+            O processo realizado pelos estudantes no laboratório, organizado em cinco etapas. Em cada uma, você acompanha as mudanças na lâmpada, as ferramentas utilizadas e os cuidados necessários durante a recuperação.
           </p>
         </div>
 
