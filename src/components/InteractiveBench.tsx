@@ -69,7 +69,7 @@ const HINTS: Record<number, string> = {
   1: 'Segure e arraste a espátula ao longo da borda do difusor.',
   2: 'Leve as duas pontas de prova até um LED: elas encaixam sozinhas nos terminais + e −.',
   3: 'Segure o LED queimado com a pinça e puxe para fora da placa.',
-  4: 'Segure o ferro de solda sobre os dois pads até o estanho derreter.',
+  4: 'Segure o ferro com o estanho sobre os dois pads até a solda derreter e unir os dois.',
   5: 'Ligue a lâmpada no circuito de teste.',
 };
 
@@ -297,7 +297,7 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
           Bancada interativa
         </span>
         <span className="text-[#5A7367]">
-          {tool ? `Ferramenta: ${{ espatula: 'espátula', sonda: 'pontas de prova', pinca: 'pinça', ferro: 'ferro de solda' }[tool]}` : 'Teste final'}
+          {tool ? `Ferramenta: ${{ espatula: 'espátula', sonda: 'pontas de prova', pinca: 'pinça', ferro: 'ferro + estanho' }[tool]}` : 'Teste final'}
         </span>
       </div>
 
@@ -523,12 +523,26 @@ export const InteractiveBench: React.FC<InteractiveBenchProps> = ({ step, onDone
               </g>
             )}
             {tool === 'ferro' && (
+              <>
+              {/* filete de estanho: chega pelo outro lado e vai "derretendo" conforme aquece */}
+              <g transform={`translate(${-heat * 7} ${-heat * 5})`}>
+                <path
+                  d="M 5 3 L 46 -22 Q 76 -40 70 -72 Q 66 -96 92 -110"
+                  stroke="#94A3B8"
+                  strokeWidth="3.5"
+                  fill="none"
+                  strokeLinecap="round"
+                />
+                <path d="M 5 3 L 46 -22" stroke="#E2E8F0" strokeWidth="1.2" fill="none" strokeLinecap="round" />
+              </g>
+              {heatingRef.current && <circle cx={3} cy={2} r={3 + heat * 3} fill="#E5E7EB" stroke="#94A3B8" strokeWidth="0.8" />}
               <g transform="rotate(-35)">
                 <path d="M 0 0 L -3 -14 L 3 -14 Z" fill={heatingRef.current ? '#F97316' : '#78716C'} />
                 <rect x={-3} y={-50} width={6} height={36} fill="#A8A29E" />
                 <rect x={-9} y={-112} width={18} height={62} rx={7} fill="#1F2937" stroke="#030712" strokeWidth="1.5" />
                 {heatingRef.current && <circle r={7} fill="#FDBA74" opacity="0.6" />}
               </g>
+              </>
             )}
           </g>
         )}
