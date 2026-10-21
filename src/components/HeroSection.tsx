@@ -54,10 +54,10 @@ export const HeroSection: React.FC = () => {
           {/* Box RESUMO com estética institucional limpa */}
           <div className="p-5 sm:p-6 rounded-2xl bg-white/95 backdrop-blur-md border border-[#D5E2D6] space-y-1.5 max-w-xl shadow-xs">
             <span className="text-[11px] font-sans uppercase tracking-wider text-[#2F9E41] font-bold block">
-              RESUMO INSTITUCIONAL
+              RESUMO
             </span>
             <p className="text-xs sm:text-sm text-[#3A453F] leading-relaxed font-normal">
-              O <strong className="font-bold text-[#1A1A1A]">Projeto ReLED: Recuperação de Lâmpadas LED</strong> é um projeto de extensão do curso de Sistemas de Energia do IFSC focado em recuperar lâmpadas LED, prolongar sua vida útil e transformar o conhecimento acadêmico em eficiência energética e sustentabilidade para a sociedade.
+              O Projeto ReLED é um projeto de extensão do curso de Sistemas de Energia do IFSC focado em recuperar lâmpadas LED, prolongar sua vida útil e transformar o conhecimento acadêmico em eficiência energética e sustentabilidade para a sociedade.
             </p>
           </div>
 
